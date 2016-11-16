@@ -9,7 +9,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 # (you can also set it on the command line: -D CMAKE_BUILD_TYPE=Release)
 
-project(sfml-demo)
+project(Skilled_Eagle-Game)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 set(SFML_ROOT ${PROJECT_SOURCE_DIR}"SFML")
 
@@ -17,7 +17,7 @@ set(SFML_ROOT ${PROJECT_SOURCE_DIR}"SFML")
 include_directories("${PROJECT_BINARY_DIR}")
 
 # Define sources and executable
-set(EXECUTABLE_NAME "sfml-demo")
+set(EXECUTABLE_NAME ${PROJECT_NAME})
 add_executable(${EXECUTABLE_NAME} Source/main.cpp)
 
 
