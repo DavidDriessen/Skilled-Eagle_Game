@@ -3,14 +3,12 @@
 //
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include "Character.hpp"
-
+#include "Game.h"
 int main()
 {
-
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
-    Character c{sf::Vector2f{0,400}, 0.1, 0.2, 80};
+    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    // Game application class
+    Game waveForms(window);
 
     while (window.isOpen())
     {
@@ -20,12 +18,10 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        c.input(event);
-        c.update(sf::milliseconds(0));
-
-        window.clear();
-        c.draw(window);
-        window.display();
+        // Game update method
+        waveForms.update();
+        // Game draw method
+        waveForms.draw();
     }
 
     return 0;

@@ -11,14 +11,14 @@ endif()
 
 project(Skilled_Eagle-Game)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(SFML_ROOT ${PROJECT_SOURCE_DIR}"SFML")
+set(SFML_ROOT ${PROJECT_SOURCE_DIR}"/SFML")
 
 # Set version information in a config.h fil
 include_directories("${PROJECT_BINARY_DIR}")
 
 # Define sources and executable
 set(EXECUTABLE_NAME ${PROJECT_NAME})
-add_executable(${EXECUTABLE_NAME} Source/main.cpp Source/Character.cpp Source/Character.hpp)
+add_executable(${EXECUTABLE_NAME} Source/main.cpp Source/GameStates/IState.cpp Source/GameStates/IState.h Source/GameStates/PlayState.cpp Source/GameStates/PlayState.h Source/GameStates/MenuState.cpp Source/GameStates/MenuState.h Source/GameStates/SettingsState.cpp Source/GameStates/SettingsState.h Source/Game.cpp Source/Game.h)
 
 
 # Detect and add SFML
