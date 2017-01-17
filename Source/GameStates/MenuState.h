@@ -2,8 +2,8 @@
 // Created by robbie on 17-1-2017.
 //
 
-#ifndef CDOJO_MENU_H
-#define CDOJO_MENU_H
+#ifndef MENU_H
+#define MENU_H
 #include <iostream>
 #include "IState.h"
 
