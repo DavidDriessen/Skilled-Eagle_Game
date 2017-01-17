@@ -2,8 +2,8 @@
 // Created by robbie on 17-1-2017.
 //
 
-#ifndef CDOJO_SETTINGSSTATE_H
-#define CDOJO_SETTINGSSTATE_H
+#ifndef SETTINGSSTATE_H
+#define SETTINGSSTATE_H
 #include "IState.h"
 class SettingsState : public IState {
 private:

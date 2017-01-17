@@ -2,8 +2,8 @@
 // Created by robbie on 17-1-2017.
 //
 
-#ifndef CDOJO_GAME_H
-#define CDOJO_GAME_H
+#ifndef GAME_H
+#define GAME_H
 #include "IState.h"
 #include <iostream>
 class PlayState : public IState {
