@@ -13,23 +13,32 @@
 
 class Game {
 private:
-    IState * iState;
-    MenuState* menuState;
-    SettingsState* settingsState;
-    PlayState* playState;
+    IState *iState;
+    MenuState *menuState;
+    SettingsState *settingsState;
+    PlayState *playState;
     sf::RenderWindow &window;
 public:
     Game(sf::RenderWindow &w);
+
     ~Game();
+
     void update();
+
     void draw();
+
     void input();
 
     void go_to_play();
 
     void go_to_menu();
 
+    void go_to_options();
+
+    void quite();
+
     sf::Vector2i get_Mouse_Position();
+
 };
 
 
