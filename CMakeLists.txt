@@ -18,7 +18,7 @@ include_directories("${PROJECT_BINARY_DIR}")
 
 # Define sources and executable
 set(EXECUTABLE_NAME ${PROJECT_NAME})
-add_executable(${EXECUTABLE_NAME} Source/main.cpp Source/GameStates/IState.h Source/GameStates/PlayState.cpp Source/GameStates/PlayState.h Source/GameStates/MenuState.cpp Source/GameStates/MenuState.h Source/GameStates/SettingsState.cpp Source/GameStates/SettingsState.h Source/Game.cpp Source/Game.h)
+add_executable(${EXECUTABLE_NAME} Source/main.cpp Source/GameStates/IState.cpp Source/GameStates/IState.h Source/GameStates/PlayState.cpp Source/GameStates/PlayState.h Source/GameStates/MenuState.cpp Source/GameStates/MenuState.h Source/GameStates/SettingsState.cpp Source/GameStates/SettingsState.h Source/Game.cpp Source/Game.h Source/Menu.cpp Source/Menu.hpp)
 
 
 # Detect and add SFML
