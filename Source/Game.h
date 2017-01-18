@@ -2,8 +2,8 @@
 // Created by robbie on 17-1-2017.
 //
 
-#ifndef CDOJO_APP_H
-#define CDOJO_APP_H
+#ifndef WAVEFORMS_APP_H
+#define WAVEFORMS_APP_H
 
 #include "GameStates/IState.h"
 #include "GameStates/MenuState.h"
@@ -14,16 +14,21 @@
 class Game {
 private:
     IState * iState;
-    MenuState menuState;
-    SettingsState settingsState;
-    PlayState playState;
+    MenuState* menuState;
+    SettingsState* settingsState;
+    PlayState* playState;
     sf::RenderWindow &window;
 public:
     Game(sf::RenderWindow &w);
     ~Game();
     void update();
     void draw();
+    void input();
+
+    void go_to_play();
+
+    void go_to_menu();
 };
 
 
-#endif //CDOJO_APP_H
+#endif //WAVEFORMS_APP_H

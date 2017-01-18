@@ -6,14 +6,24 @@
 #define GAME_H
 #include "IState.h"
 #include <iostream>
+#include <SFML/Graphics/RenderWindow.hpp>
+
+class Game;
+
 class PlayState : public IState {
 private:
-
+    Game *game;
 public:
     PlayState();
-    void update();
-    void draw();
+
+    PlayState(Game *pGame);
+
+    void input(sf::Event &event);
+    void update(float data);
+    void draw(sf::RenderWindow &window);
+
+
 };
 
 
-#endif //CDOJO_GAME_H
+#endif //WAVEFORMS_GAME_H

@@ -2,15 +2,18 @@
 // Created by robbie on 17-1-2017.
 //
 
-#ifndef CDOJO_ISTATE_H
-#define CDOJO_ISTATE_H
+#ifndef WAVEFORMS_ISTATE_H
+#define WAVEFORMS_ISTATE_H
 #include <iostream>
+#include <SFML/Graphics/RenderWindow.hpp>
+
 // Game use state pattern. Each state of the game requires update and draw method.
 class IState {
 public:
-    virtual void update() = 0;
-    virtual void draw() = 0;
+    virtual void input(sf::Event &event) = 0;
+    virtual void update(float delta) = 0;
+    virtual void draw(sf::RenderWindow &window) = 0;
 };
 
 
-#endif //CDOJO_ISTATE_H
+#endif //WAVEFORMS_ISTATE_H
