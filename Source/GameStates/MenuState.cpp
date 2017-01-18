@@ -3,25 +3,28 @@
 //
 
 #include "MenuState.h"
-#include "../Game.h"
 
-MenuState::MenuState(Game *pGame) : Menu(600, 500) {
+MenuState::MenuState() {
+
+}
+
+MenuState::MenuState(Game *pGame) {
     game = pGame;
-    actions.push_back([&]() { game->go_to_play(); });
-    actions.push_back([&]() { std::cout << "Character \n"; });
-    actions.push_back([&]() { std::cout << "Score \n"; });
-    actions.push_back([&]() { game->go_to_options(); });
-    actions.push_back([&]() { game->quite(); });
 }
 
 void MenuState::input(sf::Event &event) {
-    Menu::input(event, game->get_Mouse_Position(), actions);
+    if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        game->go_to_play();
+    }
 }
 
 void MenuState::update(float delta) {
-
+    std::cout << "updating MenuState \n";
 }
 
 void MenuState::draw(sf::RenderWindow &window) {
-    Menu::draw(window, l);
+    std::vector<sf::String> l = {"lo", "nhi"};
+    std::cout << "drawing MenuState \n";
+    sf::RectangleShape shape({400, 400});
+    window.draw(shape);
 }

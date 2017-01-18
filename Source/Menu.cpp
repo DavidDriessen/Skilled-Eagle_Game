@@ -5,78 +5,26 @@
 #include "Menu.hpp"
 #include "GameStates/IState.h"
 
-Menu::Menu(float width, float height) : width(width), height(height) {
-
-}
-
-void Menu::draw(sf::RenderWindow &window, std::vector<sf::String> txt) {
-    int index = 0;
-    float btn = -((float) txt.size() / 2.0f);
+void Menu::draw(sf::Window &w, std::vector<sf::String> txt) {
+    mid = sf::Vector2i(w.getSize().x / 2, w.getSize().y / 2);
+    int btn = 0;
     sf::Font font;
-    font.loadFromFile("./assets/font.ttf");
-    mid = sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2);
-
-    sf::RectangleShape shape({width, height});
-    shape.setPosition(sf::Vector2f(mid.x - width / 2, mid.y - height / 2));
-    shape.setFillColor(sf::Color::Black);
-    shape.setOutlineColor(sf::Color::Yellow);
-    shape.setOutlineThickness(5);
-    window.draw(shape);
-
+    font.loadFromFile("arial.ttf");
     for (auto &t : txt) {
-        if (index == selected) {
-            sf::RectangleShape hover({(float) t.getSize() * 30.0f + 25, btnHeidth + 3});
-            hover.setPosition((float) mid.x - (float) t.getSize() / 2.0f * 30.0f - 5, (float) mid.y + btn * btnHeidth);
-            hover.setFillColor(sf::Color::Black);
-            hover.setOutlineColor(sf::Color::Yellow);
-            hover.setOutlineThickness(5);
-            window.draw(hover);
-        }
-
         sf::Text text(t, font);
-        text.setPosition((float) mid.x - (float) t.getSize() / 2.0f * 30.0f, (float) mid.y + btn * 60.0f + 5);
-        text.setScale(3, 2);
-        text.setStyle(sf::Text::Italic);
-        text.setFillColor(sf::Color::Blue);
-        window.draw(text);
-        btn++;
-        index++;
+        text.setPosition(mid.x, mid.y + btn * 32);
     }
 }
 
-void Menu::input(sf::Event &event, sf::Vector2i mouse, std::vector<std::function<void(void)>> actions) {
-    if ((event.type == sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left)) ||
-        (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))) {
-        int index = 0;
-        for (auto &b: actions) {
-            if (index == selected) {
-                b();
-            }
-            index++;
-        }
-    } else if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        selected--;
-        if (selected < 0) {
-            selected = (int) actions.size() - 1;
-        }
-    } else if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        selected++;
-        if (selected >= actions.size()) {
-            selected = 0;
-        }
-    } else if (event.type == sf::Event::MouseMoved) {
-        int index = 0;
-        selected = -1;
-        float btn = -((float) actions.size() / 2.0f);
-        for (auto &b: actions) {
-            if (mid.x - width / 2 <= mouse.x &&
-                mid.x + width / 2 >= mouse.x &&
-                mid.y + btn * 60 <= mouse.y &&
-                mid.y + (btn + 1) * 60 - 5 >= mouse.y) {
-                selected = index;
-            }
-            btn++;
-            index++;
+void Menu::update(float &x, std::vector<std::function<void(void)>> actions) {
+    sf::Vector2i mouse(sf::Mouse::getPosition());
+    int btn = 0;
+    for (auto &b: actions) {
+        if (mid.x <= mouse.x &&
+            mid.x + 5 * 32 >= mouse.x &&
+            mid.y + btn * 32 <= mouse.y &&
+            mid.y + (btn + 1) * 32 >= mouse.y) {
+            b();
         }
     }
 }
