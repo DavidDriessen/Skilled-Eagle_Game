@@ -17,14 +17,13 @@ class Game;
 class MenuState : public IState, public Menu {
 private:
     Game *game;
-    std::vector<std::function<void(void)>> actions;
-    std::vector<sf::String> l = {
-            "Start Game",
-            "Edit Character",
-            "Show Highscores",
-            "Options",
-            "Quit"};
+    std::vector<std::function<void(void)>> actions = {
+            [](){std::cout << "1 \n";},
+            [](){std::cout << "2 \n";}
+    };
+    std::vector<sf::String> l = {"lo", "nhi"};
 public:
+    MenuState();
 
     MenuState(Game *pGame);
 

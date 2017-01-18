@@ -4,10 +4,9 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow &w) : window(w), menuState(new MenuState(this)), playState(new PlayState(this)),
-                                  settingsState(new SettingsState(this)) {
+Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), playState(new PlayState(this)), settingsState(new SettingsState(this)) {
     iState = menuState;
-    while (window.isOpen()) {
+    while(window.isOpen()) {
         input();
         update();
         draw();
@@ -19,7 +18,8 @@ Game::~Game() {
 
 void Game::input() {
     sf::Event event;
-    while (window.pollEvent(event)) {
+    while (window.pollEvent(event))
+    {
         if (event.type == sf::Event::Closed)
             window.close();
         iState->input(event);
@@ -43,14 +43,6 @@ void Game::go_to_play() {
 
 void Game::go_to_menu() {
     iState = menuState;
-}
-
-void Game::go_to_options() {
-    iState = settingsState;
-}
-
-void Game::quite() {
-    window.close();
 }
 
 sf::Vector2i Game::get_Mouse_Position() {

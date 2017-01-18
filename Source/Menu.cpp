@@ -5,20 +5,23 @@
 #include "Menu.hpp"
 #include "GameStates/IState.h"
 
-void Menu::draw(sf::Window &w, std::vector<sf::String> txt) {
-    mid = sf::Vector2i(w.getSize().x / 2, w.getSize().y / 2);
+void Menu::draw(sf::RenderWindow &window, std::vector<sf::String> txt) {
+    mid = sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2);
     int btn = 0;
     sf::Font font;
-    font.loadFromFile("arial.ttf");
+    font.loadFromFile("./assets/font.ttf");
     for (auto &t : txt) {
         sf::Text text(t, font);
         text.setPosition(mid.x, mid.y + btn * 32);
+        window.draw(text);
+        btn++;
     }
 }
 
-void Menu::update(float &x, std::vector<std::function<void(void)>> actions) {
-    sf::Vector2i mouse(sf::Mouse::getPosition());
+void Menu::input(sf::Vector2i mouse, std::vector<std::function<void(void)>> actions) {
     int btn = 0;
+    std::cout << mouse.x<< " - " << mouse.y << " \n";
+    std::cout << mid.x<< " - " << mid.y << " \n\n";
     for (auto &b: actions) {
         if (mid.x <= mouse.x &&
             mid.x + 5 * 32 >= mouse.x &&
@@ -26,5 +29,6 @@ void Menu::update(float &x, std::vector<std::function<void(void)>> actions) {
             mid.y + (btn + 1) * 32 >= mouse.y) {
             b();
         }
+        btn++;
     }
 }

@@ -3,6 +3,7 @@
 //
 
 #include "MenuState.h"
+#include "../Game.h"
 
 MenuState::MenuState() {
 
@@ -16,6 +17,7 @@ void MenuState::input(sf::Event &event) {
     if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         game->go_to_play();
     }
+    Menu::input(game->get_Mouse_Position(), actions);
 }
 
 void MenuState::update(float delta) {
@@ -23,8 +25,8 @@ void MenuState::update(float delta) {
 }
 
 void MenuState::draw(sf::RenderWindow &window) {
-    std::vector<sf::String> l = {"lo", "nhi"};
+    Menu::draw(window, l);
     std::cout << "drawing MenuState \n";
-    sf::RectangleShape shape({400, 400});
-    window.draw(shape);
+//    sf::RectangleShape shape({400, 400});
+//    window.draw(shape);
 }
