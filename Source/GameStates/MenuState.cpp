@@ -2,10 +2,7 @@
 // Created by robbie on 17-1-2017.
 //
 
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
 #include "MenuState.h"
-#include "../Game.h"
 
 MenuState::MenuState() {
 
@@ -26,10 +23,8 @@ void MenuState::update(float delta) {
 }
 
 void MenuState::draw(sf::RenderWindow &window) {
+    std::vector<sf::String> l = {"lo", "nhi"};
     std::cout << "drawing MenuState \n";
     sf::RectangleShape shape({400, 400});
     window.draw(shape);
 }
-
-
-
