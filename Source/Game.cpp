@@ -44,3 +44,7 @@ void Game::go_to_play() {
 void Game::go_to_menu() {
     iState = menuState;
 }
+
+sf::Vector2i Game::get_Mouse_Position() {
+    return sf::Mouse::getPosition(window);
+}

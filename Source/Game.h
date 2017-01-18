@@ -28,6 +28,8 @@ public:
     void go_to_play();
 
     void go_to_menu();
+
+    sf::Vector2i get_Mouse_Position();
 };
 
 
