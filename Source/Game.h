@@ -13,20 +13,21 @@
 
 class Game {
 private:
-    IState *iState;
-    MenuState *menuState;
-    SettingsState *settingsState;
-    PlayState *playState;
+    const sf::Time TimePerFrame = sf::seconds(1.f/60.f);
+
+    IState * iState;
+    MenuState* menuState;
+    SettingsState* settingsState;
+    PlayState* playState;
     sf::RenderWindow &window;
+    sf::Time mStatisticsUpdateTime;
+    std::size_t mStatisticsNumFrames;
 public:
     Game(sf::RenderWindow &w);
 
     ~Game();
-
-    void update();
-
     void draw();
-
+    void update(const sf::Time delta);
     void input();
 
     void go_to_play();
@@ -38,6 +39,11 @@ public:
 
     sf::Vector2i get_Mouse_Position();
 
+<<<<<<< HEAD
+=======
+
+    void update_debug(sf::Time dt);
+>>>>>>> GAME-47 fps based update and input loop
 };
 
 

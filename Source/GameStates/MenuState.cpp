@@ -18,8 +18,7 @@ void MenuState::input(sf::Event &event) {
     Menu::input(event, game->get_Mouse_Position(), actions);
 }
 
-void MenuState::update(float delta) {
-
+void MenuState::update(const sf::Time delta) {
 }
 
 void MenuState::draw(sf::RenderWindow &window) {

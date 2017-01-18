@@ -25,7 +25,7 @@ void PlayState::input(sf::Event &event) {
     }
 }
 
-void PlayState::update(float delta) {
+void PlayState::update(const sf::Time delta) {
     std::cout << "updating PlayState \n";
     for(auto &object : level_objects) {
         object->update(delta);

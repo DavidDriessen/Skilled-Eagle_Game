@@ -15,7 +15,7 @@ void SettingsState::input(sf::Event &event) {
 }
 
 
-void SettingsState::update(float delta) {
+void SettingsState::update(const sf::Time delta) {
     std::cout << "update SettingsState \n";
 }
 
