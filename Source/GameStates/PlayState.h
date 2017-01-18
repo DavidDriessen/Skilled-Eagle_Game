@@ -6,13 +6,17 @@
 #define GAME_H
 #include "IState.h"
 #include <iostream>
+#include <vector>
 #include <SFML/Graphics/RenderWindow.hpp>
-
+#include "../Level.h"
+#include "../ScreenObjects/ScreenObject.h"
 class Game;
 
 class PlayState : public IState {
 private:
     Game *game;
+    Level level;
+    std::vector<ScreenObject*> level_objects;
 public:
     PlayState();
 
