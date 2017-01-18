@@ -11,6 +11,7 @@ Character::Character(sf::Vector2f startPos, float gravity, float speed, float ju
     this->speed = speed;
     this->jumpHeigth = jumpHeight;
     this->startHeight = startPos.y;
+<<<<<<< HEAD
     img.loadFromFile("Nuken.png");
     img.createMaskFromColor(sf::Color::Magenta);
     texture.loadFromImage(img);
@@ -18,6 +19,8 @@ Character::Character(sf::Vector2f startPos, float gravity, float speed, float ju
     sprite.setTextureRect(sf::IntRect(0, 0, sprite_width, sprite_height));
     sprite.setScale(sprite_scale, sprite_scale);
     sprite_state = 0;
+=======
+>>>>>>> Character class with jump and moving capabilities (main.cpp contains test values and code)
 }
 
 void Character::move(sf::Vector2f direction){
@@ -26,10 +29,17 @@ void Character::move(sf::Vector2f direction){
 
 void Character::jump(){
     if(position.y < startHeight && descending){
+<<<<<<< HEAD
         move(sf::Vector2f(0, speed));
     }
     if(position.y <= startHeight - jumpHeigth){
         jumping = false;
+=======
+        move(sf::Vector2f(0, gravity));
+    }
+    if(position.y <= startHeight - jumpHeigth){
+        setJumping(false);
+>>>>>>> Character class with jump and moving capabilities (main.cpp contains test values and code)
         descending = true;
     }
     if(position.y <= startHeight && jumping && !descending){
@@ -40,6 +50,7 @@ void Character::jump(){
     }
 }
 
+<<<<<<< HEAD
 void Character::draw(sf::RenderWindow &window) {
     sprite.setPosition(position);
     window.draw(sprite);
@@ -67,3 +78,20 @@ void Character::input(sf::Event &event) {
 //void Character::animation(int state){
 
 //}
+=======
+void Character::update(sf::RenderWindow &w) {
+    sf::CircleShape shape(10.f);
+    shape.setFillColor(sf::Color::Green);
+    shape.setPosition(position);
+    w.draw(shape);
+    jump();
+}
+
+void Character::setJumping(bool status) {
+    jumping = status;
+}
+
+float Character::getSpeed() {
+    return speed;
+}
+>>>>>>> Character class with jump and moving capabilities (main.cpp contains test values and code)
