@@ -6,7 +6,7 @@
 #include "Game.h"
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "WaveForms");
+    sf::RenderWindow window(sf::VideoMode(640, 480), "WaveForms");
     // Game application class
     Game waveForms(window);
     return 0;

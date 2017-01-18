@@ -10,6 +10,7 @@
 class Block : public ScreenObject {
 private:
     sf::RectangleShape shape;
+    sf::FloatRect rect;
 public:
     Block(sf::Vector2f vec);
     ~Block();
