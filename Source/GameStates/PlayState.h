@@ -23,7 +23,7 @@ public:
     PlayState(Game *pGame);
 
     void input(sf::Event &event);
-    void update(float data);
+    void update(const sf::Time delta);
     void draw(sf::RenderWindow &window);
 
 

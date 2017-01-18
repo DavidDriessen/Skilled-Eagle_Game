@@ -17,7 +17,7 @@ public:
     SettingsState(Game *pGame);
 
     void input(sf::Event &event);
-    void update(float delta);
+    void update(const sf::Time delta);
     void draw(sf::RenderWindow &window);
 
 };

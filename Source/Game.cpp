@@ -5,10 +5,21 @@
 #include "Game.h"
 
 Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), playState(new PlayState(this)), settingsState(new SettingsState(this)) {
-    iState = playState;
+    iState = menuState;
+    sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while(window.isOpen()) {
         input();
-        update();
+        sf::Time elapsedTime = clock.restart();
+        timeSinceLastUpdate += elapsedTime;
+        while (timeSinceLastUpdate > TimePerFrame)
+        {
+            timeSinceLastUpdate -= TimePerFrame;
+            input();
+            update(TimePerFrame);
+
+        }
+        update_debug(elapsedTime);
         draw();
     }
 }
@@ -25,13 +36,12 @@ void Game::input() {
     }
 }
 
-void Game::update() {
-    float delta = 0;
+void Game::update(const sf::Time delta) {
     iState->update(delta);
 }
 
 void Game::draw() {
-    window.clear(sf::Color::Blue);
+    window.clear();
     iState->draw(window);
     window.display();
 }
@@ -54,4 +64,16 @@ void Game::quite() {
 
 sf::Vector2i Game::get_Mouse_Position() {
     return sf::Mouse::getPosition(window);
+}
+
+
+void Game::update_debug(sf::Time dt) {
+        mStatisticsUpdateTime += dt;
+        mStatisticsNumFrames += 1;
+        if (mStatisticsUpdateTime >= sf::seconds(1.0f))
+        {
+            std::cout << "FPS: " + std::to_string(mStatisticsNumFrames) << "\n";
+            mStatisticsUpdateTime -= sf::seconds(1.0f);
+            mStatisticsNumFrames = 0;
+        }
 }
