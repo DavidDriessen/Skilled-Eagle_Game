@@ -18,7 +18,6 @@ private:
     SettingsState* settingsState;
     PlayState* playState;
     sf::RenderWindow &window;
-    //sf::texture screen;
 public:
     Game(sf::RenderWindow &w);
     ~Game();
@@ -28,7 +27,8 @@ public:
 
     void go_to_play();
     void go_to_menu();
-    //void splash_screen();
+
+    sf::Vector2i get_Mouse_Position();
 };
 
 

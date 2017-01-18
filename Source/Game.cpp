@@ -45,9 +45,6 @@ void Game::go_to_menu() {
     iState = menuState;
 }
 
-/*
-void Game::splash_screen() {
-    screen.loadFromFile("image.png", sf::IntRect(10, 10, 32, 32));
+sf::Vector2i Game::get_Mouse_Position() {
+    return sf::Mouse::getPosition(window);
 }
-
-*/
