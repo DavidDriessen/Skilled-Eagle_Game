@@ -4,9 +4,13 @@
 
 #ifndef MENU_H
 #define MENU_H
+
+#include <SFML/System/String.hpp>
+#include <vector>
 #include <iostream>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "IState.h"
+#include "../Menu.hpp"
 
 class Game;
 class MenuState : public IState {
