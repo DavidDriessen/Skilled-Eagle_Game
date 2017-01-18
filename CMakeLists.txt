@@ -39,6 +39,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/Menu.hpp
         Source/GameStates/SplashState.cpp
         Source/GameStates/SplashState.hpp
+        Source/Character.cpp
+        Source/Character.hpp
         )
 
 # Detect and add SFML
