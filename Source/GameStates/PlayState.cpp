@@ -12,7 +12,7 @@ PlayState::PlayState() {
 
 PlayState::PlayState(Game *pGame) {
     game = pGame;
-    std::string mapName = "../Content/Level/awesomeLevel.txt";
+    std::string mapName = "Content/Level/awesomeLevel.txt";
     level_objects = level.get_screen_objects_from_map(mapName);
 }
 
@@ -34,8 +34,6 @@ void PlayState::update(float delta) {
 
 void PlayState::draw(sf::RenderWindow &window) {
     std::cout << "drawing PlayState \n";
-    //sf::RectangleShape shape({200, 200});
-    //window.draw(shape);
     for(auto &object : level_objects) {
         object->draw(window);
     }

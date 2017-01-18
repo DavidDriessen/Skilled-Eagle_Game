@@ -5,7 +5,6 @@
 #include <SFML/System/Vector2.hpp>
 #include "Level.h"
 #include <iostream>
-
 Level::Level() {
 
 }
@@ -23,7 +22,8 @@ std::vector<ScreenObject*> Level::get_screen_objects_from_map(std::string &map) 
     float current_x = 0;
     float current_y = 0;
     // load file
-    std::ifstream input(map.c_str());
+    std::ifstream input(map);
+
     std::cout << input.fail();
     char c;
     while(input.get(c)) {

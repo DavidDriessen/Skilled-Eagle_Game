@@ -5,7 +5,7 @@
 #include "Game.h"
 
 Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), playState(new PlayState(this)), settingsState(new SettingsState(this)) {
-    iState = menuState;
+    iState = playState;
     while(window.isOpen()) {
         input();
         update();
@@ -31,7 +31,7 @@ void Game::update() {
 }
 
 void Game::draw() {
-    window.clear();
+    window.clear(sf::Color::Blue);
     iState->draw(window);
     window.display();
 }
