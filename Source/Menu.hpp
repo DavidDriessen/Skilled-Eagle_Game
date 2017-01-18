@@ -13,9 +13,9 @@
 class Menu {
     sf::Vector2i mid;
 public:
-    void draw(sf::Window &w, std::vector<sf::String> txt);
+    void draw(sf::RenderWindow &window, std::vector<sf::String> txt);
 
-    void update(float &x, std::vector<std::function<void(void)>> btn);
+    void input(sf::Vector2i mouse, std::vector<std::function<void(void)>> btn);
 };
 
 
