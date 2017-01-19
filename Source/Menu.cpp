@@ -44,9 +44,13 @@ void Menu::draw(sf::RenderWindow &window, std::vector<sf::String> txt) {
     }
 }
 
-void Menu::input(sf::Event &event, sf::Vector2i mouse, std::vector<std::function<void(void)>> actions) {
+void Menu::input(sf::Event &event, sf::Vector2i mouse, std::vector<std::function<void(void)>> actions, bool arrows) {
     if ((event.type == sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left)) ||
-        (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))) {
+        (event.type == sf::Event::KeyPressed &&
+         (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) ||
+          ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) &&
+           arrows)))) {
         int index = 0;
         for (auto &b: actions) {
             if (index == selected) {

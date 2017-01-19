@@ -6,25 +6,34 @@
 #include "SettingsState.h"
 #include "../Game.h"
 
-SettingsState::SettingsState() {
-
+SettingsState::SettingsState(Game *pGame) : Menu(600, 500) {
+    game = pGame;
+    actions.push_back([&]() {
+        res += direction;
+        if (res < 0) { res = (int) (resA.size() - 1); }
+        if (res >= resA.size()) { res = 0; }
+    });
+    actions.push_back([&]() {
+        volume += (direction * 10);
+        if (volume > 100) { volume = 0; }
+        if (volume < 0) { volume = 100; }
+    });
+    actions.push_back([&]() { game->go_to_menu(); });
 }
 
 void SettingsState::input(sf::Event &event) {
-
+    direction = 1;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { direction = -1; }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { game->go_to_menu(); }
+    btn[0] = sf::String("Resolution: ") + resA[res];
+    btn[1] = sf::String("volume: ") + std::to_string(volume);
+    Menu::input(event, game->get_Mouse_Position(), actions, true);
 }
 
 
 void SettingsState::update(const sf::Time delta) {
-    std::cout << "update SettingsState \n";
 }
 
 void SettingsState::draw(sf::RenderWindow &window) {
-    std::cout << "draw SettingsState \n";
-
+    Menu::draw(window, btn);
 }
-
-SettingsState::SettingsState(Game *pGame) {
-    game = pGame;
-}
-
