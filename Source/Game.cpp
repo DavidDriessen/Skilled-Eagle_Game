@@ -79,6 +79,7 @@ void Game::update_debug(sf::Time dt) {
         mStatisticsNumFrames += 1;
         if (mStatisticsUpdateTime >= sf::seconds(1.0f))
         {
+            std::cout << "FPS: " + std::to_string(mStatisticsNumFrames) << "\n";
             mStatisticsUpdateTime -= sf::seconds(1.0f);
             mStatisticsNumFrames = 0;
         }
