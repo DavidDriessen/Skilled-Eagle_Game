@@ -43,10 +43,17 @@ class Character {
         Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight);
         void move(sf::Vector2f direction);
         void jump();
+<<<<<<< HEAD
         void update(sf::RenderWindow &w);
         void setJumping(bool status);
         float getSpeed();
 >>>>>>> Character class with jump and moving capabilities (main.cpp contains test values and code)
+=======
+        void draw(sf::RenderWindow &window);
+        void update(const sf::Time delta);
+        void input(sf::Event &event);
+
+>>>>>>> Changed to fit gamestate structure. Also deleted some obsolete functions
 };
 
 
