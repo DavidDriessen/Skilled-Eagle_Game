@@ -15,12 +15,11 @@ MenuState::MenuState(Game *pGame) : Menu(600, 500) {
 }
 
 void MenuState::input(sf::Event &event) {
-    if (event.type == sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        Menu::input(game->get_Mouse_Position(), actions);
-    }
+    Menu::input(event, game->get_Mouse_Position(), actions);
 }
 
 void MenuState::update(float delta) {
+
 }
 
 void MenuState::draw(sf::RenderWindow &window) {
