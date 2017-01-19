@@ -18,7 +18,7 @@ class MenuState : public IState, public Menu {
 private:
     Game *game;
     std::vector<std::function<void(void)>> actions;
-    std::vector<sf::String> l = {
+    std::vector<sf::String> btn = {
             "Start Game",
             "Edit Character",
             "Show Highscores",

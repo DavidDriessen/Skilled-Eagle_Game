@@ -22,5 +22,5 @@ void MenuState::update(const sf::Time delta) {
 }
 
 void MenuState::draw(sf::RenderWindow &window) {
-    Menu::draw(window, l);
+    Menu::draw(window, btn);
 }
