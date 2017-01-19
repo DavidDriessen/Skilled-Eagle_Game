@@ -9,6 +9,7 @@
 #include "GameStates/MenuState.h"
 #include "GameStates/SettingsState.h"
 #include "GameStates/PlayState.h"
+#include "GameStates/SplashState.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -19,6 +20,7 @@ private:
     MenuState* menuState;
     SettingsState* settingsState;
     PlayState* playState;
+    SplashState* splashState;
     sf::RenderWindow &window;
     sf::Time mStatisticsUpdateTime;
     std::size_t mStatisticsNumFrames;
