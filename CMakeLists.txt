@@ -43,6 +43,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/GameStates/ControllesState.hpp
         Source/Character.cpp
         Source/Character.hpp
+        Source/GameStates/ControllesState.cpp
+        Source/GameStates/ControllesState.hpp
         )
 
 # Detect and add SFML
