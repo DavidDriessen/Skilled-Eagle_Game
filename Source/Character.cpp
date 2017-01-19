@@ -38,8 +38,12 @@ void Character::jump(){
         move(sf::Vector2f(0, gravity));
     }
     if(position.y <= startHeight - jumpHeigth){
+<<<<<<< HEAD
         setJumping(false);
 >>>>>>> Character class with jump and moving capabilities (main.cpp contains test values and code)
+=======
+        jumping = false;
+>>>>>>> Changed to fit gamestate structure. Also deleted some obsolete functions
         descending = true;
     }
     if(position.y <= startHeight && jumping && !descending){
@@ -50,6 +54,7 @@ void Character::jump(){
     }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 void Character::draw(sf::RenderWindow &window) {
     sprite.setPosition(position);
@@ -80,18 +85,26 @@ void Character::input(sf::Event &event) {
 //}
 =======
 void Character::update(sf::RenderWindow &w) {
+=======
+void Character::draw(sf::RenderWindow &window) {
+>>>>>>> Changed to fit gamestate structure. Also deleted some obsolete functions
     sf::CircleShape shape(10.f);
     shape.setFillColor(sf::Color::Green);
     shape.setPosition(position);
-    w.draw(shape);
+    window.draw(shape);
+}
+
+void Character::update(const sf::Time delta) {
     jump();
 }
 
-void Character::setJumping(bool status) {
-    jumping = status;
-}
-
-float Character::getSpeed() {
-    return speed;
+void Character::input(sf::Event &event) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        move(sf::Vector2f(-speed, 0));
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        move(sf::Vector2f(speed, 0));
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        jumping = true;
+    }
 }
 >>>>>>> Character class with jump and moving capabilities (main.cpp contains test values and code)
