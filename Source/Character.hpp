@@ -22,9 +22,10 @@ class Character {
         Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight);
         void move(sf::Vector2f direction);
         void jump();
-        void update(sf::RenderWindow &w);
-        void setJumping(bool status);
-        float getSpeed();
+        void draw(sf::RenderWindow &window);
+        void update(const sf::Time delta);
+        void input(sf::Event &event);
+
 };
 
 

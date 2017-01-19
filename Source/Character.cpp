@@ -22,7 +22,7 @@ void Character::jump(){
         move(sf::Vector2f(0, gravity));
     }
     if(position.y <= startHeight - jumpHeigth){
-        setJumping(false);
+        jumping = false;
         descending = true;
     }
     if(position.y <= startHeight && jumping && !descending){
@@ -33,18 +33,23 @@ void Character::jump(){
     }
 }
 
-void Character::update(sf::RenderWindow &w) {
+void Character::draw(sf::RenderWindow &window) {
     sf::CircleShape shape(10.f);
     shape.setFillColor(sf::Color::Green);
     shape.setPosition(position);
-    w.draw(shape);
+    window.draw(shape);
+}
+
+void Character::update(const sf::Time delta) {
     jump();
 }
 
-void Character::setJumping(bool status) {
-    jumping = status;
-}
-
-float Character::getSpeed() {
-    return speed;
+void Character::input(sf::Event &event) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        move(sf::Vector2f(-speed, 0));
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        move(sf::Vector2f(speed, 0));
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        jumping = true;
+    }
 }

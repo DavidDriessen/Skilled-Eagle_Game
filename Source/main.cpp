@@ -21,17 +21,12 @@ int main()
                 window.close();
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            c.move(sf::Vector2f(-c.getSpeed(), 0));
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            c.move(sf::Vector2f(c.getSpeed(), 0));
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-            c.setJumping(true);
-        }
+        c.update(sf::milliseconds(0));
+        c.input(event);
 
 
         window.clear();
-        c.update(window);
+        c.draw(window);
         window.display();
     }
 
