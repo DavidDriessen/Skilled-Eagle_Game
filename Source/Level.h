@@ -7,8 +7,8 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include "screenObjects/ScreenObject.h"
-#include "screenObjects/Block.h"
+#include "ScreenObjects/ScreenObject.h"
+#include "ScreenObjects/Block.h"
 
 class Level {
 private:
