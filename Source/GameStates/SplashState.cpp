@@ -22,7 +22,7 @@ void SplashState::input(sf::Event &event) {
 }
 
 
-void SplashState::update(float delta) {
+void SplashState::update(const sf::Time delta) {
 }
 
 void SplashState::draw(sf::RenderWindow &window) {

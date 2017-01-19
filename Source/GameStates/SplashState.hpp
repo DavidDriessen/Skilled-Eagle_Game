@@ -18,14 +18,14 @@ private:
     sf::Vector2f size;
     sf::Clock clock;
     sf::Time elapsed;
-    sf::Time time_limit = sf::seconds(5);
+    sf::Time time_limit = sf::seconds(3);
 public:
     SplashState();
 
     SplashState(Game *pGame);
 
     void input(sf::Event &event);
-    void update(float delta);
+    void update(const sf::Time delta);
     void draw(sf::RenderWindow &window);
 
 };
