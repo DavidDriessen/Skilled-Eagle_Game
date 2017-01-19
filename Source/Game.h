@@ -18,6 +18,7 @@ private:
     SettingsState *settingsState;
     PlayState *playState;
     sf::RenderWindow &window;
+    //sf::texture screen;
 public:
     Game(sf::RenderWindow &w);
 
@@ -30,15 +31,14 @@ public:
     void input();
 
     void go_to_play();
-
+  
     void go_to_menu();
-
+  
     void go_to_options();
-
+  
     void quite();
 
     sf::Vector2i get_Mouse_Position();
-
 };
 
 

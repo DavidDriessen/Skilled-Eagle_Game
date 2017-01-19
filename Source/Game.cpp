@@ -56,3 +56,4 @@ void Game::quite() {
 sf::Vector2i Game::get_Mouse_Position() {
     return sf::Mouse::getPosition(window);
 }
+
