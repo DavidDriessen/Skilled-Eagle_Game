@@ -7,13 +7,13 @@ SplashState::SplashState() {
 
 }
 
-SplashState::SplashState(Game *pGame ){
+SplashState::SplashState(Game *pGame) {
     game = pGame;
 
 
-    texture.loadFromFile("assets\\images\\splashScreen.png");
+    texture.loadFromFile("assets/images/splashScreen.png");
     sprite.setTexture(texture);
-    sprite.setPosition(0,0);
+    sprite.setPosition(0, 0);
 
 }
 
@@ -23,21 +23,17 @@ void SplashState::input(sf::Event &event) {
 
 
 void SplashState::update(const sf::Time delta) {
+    elapsed = clock.getElapsedTime();
+    if (elapsed > time_limit) {
+        game->go_to_menu();
+    }
 }
 
 void SplashState::draw(sf::RenderWindow &window) {
     size = (sf::Vector2f)window.getSize();
-    sprite.setScale(1/(1920/size.x), 1/(1080/size.y));
+    sprite.setScale(1 / (1920 / size.x), 1 / (1080 / size.y));
 
-    elapsed = clock.getElapsedTime();
-    if(elapsed <= time_limit){
-        window.draw(sprite);
-    }
-    else{
-        game->go_to_menu();
-    }
-
-
+    window.draw(sprite);
 }
 
 
