@@ -37,6 +37,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/ScreenObjects/Block.h
         Source/Menu.cpp
         Source/Menu.hpp
+        Source/GameStates/SplashState.cpp
+        Source/GameStates/SplashState.hpp
         )
 
 # Detect and add SFML
