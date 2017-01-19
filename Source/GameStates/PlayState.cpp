@@ -12,7 +12,7 @@ PlayState::PlayState() {
 
 PlayState::PlayState(Game *pGame) {
     game = pGame;
-    std::string mapName = "Content/Level/awesomeLevel.txt";
+    std::string mapName = "Assets/Levels/awesomeLevel.txt";
     level_objects = level.get_screen_objects_from_map(mapName);
 }
 
