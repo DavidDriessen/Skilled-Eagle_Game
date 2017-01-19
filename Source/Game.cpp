@@ -4,8 +4,8 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), playState(new PlayState(this)), settingsState(new SettingsState(this)) {
-    iState = menuState;
+Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), playState(new PlayState(this)), settingsState(new SettingsState(this)), splashState(new SplashState(this)) {
+    iState = splashState;
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while(window.isOpen()) {
