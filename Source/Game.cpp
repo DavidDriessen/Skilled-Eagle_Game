@@ -4,10 +4,9 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow &w) : window(w), menuState(new MenuState(this)), playState(new PlayState(this)),
-                                  settingsState(new SettingsState(this)) {
+Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), playState(new PlayState(this)), settingsState(new SettingsState(this)) {
     iState = menuState;
-    while (window.isOpen()) {
+    while(window.isOpen()) {
         input();
         update();
         draw();

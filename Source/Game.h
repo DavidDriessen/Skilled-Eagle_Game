@@ -30,6 +30,7 @@ public:
     void input();
 
     void go_to_play();
+
     void go_to_menu();
 
     void go_to_options();
@@ -37,7 +38,6 @@ public:
     void quite();
 
     sf::Vector2i get_Mouse_Position();
-
 };
 
 
