@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), playState(new PlayState(this)), settingsState(new SettingsState(this)), splashState(new SplashState(this)) {
+Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), playState(new PlayState(this)), settingsState(new SettingsState(this)), splashState(new SplashState(this)), controllesState(new ControllesState(this)) {
     iState = splashState;
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -59,6 +59,10 @@ void Game::go_to_menu() {
 
 void Game::go_to_options() {
     iState = settingsState;
+}
+
+void Game::go_to_controlles() {
+    iState = controllesState;
 }
 
 void Game::quite() {

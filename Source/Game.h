@@ -10,6 +10,7 @@
 #include "GameStates/SettingsState.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/SplashState.hpp"
+#include "GameStates/ControllesState.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -19,6 +20,7 @@ private:
     IState * iState;
     MenuState* menuState;
     SettingsState* settingsState;
+    ControllesState* controllesState;
     PlayState* playState;
     SplashState* splashState;
     sf::RenderWindow &window;
@@ -38,10 +40,11 @@ public:
 
     void go_to_options();
 
+    void go_to_controlles();
+
     void quite();
 
     sf::Vector2i get_Mouse_Position();
-
 
     void update_debug(sf::Time dt);
 };
