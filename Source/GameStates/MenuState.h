@@ -23,7 +23,7 @@ private:
             "Edit Character",
             "Show Highscores",
             "Options",
-            "Quite"};
+            "Quit"};
 public:
 
     MenuState(Game *pGame);
