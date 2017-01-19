@@ -21,7 +21,7 @@ void Block::input(sf::Event &event) {
 
 
 }
-void Block::update(float delta) {
+void Block::update(const sf::Time delta) {
 
 }
 
