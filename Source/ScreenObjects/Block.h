@@ -15,7 +15,7 @@ public:
     Block(sf::Vector2f vec);
     ~Block();
     void input(sf::Event &event);
-    void update(float delta);
+    void update(const sf::Time delta);
     void draw(sf::RenderWindow & window);
 };
 
