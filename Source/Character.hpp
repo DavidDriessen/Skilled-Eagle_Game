@@ -15,20 +15,23 @@ class Character {
         sf::Texture texture;
         sf::Sprite sprite;
         int sprite_state = 0;
-        float sprite_scale = 0.3;
+        float sprite_scale;
         int sprite_height = 260;
-        int sprite_width = 160;
+        int sprite_width = 172;
         float gravity;
-        float startHeight;
+        float groundHeight;
         float jumpHeigth;
         float speed;
         bool jumping = false;
         bool descending = false;
+        bool moving = false;
+        bool directionRight = true;
         void move(sf::Vector2f direction);
-        void jump();
+        void jump(const sf::Time delta);
+        void animation();
 
     public:
-        Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight);
+        Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale);
         void draw(sf::RenderWindow &window);
         void update(const sf::Time delta);
         void input(sf::Event &event);
