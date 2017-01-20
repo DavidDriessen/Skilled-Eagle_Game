@@ -25,7 +25,7 @@ SettingsState::SettingsState(Game *pGame) : Menu(600, 500) {
 void SettingsState::input(sf::Event &event) {
     direction = 1;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { direction = -1; }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { game->go_to_menu(); }
+    if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { game->go_to_menu(); }
     btn[0] = sf::String("Resolution: ") + resA[res];
     btn[1] = sf::String("volume: ") + std::to_string(volume);
     Menu::input(event, game->get_Mouse_Position(), actions, true);

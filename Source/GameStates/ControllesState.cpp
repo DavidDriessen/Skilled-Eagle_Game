@@ -29,7 +29,7 @@ void ControllesState::input(sf::Event &event) {
         }
         key_to_bind = NULL;
     } else {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { game->go_to_menu(); }
+        if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { game->go_to_options(); }
         Menu::input(event, game->get_Mouse_Position(), actions, true);
     }
 }
