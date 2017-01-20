@@ -18,7 +18,7 @@ include_directories("${PROJECT_BINARY_DIR}")
 
 # Define sources and executable
 set(EXECUTABLE_NAME ${PROJECT_NAME})
-add_executable(${EXECUTABLE_NAME} Source/main.cpp)
+add_executable(${EXECUTABLE_NAME} Source/main.cpp Source/speler.cpp Source/speler.hpp Source/weapon.cpp Source/weapon.hpp Source/wall.cpp Source/wall.hpp Source/screen_object.cpp Source/screen_object.hpp Source/bullet.cpp Source/bullet.hpp Source/rangedWeapon.cpp Source/rangedWeapon.hpp)
 
 
 # Detect and add SFML
