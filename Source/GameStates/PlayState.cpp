@@ -6,9 +6,6 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "PlayState.h"
 #include "../Game.h"
-PlayState::PlayState() {
-
-}
 
 PlayState::PlayState(Game *pGame) {
     game = pGame;
@@ -17,19 +14,16 @@ PlayState::PlayState(Game *pGame) {
 }
 
 void PlayState::input(sf::Event &event) {
-    player.input(event);
     if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         game->go_to_menu();
     }
     for(auto &object : level_objects) {
         object->input(event);
     }
-
 }
 
 void PlayState::update(const sf::Time delta) {
     player.update(delta);
-    //std::cout << "updating PlayState \n";
     for(auto &object : level_objects) {
         object->update(delta);
     }
@@ -37,7 +31,6 @@ void PlayState::update(const sf::Time delta) {
 
 void PlayState::draw(sf::RenderWindow &window) {
     player.draw(window);
-    //std::cout << "drawing PlayState \n";
     for(auto &object : level_objects) {
         object->draw(window);
     }
