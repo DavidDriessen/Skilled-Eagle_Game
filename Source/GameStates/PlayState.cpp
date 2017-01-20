@@ -14,23 +14,27 @@ PlayState::PlayState(Game *pGame): level("assets/Levels/awesomeLevel.txt") {
 }
 
 void PlayState::input(sf::Event &event) {
+    player.input(event);
     if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         game->go_to_menu();
     }
     for(auto &object : level_objects) {
         object->input(event);
     }
+
 }
 
 void PlayState::update(const sf::Time delta) {
-    std::cout << "updating PlayState \n";
+    player.update(delta);
+    //std::cout << "updating PlayState \n";
     for(auto &object : level_objects) {
         object->update(delta);
     }
 }
 
 void PlayState::draw(sf::RenderWindow &window) {
-    std::cout << "drawing PlayState \n";
+    player.draw(window);
+    //std::cout << "drawing PlayState \n";
     for(auto &object : level_objects) {
         object->draw(window);
     }

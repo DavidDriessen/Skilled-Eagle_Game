@@ -10,15 +10,21 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "../Level.h"
 #include "../ScreenObjects/ScreenObject.h"
+#include "../Character.hpp"
+
 class Game;
 
 class PlayState : public IState {
 private:
     Game *game;
     Level level;
+    Character player = Character(sf::Vector2f(0, 300), 0.3, 0.4, 100, 172, 260, 0.2);
+    std::vector<ScreenObject*> level_objects;
 public:
+    PlayState();
+
     PlayState(Game *pGame);
-    ~PlayState();
+
     void input(sf::Event &event);
     void update(const sf::Time delta);
     void draw(sf::RenderWindow &window);
