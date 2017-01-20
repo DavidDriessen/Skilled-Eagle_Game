@@ -15,7 +15,7 @@ Character::Character(sf::Vector2f startPos, float gravity, float speed, float ju
     img.createMaskFromColor(sf::Color::Magenta);
     texture.loadFromImage(img);
     sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(0, 0, sprite_widths, sprite_height));
+    sprite.setTextureRect(sf::IntRect(0, 0, sprite_width, sprite_height));
     sprite.setScale(sprite_scale, sprite_scale);
     sprite_state = 0;
 }
