@@ -24,7 +24,7 @@ ControllesState::ControllesState(Game *pGame) : Menu(600, 500) {
 
 void ControllesState::input(sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && key_to_bind) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        if (event.key.code != sf::Keyboard::Key::Escape) {
             key_to_bind->key = event.key.code;
         }
         key_to_bind = NULL;
