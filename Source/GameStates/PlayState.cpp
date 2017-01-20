@@ -7,26 +7,30 @@
 #include "PlayState.h"
 #include "../Game.h"
 
-PlayState::PlayState(Game *pGame): level("assets/Levels/awesomeLevel.txt") {
+PlayState::PlayState(Game *pGame) {
     game = pGame;
     std::string mapName = "assets/Levels/awesomeLevel.txt";
     level_objects = level.get_screen_objects_from_map(mapName);
+
+    (*game->getControlles()).assign_pressed(Left, [&]() { player.left(); });
+    (*game->getControlles()).assign_released(Left, [&]() { player.stop(); });
+    (*game->getControlles()).assign_pressed(Right, [&]() { player.right(); });
+    (*game->getControlles()).assign_released(Right, [&]() { player.stop(); });
+    (*game->getControlles()).assign_pressed(Jump, [&]() { player.up(); });
 }
 
 void PlayState::input(sf::Event &event) {
-    player.input(event);
-    if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+    if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         game->go_to_menu();
     }
+    game->getControlles()->run_actions(event);
     for(auto &object : level_objects) {
         object->input(event);
     }
-
 }
 
 void PlayState::update(const sf::Time delta) {
     player.update(delta);
-    //std::cout << "updating PlayState \n";
     for(auto &object : level_objects) {
         object->update(delta);
     }
@@ -34,7 +38,6 @@ void PlayState::update(const sf::Time delta) {
 
 void PlayState::draw(sf::RenderWindow &window) {
     player.draw(window);
-    //std::cout << "drawing PlayState \n";
     for(auto &object : level_objects) {
         object->draw(window);
     }

@@ -72,24 +72,24 @@ void Character::update(const sf::Time delta) {
 }
 
 void Character::input(sf::Event &event) {
-    if(event.type == event.KeyPressed && (event.key.code == sf::Keyboard::Key::Left || event.key.code == sf::Keyboard::Key::Right)){
-        moving = true;
-    }
-    if(event.type == event.KeyReleased && (event.key.code == sf::Keyboard::Key::Left || event.key.code == sf::Keyboard::Key::Right)){
-        moving = false;
-    }
-    if (moving){
-        if(event.key.code == sf::Keyboard::Key::Left){
-            directionRight = false;
-        }
-        if(event.key.code == sf::Keyboard::Key::Right){
-            directionRight = true;
-        }
-        if(event.key.code == sf::Keyboard::Key::Up){
-            jumping = true;
-            sprite_state = 0;
-        }
-    }
+//    if(event.type == event.KeyPressed && (event.key.code == sf::Keyboard::Key::Left || event.key.code == sf::Keyboard::Key::Right)){
+//        moving = true;
+//    }
+//    if(event.type == event.KeyReleased && (event.key.code == sf::Keyboard::Key::Left || event.key.code == sf::Keyboard::Key::Right)){
+//        moving = false;
+//    }
+//    if (moving){
+//        if(event.key.code == sf::Keyboard::Key::Left){
+//            directionRight = false;
+//        }
+//        if(event.key.code == sf::Keyboard::Key::Right){
+//            directionRight = true;
+//        }
+//        if(event.key.code == sf::Keyboard::Key::Up){
+//            jumping = true;
+//            sprite_state = 0;
+//        }
+//    }
 }
 
 void Character::animation(){
@@ -118,4 +118,23 @@ void Character::animation(){
     if(sprite_state == 24){
         sprite_state = 0;
     }
+}
+
+void Character::left() {
+    moving = true;
+    directionRight = false;
+}
+
+void Character::right() {
+    moving = true;
+    directionRight = true;
+}
+
+void Character::up() {
+    jumping = true;
+    sprite_state = 0;
+}
+
+void Character::stop() {
+    moving = false;
 }
