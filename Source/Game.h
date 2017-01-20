@@ -41,11 +41,7 @@ public:
 
     sf::Vector2i get_Mouse_Position();
 
-<<<<<<< HEAD
-=======
-
     void update_debug(sf::Time dt);
->>>>>>> GAME-47 fps based update and input loop
 };
 
 
