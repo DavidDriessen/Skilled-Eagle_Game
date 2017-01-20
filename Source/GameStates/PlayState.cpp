@@ -12,11 +12,7 @@ PlayState::PlayState() {
 
 PlayState::PlayState(Game *pGame) {
     game = pGame;
-<<<<<<< ac16a0d006fe6b047c74f513e239e6156b23f2be
     std::string mapName = "assets/Levels/awesomeLevel.txt";
-=======
-    std::string mapName = "Content/Level/awesomeLevel.txt";
->>>>>>> level factory is working
     level_objects = level.get_screen_objects_from_map(mapName);
 }
 
