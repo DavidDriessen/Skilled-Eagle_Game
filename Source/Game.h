@@ -47,6 +47,8 @@ public:
     sf::Vector2i get_Mouse_Position();
 
     void update_debug(sf::Time dt);
+
+    ControllesState* getControlles();
 };
 
 
