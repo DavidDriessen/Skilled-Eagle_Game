@@ -20,10 +20,8 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
-        c.update(sf::milliseconds(0));
         c.input(event);
-
+        c.update(sf::milliseconds(0));
 
         window.clear();
         c.draw(window);

@@ -11,6 +11,13 @@ Character::Character(sf::Vector2f startPos, float gravity, float speed, float ju
     this->speed = speed;
     this->jumpHeigth = jumpHeight;
     this->startHeight = startPos.y;
+    img.loadFromFile("Nuken.png");
+    img.createMaskFromColor(sf::Color::Magenta);
+    texture.loadFromImage(img);
+    sprite.setTexture(texture);
+    sprite.setTextureRect(sf::IntRect(0, 0, sprite_widths, sprite_height));
+    sprite.setScale(sprite_scale, sprite_scale);
+    sprite_state = 0;
 }
 
 void Character::move(sf::Vector2f direction){
@@ -34,10 +41,8 @@ void Character::jump(){
 }
 
 void Character::draw(sf::RenderWindow &window) {
-    sf::CircleShape shape(10.f);
-    shape.setFillColor(sf::Color::Green);
-    shape.setPosition(position);
-    window.draw(shape);
+    sprite.setPosition(position);
+    window.draw(sprite);
 }
 
 void Character::update(const sf::Time delta) {
@@ -45,11 +50,20 @@ void Character::update(const sf::Time delta) {
 }
 
 void Character::input(sf::Event &event) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        if(sprite_state == 0){
+            sprite.setTextureRect(sf::IntRect(160, 260, -160, 260));
+            sprite_state++;
+        }
         move(sf::Vector2f(-speed, 0));
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         move(sf::Vector2f(speed, 0));
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         jumping = true;
     }
 }
+
+//void Character::animation(int state){
+
+//}
