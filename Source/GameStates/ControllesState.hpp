@@ -12,6 +12,15 @@
 
 class Game;
 
+enum Actions {
+    Jump
+};
+
+struct KeyActions {
+    sf::Keyboard::Key key = sf::Keyboard::Unknown;
+    std::function<void(void)> action = []() {};
+};
+
 class ControllesState : public IState, public Menu {
 private:
     Game *game;
@@ -19,6 +28,8 @@ private:
     std::vector<sf::String> btn = {
             "Jump",
             "Apply"};
+    std::map<Actions, KeyActions> key;
+    KeyActions *key_to_bind;
 public:
     ControllesState(Game *pGame);
 
@@ -27,6 +38,10 @@ public:
     void update(const sf::Time delta);
 
     void draw(sf::RenderWindow &window);
+
+    void asign_action(Actions &action, std::function<void(void)> &func);
+
+    void run_actions(sf::Event &event);
 };
 
 #endif //SKILLED_EAGLE_GAME_CONTROLLESSTATE_HPP

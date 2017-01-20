@@ -8,18 +8,41 @@
 ControllesState::ControllesState(Game *pGame) : Menu(600, 500) {
     game = pGame;
     actions.push_back([&]() {
-
+        key_to_bind = &key[Jump];
     });
     actions.push_back([&]() { game->go_to_options(); });
 }
 
 void ControllesState::input(sf::Event &event) {
-    Menu::input(event, game->get_Mouse_Position(), actions, true);
+    if (event.type == sf::Event::KeyPressed && key_to_bind) {
+        if (event.key.code != sf::Keyboard::Key::Escape) {
+            key_to_bind->key = event.key.code;
+        }
+        key_to_bind = NULL;
+    } else {
+        Menu::input(event, game->get_Mouse_Position(), actions, true);
+    }
 }
 
 void ControllesState::update(const sf::Time delta) {
 }
 
 void ControllesState::draw(sf::RenderWindow &window) {
-    Menu::draw(window, btn);
+    if (key_to_bind) {
+
+    } else {
+        Menu::draw(window, btn);
+    }
+}
+
+void ControllesState::asign_action(Actions &action, std::function<void()> &func) {
+    key[action].action = func;
+}
+
+void ControllesState::run_actions(sf::Event &event) {
+    for (auto &k:key) {
+        if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(k.second.key)) {
+            k.second.action();
+        }
+    }
 }
