@@ -85,5 +85,5 @@ void Game::update_debug(sf::Time dt) {
 }
 
 ControllesState *Game::getControlles() {
-    return controllesState&;
+    return controllesState;
 }
