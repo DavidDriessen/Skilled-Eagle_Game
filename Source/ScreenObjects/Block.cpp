@@ -26,6 +26,5 @@ void Block::update(const sf::Time delta) {
 }
 
 void Block::draw(sf::RenderWindow &window) {
-    std::cout << "SHAPE DRAWING \n";
     window.draw(shape);
 }

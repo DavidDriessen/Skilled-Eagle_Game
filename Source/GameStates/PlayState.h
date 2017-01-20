@@ -16,12 +16,9 @@ class PlayState : public IState {
 private:
     Game *game;
     Level level;
-    std::vector<ScreenObject*> level_objects;
 public:
-    PlayState();
-
     PlayState(Game *pGame);
-
+    ~PlayState();
     void input(sf::Event &event);
     void update(const sf::Time delta);
     void draw(sf::RenderWindow &window);

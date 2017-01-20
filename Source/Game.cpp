@@ -25,6 +25,9 @@ Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), play
 }
 
 Game::~Game() {
+    delete playState;
+    delete menuState;
+    delete settingsState;
 }
 
 void Game::input() {
