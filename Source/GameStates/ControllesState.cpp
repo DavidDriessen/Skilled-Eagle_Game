@@ -7,10 +7,19 @@
 
 ControllesState::ControllesState(Game *pGame) : Menu(600, 500) {
     game = pGame;
+    key[Jump].key = sf::Keyboard::Key::Space;
+    key[Left].key = sf::Keyboard::Key::Left;
+    key[Right].key = sf::Keyboard::Key::Right;
+
     actions.push_back([&]() {
         key_to_bind = &key[Jump];
     });
-    actions.push_back([&]() { game->go_to_options(); });
+    actions.push_back([&]() {
+        key_to_bind = &key[Left];
+    });
+    actions.push_back([&]() {
+        key_to_bind = &key[Right];
+    });
 }
 
 void ControllesState::input(sf::Event &event) {

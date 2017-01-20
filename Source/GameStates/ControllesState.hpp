@@ -13,7 +13,9 @@
 class Game;
 
 enum Actions {
-    Jump
+    Jump,
+    Left,
+    Right
 };
 
 struct KeyActions {
@@ -27,7 +29,8 @@ private:
     std::vector<std::function<void(void)>> actions;
     std::vector<sf::String> btn = {
             "Jump",
-            "Apply"};
+            "Left",
+            "Right"};
     std::map<Actions, KeyActions> key;
     KeyActions *key_to_bind;
 public:

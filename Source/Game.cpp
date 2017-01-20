@@ -84,3 +84,7 @@ void Game::update_debug(sf::Time dt) {
             mStatisticsNumFrames = 0;
         }
 }
+
+ControllesState *Game::getControlles() {
+    return controllesState&;
+}
