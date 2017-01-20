@@ -19,7 +19,7 @@ void Character::move(sf::Vector2f direction){
 
 void Character::jump(){
     if(position.y < startHeight && descending){
-        move(sf::Vector2f(0, gravity));
+        move(sf::Vector2f(0, speed));
     }
     if(position.y <= startHeight - jumpHeigth){
         jumping = false;
