@@ -29,7 +29,8 @@ void ControllesState::input(sf::Event &event) {
         }
         key_to_bind = NULL;
     } else {
-        if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { game->go_to_options(); }
+        if (event.type == sf::Event::KeyPressed &&
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { game->go_to_options(); }
         Menu::input(event, game->get_Mouse_Position(), actions, true);
     }
 }
@@ -45,14 +46,22 @@ void ControllesState::draw(sf::RenderWindow &window) {
     }
 }
 
-void ControllesState::asign_action(Actions &action, std::function<void()> &func) {
-    key[action].action = func;
+void ControllesState::assign_pressed(const Actions &action, const std::function<void()> &func) {
+    key[action].pressed = func;
+}
+
+void ControllesState::assign_released(const Actions &action, const std::function<void()> &func) {
+    key[action].released = func;
 }
 
 void ControllesState::run_actions(sf::Event &event) {
     for (auto &k:key) {
-        if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(k.second.key)) {
-            k.second.action();
+        if (event.key.code == k.second.key) {
+            if (event.type == sf::Event::KeyPressed) {
+                k.second.pressed();
+            } else if (event.type == sf::Event::KeyReleased) {
+                k.second.released();
+            }
         }
     }
 }

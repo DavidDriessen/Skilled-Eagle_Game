@@ -4,6 +4,7 @@
 
 #ifndef GAME_H
 #define GAME_H
+
 #include "IState.h"
 #include <iostream>
 #include <vector>
@@ -19,14 +20,14 @@ private:
     Game *game;
     Level level;
     Character player = Character(sf::Vector2f(0, 300), 0.3, 0.4, 100, 172, 260, 0.2);
-    std::vector<ScreenObject*> level_objects;
+    std::vector<ScreenObject *> level_objects;
 public:
-    PlayState();
-
     PlayState(Game *pGame);
 
     void input(sf::Event &event);
+
     void update(const sf::Time delta);
+
     void draw(sf::RenderWindow &window);
 
 

@@ -36,6 +36,11 @@ class Character {
         void update(const sf::Time delta);
         void input(sf::Event &event);
 
+        void left();
+        void right();
+        void up();
+        void stop();
+
 };
 
 

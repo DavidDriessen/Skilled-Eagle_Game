@@ -20,7 +20,8 @@ enum Actions {
 
 struct KeyActions {
     sf::Keyboard::Key key = sf::Keyboard::Unknown;
-    std::function<void(void)> action = []() {};
+    std::function<void(void)> pressed = []() {};
+    std::function<void(void)> released = []() {};
 };
 
 class ControllesState : public IState, public Menu {
@@ -42,7 +43,9 @@ public:
 
     void draw(sf::RenderWindow &window);
 
-    void asign_action(Actions &action, std::function<void(void)> &func);
+    void assign_pressed(const Actions &action, const std::function<void()> &func);
+
+    void assign_released(const Actions &action, const std::function<void()> &func);
 
     void run_actions(sf::Event &event);
 };

@@ -11,12 +11,19 @@ PlayState::PlayState(Game *pGame) {
     game = pGame;
     std::string mapName = "assets/Levels/awesomeLevel.txt";
     level_objects = level.get_screen_objects_from_map(mapName);
+
+    (*game->getControlles()).assign_pressed(Left, [&]() { player.left(); });
+    (*game->getControlles()).assign_released(Left, [&]() { player.stop(); });
+    (*game->getControlles()).assign_pressed(Right, [&]() { player.right(); });
+    (*game->getControlles()).assign_released(Right, [&]() { player.stop(); });
+    (*game->getControlles()).assign_pressed(Jump, [&]() { player.up(); });
 }
 
 void PlayState::input(sf::Event &event) {
-    if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+    if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         game->go_to_menu();
     }
+    game->getControlles()->run_actions(event);
     for(auto &object : level_objects) {
         object->input(event);
     }
