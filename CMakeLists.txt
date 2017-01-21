@@ -63,3 +63,10 @@ if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
     target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
 endif()
+
+find_package(FMOD)
+if(FMOD_FOUND)
+    include_directories(${FMOD_INCLUDE_DIR})
+    target_link_libraries(${EXECUTABLE_NAME} ${FMOD_LIBRARIES})
+endif()
+
