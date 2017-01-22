@@ -12,13 +12,11 @@
 
 class Level {
 private:
-    std::vector<ScreenObject*> blocks;
-    void init_object(char c, float x, float y);
+    std::vector<ScreenObject*> screen_objects;
 public:
-    Level(const char *location);
-    ~Level();
-    std::vector<ScreenObject*> &get_blocks();
-    void init_new_map(std::string &map);
+    Level();
+    ScreenObject * screen_object_factory(char c, float x, float y);
+    std::vector<ScreenObject*> get_screen_objects_from_map(std::string &map);
 };
 
 #endif //SKILLED_EAGLE_GAME_LEVEL_H
