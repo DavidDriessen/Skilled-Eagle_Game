@@ -5,40 +5,28 @@
 #include <SFML/System/Vector2.hpp>
 #include "Level.h"
 #include <iostream>
+Level::Level() {
 
-Level::Level(const char * location) {
-    std::string loc = location;
-    init_new_map(loc);
 }
 
-Level::~Level() {
-    for (auto &block : blocks) {
-        delete block;
+ScreenObject * Level::screen_object_factory(char c, float x, float y) {
+    if(c == '-') {
+        return new Block(sf::Vector2f(x, y));
     }
-    blocks.clear();
+    std::string resultString = "\nUndifined char : ";
+    throw resultString + c;
 }
 
-void Level::init_object(char c, float x, float y) {
-    switch (c) {
-    case '-':
-        blocks.push_back(new Block(sf::Vector2f(x, y)));
-        break;
-    default:
-        std::string resultString = "\nUndifined char : ";
-        throw resultString + c;
-    }
-}
-
-std::vector<ScreenObject*> &Level::get_blocks() {
-    return blocks;
-}
-
-void Level::init_new_map(std::string &map) {
+std::vector<ScreenObject*> Level::get_screen_objects_from_map(std::string &map) {
+    // return factor
+    std::vector<ScreenObject*> objects;
     // current position
     float current_x = 0;
     float current_y = 0;
     // load file
     std::ifstream input(map);
+
+    std::cout << input.fail();
     char c;
     while(input.get(c)) {
         // when new line..
@@ -48,7 +36,7 @@ void Level::init_new_map(std::string &map) {
             continue;
         } else if(c != '.') {
             try {
-                init_object(c, current_x, current_y);
+                objects.push_back(screen_object_factory(c, current_x, current_y));
             } catch(std::string & exception) {
                 std::cout << exception;
             }
@@ -56,4 +44,5 @@ void Level::init_new_map(std::string &map) {
         current_x += 32;
     }
     input.close();
+    return objects;
 }
