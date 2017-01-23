@@ -12,7 +12,7 @@ endif()
 project(Skilled_Eagle-Game)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 set(SFML_ROOT ${PROJECT_SOURCE_DIR}"SFML")
-
+set(FMOD_LIBRARY ${PROJECT_SOURCE_DIR}/FMOD/lib/x86_64/libfmod.so)
 # Set version information in a config.h fil
 include_directories("${PROJECT_BINARY_DIR}")
 
@@ -39,6 +39,10 @@ add_executable(${EXECUTABLE_NAME}
         Source/Menu.hpp
         Source/GameStates/SplashState.cpp
         Source/GameStates/SplashState.hpp
+        Source/Audio/FmodApi.cpp
+        Source/Audio/FmodApi.hpp
+        Source/GameStates/SoundTestState.cpp
+        Source/GameStates/SoundTestState.hpp
         Source/GameStates/ControllesState.cpp
         Source/GameStates/ControllesState.hpp
         Source/Character.cpp

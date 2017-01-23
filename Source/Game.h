@@ -10,6 +10,8 @@
 #include "GameStates/SettingsState.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/SplashState.hpp"
+#include "Audio/FmodApi.hpp"
+#include "GameStates/SoundTestState.hpp"
 #include "GameStates/ControllesState.hpp"
 #include <SFML/Graphics.hpp>
 
@@ -17,14 +19,17 @@ class Game {
 private:
     const sf::Time TimePerFrame = sf::seconds(1.f/60.f);
 
+    FmodApi fmod;
     IState * iState;
     MenuState* menuState;
     SettingsState* settingsState;
     ControllesState* controllesState;
     PlayState* playState;
     SplashState* splashState;
+    SoundTestState* soundTestState;
     sf::RenderWindow &window;
     sf::Time mStatisticsUpdateTime;
+
     std::size_t mStatisticsNumFrames;
 public:
     Game(sf::RenderWindow &w);
@@ -42,7 +47,10 @@ public:
 
     void go_to_controlles();
 
+    void go_to_test();
+
     void quite();
+
 
     sf::Vector2i get_Mouse_Position();
 
