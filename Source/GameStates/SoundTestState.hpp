@@ -15,6 +15,7 @@ class SoundTestState : public IState {
 private:
     Game *game;
     FmodApi *fmod;
+    sf::RectangleShape shape;
 public:
     SoundTestState(Game *pGame, FmodApi *fmod);
     ~SoundTestState();
