@@ -13,6 +13,10 @@ PauseState::PauseState(Game *pGame) : Menu(600, 500, 1) {
 }
 
 void PauseState::input(sf::Event &event) {
+    if(event.type == sf::Event::KeyPressed &&
+       sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+        game->go_to_play();
+    }
     Menu::input(event, game->get_Mouse_Position(), actions);
 }
 

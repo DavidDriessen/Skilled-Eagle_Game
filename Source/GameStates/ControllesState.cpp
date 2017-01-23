@@ -2,14 +2,24 @@
 // Created by david on 1/19/2017.
 //
 
+#include <sstream>
 #include "ControllesState.hpp"
 #include "../Game.h"
 
 ControllesState::ControllesState(Game *pGame) : Menu(600, 500) {
     game = pGame;
-    key[Jump].key = sf::Keyboard::Key::Space;
-    key[Left].key = sf::Keyboard::Key::Left;
-    key[Right].key = sf::Keyboard::Key::Right;
+
+    std::string line;
+    std::ifstream f("./assets/Settings/controles.txt");
+
+    for (int i = 0; i < ActionsCount; ++i) {
+        if (std::getline(f, line)) {
+            std::stringstream linestream(line);
+            std::string data;
+            std::getline(linestream, data, '\n');
+            key[(Actions) i].key = (sf::Keyboard::Key) atoi(data.c_str());
+        }
+    }
 
     actions.push_back([&]() {
         key_to_bind = &key[Jump];
@@ -31,7 +41,10 @@ void ControllesState::input(sf::Event &event) {
         key_to_bind = NULL;
     } else {
         if (event.type == sf::Event::KeyPressed &&
-            sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { game->go_to_options(); }
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            game->go_to_options();
+            save();
+        }
         Menu::input(event, game->get_Mouse_Position(), actions, true);
     }
 }
@@ -85,4 +98,18 @@ void ControllesState::run_actions(sf::Event &event) {
             }
         }
     }
+}
+
+void ControllesState::save() {
+    std::ofstream f("./assets/Settings/controles.txt");
+    f.clear();
+    std::string *data = new std::string[ActionsCount];
+    for (auto &k: key) {
+        data[k.first].append(std::to_string(k.second.key));
+        data[k.first].append("\n");
+    }
+    for (int i = 0; i < ActionsCount; i++) {
+        f.write(data[i].c_str(), data[i].size());
+    }
+    f.close();
 }

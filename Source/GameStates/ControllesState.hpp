@@ -15,7 +15,8 @@ class Game;
 enum Actions {
     Jump,
     Left,
-    Right
+    Right,
+    ActionsCount
 };
 
 struct KeyActions {
@@ -151,6 +152,8 @@ public:
     void assign_released(const Actions &action, const std::function<void()> &func);
 
     void run_actions(sf::Event &event);
+
+    void save();
 };
 
 #endif //SKILLED_EAGLE_GAME_CONTROLLESSTATE_HPP
