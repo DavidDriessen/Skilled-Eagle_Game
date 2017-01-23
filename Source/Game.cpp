@@ -61,7 +61,7 @@ void Game::go_to_menu() {
 void Game::go_to_options() {
     if (iState == pauseState) {
         settingsState->setBack([&]() { go_to_pause(); });
-    } else {
+    } else if (iState == menuState) {
         settingsState->setBack([&]() { go_to_menu(); });
     }
     iState = settingsState;
