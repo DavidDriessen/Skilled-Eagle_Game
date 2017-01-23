@@ -14,6 +14,7 @@ class Game;
 class SettingsState : public IState, public Menu {
 private:
     Game *game;
+    std::function<void(void)> back = [](){};
     std::vector<std::function<void(void)>> actions;
     std::vector<sf::String> resA = {"1080", "720"};
     int res = 0, volume = 50, direction = 1;
@@ -31,6 +32,7 @@ public:
 
     void draw(sf::RenderWindow &window);
 
+    void setBack(const std::function<void()> &func);
 };
 
 

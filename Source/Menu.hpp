@@ -11,12 +11,13 @@
 
 
 class Menu {
-    int selected = -1;
+    int selected;
+    int start;
     sf::Vector2i mid;
     float btnHeidth = 60.0f;
     float width, height;
 public:
-    Menu(float width = 400, float height = 400);
+    Menu(float width = 400, float height = 400, int start = 0);
 
     void draw(sf::RenderWindow &window, std::vector<sf::String> txt);
 

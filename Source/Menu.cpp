@@ -5,7 +5,7 @@
 #include "Menu.hpp"
 #include "GameStates/IState.h"
 
-Menu::Menu(float width, float height) : width(width), height(height) {
+Menu::Menu(float width, float height, int start) : width(width), height(height), start(start), selected(start - 1) {
 
 }
 
@@ -24,7 +24,7 @@ void Menu::draw(sf::RenderWindow &window, std::vector<sf::String> txt) {
     window.draw(shape);
 
     for (auto &t : txt) {
-        if (index == selected) {
+        if (index == selected && index >= start) {
             sf::RectangleShape hover({(float) t.getSize() * 30.0f + 25, btnHeidth + 3});
             hover.setPosition((float) mid.x - (float) t.getSize() / 2.0f * 30.0f - 5, (float) mid.y + btn * btnHeidth);
             hover.setFillColor(sf::Color::Black);
@@ -60,13 +60,13 @@ void Menu::input(sf::Event &event, sf::Vector2i mouse, std::vector<std::function
         }
     } else if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
         selected--;
-        if (selected < 0) {
+        if (selected < start) {
             selected = (int) actions.size() - 1;
         }
     } else if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
         selected++;
         if (selected >= actions.size()) {
-            selected = 0;
+            selected = start;
         }
     } else if (event.type == sf::Event::MouseMoved) {
         int index = 0;

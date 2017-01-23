@@ -19,13 +19,13 @@ SettingsState::SettingsState(Game *pGame) : Menu(600, 500) {
         if (volume < 0) { volume = 100; }
     });
     actions.push_back([&]() { game->go_to_controlles(); });
-    actions.push_back([&]() { game->go_to_menu(); });
+    actions.push_back([&]() { back(); });
 }
 
 void SettingsState::input(sf::Event &event) {
     direction = 1;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { direction = -1; }
-    if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { game->go_to_menu(); }
+    if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { back(); }
     btn[0] = sf::String("Resolution: ") + resA[res];
     btn[1] = sf::String("volume: ") + std::to_string(volume);
     Menu::input(event, game->get_Mouse_Position(), actions, true);
@@ -37,4 +37,8 @@ void SettingsState::update(const sf::Time delta) {
 
 void SettingsState::draw(sf::RenderWindow &window) {
     Menu::draw(window, btn);
+}
+
+void SettingsState::setBack(const std::function<void()> &func) {
+    back = func;
 }

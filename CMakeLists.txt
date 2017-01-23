@@ -50,6 +50,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/screenObjects/items/weapon.hpp
         Source/screenObjects/bullet.cpp
         Source/screenObjects/bullet.hpp
+        Source/GameStates/PauseState.cpp
+        Source/GameStates/PauseState.hpp
         )
 
 # Detect and add SFML

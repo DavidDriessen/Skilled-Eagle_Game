@@ -19,7 +19,7 @@ PlayState::PlayState(Game *pGame): level("assets/Levels/awesomeLevel.txt") {
 
 void PlayState::input(sf::Event &event) {
     if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-        game->go_to_menu();
+        game->go_to_pause();
     }
     game->getControlles()->run_actions(event);
     for(auto &object : level.get_blocks()) {

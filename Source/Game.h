@@ -11,6 +11,7 @@
 #include "GameStates/PlayState.h"
 #include "GameStates/SplashState.hpp"
 #include "GameStates/ControllesState.hpp"
+#include "GameStates/PauseState.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -21,6 +22,7 @@ private:
     MenuState* menuState;
     SettingsState* settingsState;
     ControllesState* controllesState;
+    PauseState* pauseState;
     PlayState* playState;
     SplashState* splashState;
     sf::RenderWindow &window;
@@ -41,6 +43,8 @@ public:
     void go_to_options();
 
     void go_to_controlles();
+
+    void go_to_pause();
 
     void quite();
 
