@@ -7,8 +7,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-#include "screen_object.hpp"
-#include "bullet.hpp"
+#include "../ScreenObject.h"
+#include "../bullet.hpp"
 
 
 
@@ -21,7 +21,7 @@ public:
     virtual void set_direction(sf::Vector2f newDirection) = 0;
     virtual void update_weapon_position(sf::Vector2f playerPosition) = 0;
     virtual void draw(sf::RenderWindow & window)=0;
-    virtual void check_collision(screen_object & obj) = 0;
+    virtual void check_collision(ScreenObject & obj) = 0;
 
 
 };

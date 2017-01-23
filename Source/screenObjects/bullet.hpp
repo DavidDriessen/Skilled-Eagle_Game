@@ -4,12 +4,12 @@
 
 #ifndef SKILLED_EAGLE_GAME_BULLET_HPP
 #define SKILLED_EAGLE_GAME_BULLET_HPP
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "screen_object.hpp"
-#include "wall.hpp"
+#include "ScreenObject.h"
 
-class bullet : public screen_object{
+class bullet : public ScreenObject {
 public:
     std::string name;
     sf::Vector2f position;
@@ -22,15 +22,20 @@ public:
     bool hasCollision = false;
 
 
-    bullet(std::string s, sf::Vector2f newPosition,  int damage , sf::Vector2f direction, sf::Color color = sf::Color::Red, sf::Vector2f size = sf::Vector2f(5.0,3.0));
+    bullet(std::string s, sf::Vector2f newPosition, int damage, sf::Vector2f direction,
+           sf::Color color = sf::Color::Red, sf::Vector2f size = sf::Vector2f(5.0, 3.0));
 
-    void draw(sf::RenderWindow & window);
-    void update(sf::Vector2f delta);
+    void input(sf::Event &event){};
 
-    bool collision(screen_object & obj);
+    void draw(sf::RenderWindow &window);
+
+    void update(sf::Time delta);
+
+    bool collision(ScreenObject &obj);
 
     void set_hasCollision();
-    sf::FloatRect & getFloatrect();
+
+    sf::FloatRect &getFloatrect();
 
 
 };
