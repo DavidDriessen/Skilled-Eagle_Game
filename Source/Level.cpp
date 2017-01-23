@@ -15,7 +15,11 @@ Level::~Level() {
     for (auto &block : blocks) {
         delete block;
     }
+    for (auto &cyberEnforcer : cyber_enforcers) {
+        delete cyberEnforcer;
+    }
     blocks.clear();
+    cyber_enforcers.clear();
 }
 
 void Level::init_object(char c, float x, float y) {
@@ -37,6 +41,9 @@ void Level::init_object(char c, float x, float y) {
     case '9':
         blocks.push_back(new Block(sf::Vector2f(x, y)));
         break;
+    case 'C':
+        cyber_enforcers.push_back(new CyberEnforcer(this, sf::Vector2f(x, y)));
+        break;
     default:
         std::string resultString = "\nUndifined char : ";
         throw resultString + c + "\n";
@@ -49,6 +56,10 @@ std::vector<ScreenObject*> &Level::get_blocks() {
 
 std::vector<PowerUp*> &Level::get_powerUps() {
     return powerUps;
+}
+
+std::vector<ScreenObject*> &Level::get_cyber_enforcers() {
+    return cyber_enforcers;
 }
 
 void Level::init_new_map(std::string &map) {

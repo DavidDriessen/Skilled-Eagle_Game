@@ -36,6 +36,9 @@ void PlayState::update(const sf::Time delta) {
     for(auto &object : level.get_blocks()) {
         object->update(delta);
     }
+    for(auto &object : level.get_cyber_enforcers()) {
+        object->update(delta);
+    }
 }
 
 void PlayState::draw(sf::RenderWindow &window) {
@@ -44,6 +47,9 @@ void PlayState::draw(sf::RenderWindow &window) {
     }
     player.draw(window);
     for(auto &object : level.get_blocks()) {
+        object->draw(window);
+    }
+    for(auto &object : level.get_cyber_enforcers()) {
         object->draw(window);
     }
 }
