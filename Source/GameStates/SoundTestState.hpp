@@ -16,6 +16,7 @@ private:
     Game *game;
     FmodApi *fmod;
     sf::RectangleShape shape;
+    sf::RectangleShape* shapes[2048];
 public:
     SoundTestState(Game *pGame, FmodApi *fmod);
     ~SoundTestState();
