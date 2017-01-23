@@ -20,7 +20,6 @@ private:
     Game *game;
     Level level;
     Character player = Character(sf::Vector2f(0, 300), 0.3, 0.4, 100, 172, 260, 0.2);
-    std::vector<ScreenObject *> level_objects;
 public:
     PlayState(Game *pGame);
 

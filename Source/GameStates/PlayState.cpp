@@ -7,10 +7,8 @@
 #include "PlayState.h"
 #include "../Game.h"
 
-PlayState::PlayState(Game *pGame) {
+PlayState::PlayState(Game *pGame): level("assets/Levels/awesomeLevel.txt") {
     game = pGame;
-    std::string mapName = "assets/Levels/awesomeLevel.txt";
-    level_objects = level.get_screen_objects_from_map(mapName);
 
     (*game->getControlles()).assign_pressed(Left, [&]() { player.left(); });
     (*game->getControlles()).assign_released(Left, [&]() { player.stop(); });
@@ -24,21 +22,21 @@ void PlayState::input(sf::Event &event) {
         game->go_to_menu();
     }
     game->getControlles()->run_actions(event);
-    for(auto &object : level_objects) {
+    for(auto &object : level.get_blocks()) {
         object->input(event);
     }
 }
 
 void PlayState::update(const sf::Time delta) {
     player.update(delta);
-    for(auto &object : level_objects) {
+    for(auto &object : level.get_blocks()) {
         object->update(delta);
     }
 }
 
 void PlayState::draw(sf::RenderWindow &window) {
     player.draw(window);
-    for(auto &object : level_objects) {
+    for(auto &object : level.get_blocks()) {
         object->draw(window);
     }
 }
