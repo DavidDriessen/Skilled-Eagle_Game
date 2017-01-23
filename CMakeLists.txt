@@ -39,6 +39,12 @@ add_executable(${EXECUTABLE_NAME}
         Source/Menu.hpp
         Source/GameStates/SplashState.cpp
         Source/GameStates/SplashState.hpp
+        Source/Audio/FmodApi.cpp
+        Source/Audio/FmodApi.hpp
+        Source/GameStates/SoundTestState.cpp
+        Source/GameStates/SoundTestState.hpp
+        Source/GameStates/ControllesState.cpp
+        Source/GameStates/ControllesState.hpp
         Source/GameStates/ControlsState.cpp
         Source/GameStates/ControlsState.hpp
         Source/Character.cpp

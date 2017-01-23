@@ -15,7 +15,8 @@ ENDIF(FMOD_LIBRARY AND FMOD_INCLUDE_DIR)
 FIND_PATH(FMOD_INCLUDE_DIR
         fmod.h
         PATHS
-        $ENV{FMOD_DIR}/include
+        ${FMOD_DIR}/inc
+        $ENV{FMOD_DIR}/inc
         /usr/local/include
         /usr/local/include/fmodex/
         /usr/include
@@ -34,7 +35,8 @@ FIND_PATH(FMOD_INCLUDE_DIR
 FIND_LIBRARY(FMOD_LIBRARY
         NAMES fmod fmodex fmodvc libfmod libfmodex
         PATHS
-        $ENV{FMOD_DIR}/lib
+        ${FMOD_DIR}/x86_64/lib
+        $ENV{FMOD_DIR}/x86_64/lib
         /usr/local/lib
         /usr/lib
         /usr/local/X11R6/lib
