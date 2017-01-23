@@ -19,7 +19,8 @@ private:
     FMOD_SYSTEM *system = NULL;
     FMOD_CHANNEL *channel = NULL;
     FMOD_DSP *dsp = NULL;
-    float samples[2048];
+    float samples[2][2048];
+    float spec[2048];
     int peak = 0;
     std::map<std::string, std::pair<FMOD_CHANNEL*, FMOD_SOUND*>> sounds;
 public:
@@ -42,7 +43,7 @@ public:
         FMOD_CHANNEL *c;
         sounds.insert({name, {c, t}});
         FMOD_System_CreateStream(system, path, FMOD_DEFAULT, 0, &sounds.find(name)->second.second);
-        FMOD_System_PlaySound(system, sounds.find(name)->second.second, 0, false, &sounds.find(name)->second.first);
+        FMOD_System_PlaySound(system, sounds.find(name)->second.second, 0, true, &sounds.find(name)->second.first);
     }
 
     void play_song(const char *name) {
@@ -80,11 +81,26 @@ public:
         FMOD_System_Update(system);
         FMOD_DSP_PARAMETER_FFT *fft;
         FMOD_DSP_GetParameterData(dsp, FMOD_DSP_FFT_SPECTRUMDATA, (void **) &fft, 0, 0, 0);
-        for (int bin = 0; bin < fft->length; bin++) {
-            samples[bin] = fft->spectrum[0][bin];
+        for(int i = 0; i < 2; i++) {
+            for (int bin = 0; bin < fft->length; bin++) {
+                    samples[i][bin] = fft->spectrum[i][bin];
+            }
         }
-        auto maxIterator = std::max_element(&samples[0], &samples[2048]);
+        for (int i = 0; i < 2048; i++) {
+            spec[i] = (samples[0][i] + samples[1][i]) / 2;
+        }
+        // Find max volume
+        auto maxIterator = std::max_element(&spec[0], &spec[2048]);
+        float maxVol = *maxIterator;
+        // Normalize
+        if (maxVol != 0)
+            std::transform(&spec[0], &spec[2048], &spec[0], [maxVol] (float dB) -> float { return dB / maxVol; });
         set_peak(*maxIterator*10000);
+
+    }
+
+    float *get_spec() {
+        return spec;
     }
 
     void set_peak(int peak) {
@@ -97,5 +113,6 @@ public:
     }
 
     void stop_song(const char *string);
+
 };
 #endif //SKILLED_EAGLE_GAME_FMODAPI_HPP
