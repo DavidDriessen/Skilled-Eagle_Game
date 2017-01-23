@@ -5,8 +5,9 @@
 #include "Game.h"
 
 Game::Game(sf::RenderWindow &w): window(w), menuState(new MenuState(this)), playState(new PlayState(this)), settingsState(new SettingsState(this)), splashState(new SplashState(this)), controllesState(new ControllesState(this)), soundTestState(new SoundTestState(this, &fmod)) {
-    iState = playState;
+    iState = soundTestState;
     sf::Clock clock;
+
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while(window.isOpen()) {
         input();

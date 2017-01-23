@@ -1,4 +1,5 @@
 # Clion
 .idea
 SFML
+FMOD
 cmake-build-debug/*

@@ -5,7 +5,7 @@
 #include "FmodApi.hpp"
 
 void FmodApi::stop_song(const char *string) {
-    sounds.find(string)->second.first->setPosition(0, FMOD_TIMEUNIT_MS);
-    sounds.find(string)->second.first->setPaused(1);
+    FMOD_Channel_SetPosition(sounds.find(string)->second.first, 0, FMOD_TIMEUNIT_MS);
+    FMOD_Channel_SetPaused(sounds.find(string)->second.first, 1);
 }
 

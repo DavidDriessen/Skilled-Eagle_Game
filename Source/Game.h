@@ -19,6 +19,7 @@ class Game {
 private:
     const sf::Time TimePerFrame = sf::seconds(1.f/60.f);
 
+    sf::RenderWindow &window;
     FmodApi fmod;
     IState * iState;
     MenuState* menuState;
@@ -27,7 +28,6 @@ private:
     PlayState* playState;
     SplashState* splashState;
     SoundTestState* soundTestState;
-    sf::RenderWindow &window;
     sf::Time mStatisticsUpdateTime;
 
     std::size_t mStatisticsNumFrames;
@@ -51,6 +51,9 @@ public:
 
     void quite();
 
+    sf::RenderWindow * get_window() {
+        return &window;
+    }
 
     sf::Vector2i get_Mouse_Position();
 

@@ -29,14 +29,15 @@ FIND_PATH(FMOD_INCLUDE_DIR
         /opt/csw/include/fmodex/
         /opt/include
         /opt/include/fmodex/
-        PATH_SUFFIXES fmod fmod3
         )
 
 FIND_LIBRARY(FMOD_LIBRARY
         NAMES fmod fmodex fmodvc libfmod libfmodex
         PATHS
-        ${FMOD_DIR}/x86_64/lib
+        ${FMOD_DIR}/lib
+        ${FMOD_DIR}/x68_64/lib
         $ENV{FMOD_DIR}/x86_64/lib
+        $ENV{FMOD_DIR}/lib
         /usr/local/lib
         /usr/lib
         /usr/local/X11R6/lib

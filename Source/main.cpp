@@ -5,8 +5,6 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
 #include <stdlib.h>
-#include "Audio/FmodApi.hpp"
-
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(640, 480), "WaveForms");
