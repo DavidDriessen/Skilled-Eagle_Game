@@ -42,7 +42,7 @@ void Level::init_object(char c, float x, float y) {
         blocks.push_back(new Block(sf::Vector2f(x, y)));
         break;
     case 'C':
-        cyber_enforcers.push_back(new CyberEnforcer(this, sf::Vector2f(x, y)));
+        cyber_enforcers.push_back(new CyberEnforcer(this, sf::Vector2f(x, y - 16)));
         break;
     default:
         std::string resultString = "\nUndifined char : ";
@@ -60,6 +60,10 @@ std::vector<PowerUp*> &Level::get_powerUps() {
 
 std::vector<ScreenObject*> &Level::get_cyber_enforcers() {
     return cyber_enforcers;
+}
+
+Character& Level::get_player() {
+    return player;
 }
 
 void Level::init_new_map(std::string &map) {

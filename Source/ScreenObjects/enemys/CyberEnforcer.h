@@ -14,11 +14,12 @@ class Character;
 class CyberEnforcer : public ScreenObject {
 private:
     Level *level;
-    Character character;
+    Character* character;
     sf::Clock clock;
     bool direction;
 public:
     CyberEnforcer(Level *lvl, sf::Vector2f vec);
+    ~CyberEnforcer();
     void input(sf::Event &event);
     void update(const sf::Time delta);
     void draw(sf::RenderWindow &window);
