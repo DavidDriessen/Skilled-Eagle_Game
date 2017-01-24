@@ -6,9 +6,11 @@
 #define SKILLED_EAGLE_GAME_MOVEMENT_H
 
 #include <SFML/Graphics.hpp>
+#include "ScreenObjects/StatusBar.hpp"
 #include "ScreenObjects/items/Weapon.hpp"
 #include "ScreenObjects/items/RangedWeapon.hpp"
 #include "ScreenObjects/items/MeleeWeapon.hpp"
+#include "ScreenObjects/StatusBar.hpp"
 
 class Level;
 
@@ -44,6 +46,23 @@ private:
     void animation();
 
     Weapon *weapon = nullptr;
+
+    int playerHealthPoints;
+    int playerStaminaPoints;
+
+    sf::Vector2f healthBarOffset = sf::Vector2f(0,-30.0);
+    sf::Vector2f staminaBarOffset = sf::Vector2f(0,-20.0);
+
+    StatusBar * healthBar;
+    StatusBar * staminaBar;
+
+    sf::Clock healthClock;
+    sf::Time healthRegenCooldown = sf::milliseconds(150);
+    sf::Time healthTimer = sf::Time::Zero;
+
+    sf::Clock staminaClock;
+    sf::Time staminaRegenCooldown = sf::milliseconds(100);
+    sf::Time staminaTimer = sf::Time::Zero;
 public:
     Character(sf::Texture t, sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width,
               int sprite_height, float sprite_scale, Level &level);
