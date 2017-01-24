@@ -24,6 +24,11 @@ Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, flo
     sprite.setScale(this->sprite_scale, this->sprite_scale);
     colRect = sprite.getGlobalBounds();
     sprite_state = 0;
+
+    this->playerHealthPoints = 20;
+    this->playerStaminaPoints = 20;
+    healthBar =  new StatusBar("health bar", position + healthBarOffset, sf::Color(34,139,34));
+    staminaBar = new StatusBar("stamina bar", position + staminaBarOffset, sf::Color::Blue);
     sprite.setPosition(position);
 }
 
@@ -154,9 +159,13 @@ void Character::jump(const sf::Time delta){
 
 void Character::draw(sf::RenderWindow &window) {
     window.draw(sprite);
+    healthBar->draw(window);
+    staminaBar->draw(window);
 }
 
 void Character::update(const sf::Time delta) {
+    staminaTimer = staminaClock.getElapsedTime();
+    healthTimer =  healthClock.getElapsedTime();
     if(directionRight && moving){
         float currentVelocity = speed * delta.asMilliseconds();
         colRect.left += currentVelocity * 2;
@@ -189,6 +198,32 @@ void Character::update(const sf::Time delta) {
     if(weapon != nullptr) {
         weapon->update_weapon_position(sprite.getPosition(), directionRight);
     }
+    update_status_bars();
+
+}
+
+void Character::update_status_bars(){
+    if (playerHealthPoints < 0 ){
+        playerHealthPoints = 0;
+    }
+    if (playerStaminaPoints < 0 ){
+        playerStaminaPoints = 0;
+    }
+
+    if(healthTimer > healthRegenCooldown && playerHealthPoints < 100){
+        playerHealthPoints++;
+        healthTimer = sf::Time::Zero;
+        healthClock.restart();
+    }
+
+    if(staminaTimer > staminaRegenCooldown && playerStaminaPoints < 100){
+        playerStaminaPoints++;
+        staminaTimer = sf::Time::Zero;
+        staminaClock.restart();
+    }
+
+    healthBar->set_StatusBar(playerHealthPoints, position + healthBarOffset);
+    staminaBar->set_StatusBar(playerStaminaPoints, position + staminaBarOffset);
 }
 
 void Character::input(sf::Event &event) {
