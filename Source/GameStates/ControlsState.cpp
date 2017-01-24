@@ -3,14 +3,14 @@
 //
 
 #include <sstream>
-#include "ControllesState.hpp"
+#include "ControlsState.hpp"
 #include "../Game.h"
 
-ControllesState::ControllesState(Game *pGame) : Menu(600, 500) {
+ControlsState::ControlsState(Game *pGame) : Menu(600, 500) {
     game = pGame;
 
     std::string line;
-    std::ifstream f("./assets/Settings/controles.txt");
+    std::ifstream f("./assets/Settings/Controls.txt");
 
     for (int i = 0; i < ActionsCount; ++i) {
         if (std::getline(f, line)) {
@@ -33,7 +33,7 @@ ControllesState::ControllesState(Game *pGame) : Menu(600, 500) {
     key_to_bind = NULL;
 }
 
-void ControllesState::input(sf::Event &event) {
+void ControlsState::input(sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && key_to_bind) {
         if (event.key.code != sf::Keyboard::Key::Escape) {
             key_to_bind->key = event.key.code;
@@ -49,10 +49,10 @@ void ControllesState::input(sf::Event &event) {
     }
 }
 
-void ControllesState::update(const sf::Time delta) {
+void ControlsState::update(const sf::Time delta) {
 }
 
-void ControllesState::draw(sf::RenderWindow &window) {
+void ControlsState::draw(sf::RenderWindow &window) {
     if (key_to_bind) {
         sf::Font font;
         font.loadFromFile("./assets/font.ttf");
@@ -80,15 +80,15 @@ void ControllesState::draw(sf::RenderWindow &window) {
     }
 }
 
-void ControllesState::assign_pressed(const Actions &action, const std::function<void()> &func) {
+void ControlsState::assign_pressed(const Actions &action, const std::function<void()> &func) {
     key[action].pressed = func;
 }
 
-void ControllesState::assign_released(const Actions &action, const std::function<void()> &func) {
+void ControlsState::assign_released(const Actions &action, const std::function<void()> &func) {
     key[action].released = func;
 }
 
-void ControllesState::run_actions(sf::Event &event) {
+void ControlsState::run_actions(sf::Event &event) {
     for (auto &k:key) {
         if (event.key.code == k.second.key) {
             if (event.type == sf::Event::KeyPressed) {
@@ -100,8 +100,8 @@ void ControllesState::run_actions(sf::Event &event) {
     }
 }
 
-void ControllesState::save() {
-    std::ofstream f("./assets/Settings/controles.txt");
+void ControlsState::save() {
+    std::ofstream f("./assets/Settings/Controls.txt");
     f.clear();
     std::string *data = new std::string[ActionsCount];
     for (auto &k: key) {

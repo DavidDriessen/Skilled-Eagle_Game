@@ -39,12 +39,12 @@ add_executable(${EXECUTABLE_NAME}
         Source/Menu.hpp
         Source/GameStates/SplashState.cpp
         Source/GameStates/SplashState.hpp
-        Source/GameStates/ControllesState.cpp
-        Source/GameStates/ControllesState.hpp
+        Source/GameStates/ControlsState.cpp
+        Source/GameStates/ControlsState.hpp
         Source/Character.cpp
         Source/Character.hpp
-        Source/GameStates/ControllesState.cpp
-        Source/GameStates/ControllesState.hpp
+        Source/GameStates/ControlsState.cpp
+        Source/GameStates/ControlsState.hpp
         Source/screenObjects/items/rangedWeapon.cpp
         Source/screenObjects/items/rangedWeapon.hpp
         Source/screenObjects/items/weapon.hpp

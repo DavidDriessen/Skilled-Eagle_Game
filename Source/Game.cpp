@@ -6,7 +6,7 @@
 
 Game::Game(sf::RenderWindow &w) : window(w), menuState(new MenuState(this)), playState(new PlayState(this)),
                                   settingsState(new SettingsState(this)), splashState(new SplashState(this)),
-                                  controllesState(new ControllesState(this)), pauseState(new PauseState(this)) {
+                                  controlsState(new ControlsState(this)), pauseState(new PauseState(this)) {
     iState = splashState;
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -67,8 +67,8 @@ void Game::go_to_options() {
     iState = settingsState;
 }
 
-void Game::go_to_controlles() {
-    iState = controllesState;
+void Game::go_to_controls() {
+    iState = controlsState;
 }
 
 void Game::go_to_pause() {
@@ -94,6 +94,6 @@ void Game::update_debug(sf::Time dt) {
     }
 }
 
-ControllesState *Game::getControlles() {
-    return controllesState;
+ControlsState *Game::getControls() {
+    return controlsState;
 }

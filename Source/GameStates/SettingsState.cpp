@@ -18,7 +18,7 @@ SettingsState::SettingsState(Game *pGame) : Menu(600, 500) {
         if (volume > 100) { volume = 0; }
         if (volume < 0) { volume = 100; }
     });
-    actions.push_back([&]() { game->go_to_controlles(); });
+    actions.push_back([&]() { game->go_to_controls(); });
     actions.push_back([&]() { back(); });
 }
 

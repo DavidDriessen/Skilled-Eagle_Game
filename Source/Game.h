@@ -10,7 +10,7 @@
 #include "GameStates/SettingsState.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/SplashState.hpp"
-#include "GameStates/ControllesState.hpp"
+#include "GameStates/ControlsState.hpp"
 #include "GameStates/PauseState.hpp"
 #include <SFML/Graphics.hpp>
 
@@ -21,7 +21,7 @@ private:
     IState * iState;
     MenuState* menuState;
     SettingsState* settingsState;
-    ControllesState* controllesState;
+    ControlsState* controlsState;
     PauseState* pauseState;
     PlayState* playState;
     SplashState* splashState;
@@ -42,7 +42,7 @@ public:
 
     void go_to_options();
 
-    void go_to_controlles();
+    void go_to_controls();
 
     void go_to_pause();
 
@@ -52,7 +52,7 @@ public:
 
     void update_debug(sf::Time dt);
 
-    ControllesState* getControlles();
+    ControlsState* getControls();
 };
 
 

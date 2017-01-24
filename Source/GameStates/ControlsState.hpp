@@ -25,7 +25,7 @@ struct KeyActions {
     std::function<void(void)> released = []() {};
 };
 
-class ControllesState : public IState, public Menu {
+class ControlsState : public IState, public Menu {
 private:
     Game *game;
     std::vector<std::function<void(void)>> actions;
@@ -139,7 +139,7 @@ private:
             "Pause",        ///< The Pause key
     };
 public:
-    ControllesState(Game *pGame);
+    ControlsState(Game *pGame);
 
     void input(sf::Event &event);
 

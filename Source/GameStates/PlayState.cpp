@@ -10,18 +10,18 @@
 PlayState::PlayState(Game *pGame): level("assets/Levels/awesomeLevel.txt") {
     game = pGame;
 
-    (*game->getControlles()).assign_pressed(Left, [&]() { player.left(); });
-    (*game->getControlles()).assign_released(Left, [&]() { player.stop(); });
-    (*game->getControlles()).assign_pressed(Right, [&]() { player.right(); });
-    (*game->getControlles()).assign_released(Right, [&]() { player.stop(); });
-    (*game->getControlles()).assign_pressed(Jump, [&]() { player.up(); });
+    (*game->getControls()).assign_pressed(Left, [&]() { player.left(); });
+    (*game->getControls()).assign_released(Left, [&]() { player.stop(); });
+    (*game->getControls()).assign_pressed(Right, [&]() { player.right(); });
+    (*game->getControls()).assign_released(Right, [&]() { player.stop(); });
+    (*game->getControls()).assign_pressed(Jump, [&]() { player.up(); });
 }
 
 void PlayState::input(sf::Event &event) {
     if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         game->go_to_pause();
     }
-    game->getControlles()->run_actions(event);
+    game->getControls()->run_actions(event);
     for(auto &object : level.get_blocks()) {
         object->input(event);
     }

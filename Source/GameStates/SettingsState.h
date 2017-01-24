@@ -21,7 +21,7 @@ private:
     std::vector<sf::String> btn = {
             "Resolutions",
             "Volume",
-            "Controlles",
+            "Controls",
             "Apply"};
 public:
     SettingsState(Game *pGame);
