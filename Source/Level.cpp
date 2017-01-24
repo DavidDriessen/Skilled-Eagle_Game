@@ -23,14 +23,32 @@ void Level::init_object(char c, float x, float y) {
     case '-':
         blocks.push_back(new Block(sf::Vector2f(x, y)));
         break;
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+        powerUps.push_back(new PowerUp(sf::Vector2f(x, y)));
+        break;
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+        blocks.push_back(new Block(sf::Vector2f(x, y)));
+        break;
     default:
         std::string resultString = "\nUndifined char : ";
-        throw resultString + c;
+        throw resultString + c + "\n";
     }
 }
 
 std::vector<ScreenObject*> &Level::get_blocks() {
     return blocks;
+}
+
+std::vector<PowerUp*> &Level::get_powerUps() {
+    return powerUps;
 }
 
 void Level::init_new_map(std::string &map) {
@@ -42,7 +60,7 @@ void Level::init_new_map(std::string &map) {
     char c;
     while(input.get(c)) {
         // when new line..
-        if(c == 10) {
+        if(c == '\n') {
             current_x = 0;
             current_y += 32;
             continue;

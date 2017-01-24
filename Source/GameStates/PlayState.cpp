@@ -28,6 +28,10 @@ void PlayState::input(sf::Event &event) {
 }
 
 void PlayState::update(const sf::Time delta) {
+    for(auto &object : level.get_powerUps()) {
+        object->update(delta, player);
+    }
+
     player.update(delta);
     for(auto &object : level.get_blocks()) {
         object->update(delta);
@@ -35,6 +39,9 @@ void PlayState::update(const sf::Time delta) {
 }
 
 void PlayState::draw(sf::RenderWindow &window) {
+    for(auto &object : level.get_powerUps()) {
+        object->draw(window);
+    }
     player.draw(window);
     for(auto &object : level.get_blocks()) {
         object->draw(window);

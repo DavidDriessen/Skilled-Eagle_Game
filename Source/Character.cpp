@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Character.hpp"
+#include "screenObjects/items/PowerUp.hpp"
 
 Character::Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level) {
     this->position = startPos;
@@ -109,7 +110,6 @@ void Character::update(const sf::Time delta) {
                 sprite_state++;
             }
         }
-
     }
     jump(delta);
     animation();
@@ -181,7 +181,6 @@ void Character::up() {
 
 void Character::stop() {
     moving = false;
-
 }
 
 ScreenObject* Character::collisionWithLevel(Level &level) {
@@ -193,3 +192,10 @@ ScreenObject* Character::collisionWithLevel(Level &level) {
     return nullptr;
 }
 
+sf::FloatRect Character::get_rect() {
+    return sprite.getGlobalBounds();
+}
+
+void Character::set_powerUp(PowerUp *p) {
+    powerUp = p;
+}

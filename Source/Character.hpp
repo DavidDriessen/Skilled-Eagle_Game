@@ -8,9 +8,11 @@
 #include <SFML/Graphics.hpp>
 #include "Level.h"
 
+class PowerUp;
 
 class Character {
     private:
+        PowerUp* powerUp = NULL;
         sf::Vector2f position;
         sf::Image img;
         sf::Texture texture;
@@ -45,6 +47,8 @@ class Character {
         void stop();
         ScreenObject* collisionWithLevel(Level &level);
 
+        sf::FloatRect get_rect();
+        void set_powerUp(PowerUp* p);
 };
 
 

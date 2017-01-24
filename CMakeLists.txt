@@ -68,6 +68,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/Audio/SoundManager.cpp
         Source/GameStates/PauseState.cpp
         Source/GameStates/PauseState.hpp
+        Source/screenObjects/items/PowerUp.cpp
+        Source/screenObjects/items/PowerUp.hpp
         )
 
 # Detect and add SFML
