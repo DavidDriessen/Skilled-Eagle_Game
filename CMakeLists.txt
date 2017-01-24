@@ -53,6 +53,10 @@ add_executable(${EXECUTABLE_NAME}
         Source/screenObjects/items/weapon.hpp
         Source/screenObjects/bullet.cpp
         Source/screenObjects/bullet.hpp
+        Source/Audio/BeatDetector.h
+        Source/Audio/BeatDetector.cpp
+        Source/Audio/SoundManager.h
+        Source/Audio/SoundManager.cpp
         )
 
 # Detect and add SFML

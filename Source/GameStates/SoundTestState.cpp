@@ -6,19 +6,24 @@
 #include "SoundTestState.hpp"
 #include "../Game.h"
 
-SoundTestState::SoundTestState(Game *pGame, FmodApi *fmod) : game(pGame), fmod(fmod) {
-    fmod->add_song("song", "./assets/sounds/song.mp3");
-    fmod->add_song("song1", "./assets/sounds/song1.mp3");
-    fmod->add_song("song2", "./assets/sounds/song3.mp3");
-//    shape.setSize({game->get_window()->getSize().x, 0});
-//    shape.setFillColor(sf::Color::Red);
-//    shape.setScale({1, 1});
-//    shape.setPosition({game->get_window()->getSize().x / 2, game->get_window()->getSize().y / 2});
-      for(int i = 0; i < 512; i++) {
-          shapes[i] = new sf::RectangleShape;
-          shapes[i]->setFillColor(sf::Color(rand() % 255, rand() % 255, rand() % 255));
-
-      }
+SoundTestState::SoundTestState(Game *pGame) : game(pGame) {
+    soundManager->load_song((char *) "./assets/sounds/song.mp3");
+    soundManager->play();
+    soundManager->pause();
+    soundManager->play();
+    beatDec = new BeatDetector(soundManager);
+//      for(int i = 0; i < 64; i++) {
+//          shapes[i] = new sf::RectangleShape;
+//          shapes[i]->setFillColor(sf::Color());
+//
+//      }
+    shape.setSize({game->get_window()->getSize().x, game->get_window()->getSize().y});
+    shape.setPosition({0, 0});
+    beatDec->audio_process(); // launch beats detection
+    float *beat = beatDec->get_beat();
+    for(int i = 0; i < soundManager->get_length()/1024; i++) {
+        std::cout << ((beat[i] == 1) ? "YAAS" : "NOPE") << "\n";
+    }
 }
 
 SoundTestState::~SoundTestState() {
@@ -27,39 +32,74 @@ SoundTestState::~SoundTestState() {
 
 void SoundTestState::input(sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        fmod->toggle_play("song1");
+        soundManager->toggle_play();
     }
-    if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
-        fmod->stop_song("song1");
+    if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
+        soundManager->reset();
         game->go_to_menu();
+    }
+    if (event.key.code == sf::Keyboard::H) {
+        soundManager->change_pitch(0.01f);
+    }
+
+    if (event.key.code == sf::Keyboard::J) {
+        soundManager->change_pitch(-0.01f);
     }
 }
 
 void SoundTestState::update(const sf::Time delta) {
-    fmod->update();
+//    float *beat = beatDec->get_beat();
+//
+//    float current_pos = soundManager->get_current_time_PCM() / 1024.f;
+//    bool found = false;
+//
+//    int lower_pos = (int) current_pos + 1;
+//    while (found == false) {
+//        lower_pos--;
+//        if (beat[lower_pos] > 0) found = true;
+//    }
+//    found = false;
+//    int upper_pos = (int) current_pos - 1;
+//    while (found == false) {
+//        upper_pos++;
+//        if (beat[upper_pos] > 0) found = true;
+//    }
+//
+//    int L = upper_pos - lower_pos;
+//    float t = current_pos - (float) lower_pos;
+//    std::cout << t << "\n";
+//    if (t > 10) {
+//        shape.setFillColor(sf::Color::Red);
+//
+//    } else {
+//        shape.setFillColor(sf::Color::Black);
+//    }
 }
 
 void SoundTestState::draw(sf::RenderWindow &window) {
-//    int maxVol = fmod->get_current_peak();
-//    if (maxVol > 0) {
-//        int height = ((float) window.getSize().y / (float) 100) * (float) maxVol / ((float) 4000 / (float) 100);
-//        shape.setSize({window.getSize().x, height});
-//        shape.setPosition({0, window.getSize().y - shape.getSize().y});
-//    }
-//    window.draw(shape);
-    int blockGap = 4 / (512 / 64);
-    int blockWidth = int((int(window.getSize().x) * 2.0f) / int(512) - blockGap);
-    int blockMaxHeight = 200;
-    float *spec = fmod->get_spec();
-    std::cout << spec[0] << std::endl;
-// Parameters: Left-hand X co-ordinate of bar, left-hand Y co-ordinate of bar, width of bar, height of bar (negative to draw upwards), paintbrush to use
+    window.draw(shape);
 
-    for (int b = 0; b < 512 - 1; b++) {
-        sf::RectangleShape *t = shapes[b];
-        t->setPosition({int(0.1f + (blockWidth + blockGap) * b), window.getSize().y});
-        t->setSize({blockWidth, int(-blockMaxHeight * spec[b])});
-        window.draw(*t);
-    }
+
+
+
+// OUT DATED SPECTRUM STUFF
+//    int blockGap = 4 / (64 / 64);
+//    int blockWidth = int((int(window.getSize().x) * 2.0f) / int(64) - blockGap);
+//    int blockMaxHeight = 200;
+//    float *spec = fmod->get_spec();
+//    if(fmod->isBeat()) {
+//        window.draw(shape);
+//    }
+//    for (int b = 0; b < 64 - 1; b++) {
+//        float hzRange = (44100 / 2) / spec[b];
+////        if(hzRange == 22050) {
+////            std::cout << hzRange << "\n";
+//            sf::RectangleShape *t = shapes[b];
+//            t->setPosition({int(0.1f + (blockWidth + blockGap) * b), window.getSize().y});
+//            t->setSize({blockWidth, int(-blockMaxHeight * spec[b])});
+//            window.draw(*t);
+////        }
+//    }
 }
 
 

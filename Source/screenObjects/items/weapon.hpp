@@ -7,10 +7,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-#include "../ScreenObject.h"
 #include "../bullet.hpp"
-
-
+#include "../../ScreenObjects/ScreenObject.h"
 
 
 class weapon{
