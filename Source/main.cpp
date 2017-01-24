@@ -3,7 +3,6 @@
 #include "Game.h"
 #include <SFML/Graphics.hpp>
 #include <sstream>
-#include <libltdl/lt_system.h>
 #include <iostream>
 
 #define K_GRAVITE 4

@@ -7,7 +7,8 @@
 #include "../Game.h"
 
 SoundTestState::SoundTestState(Game *pGame) : game(pGame) {
-    soundManager->load_song((char *) "./assets/sounds/song.mp3");
+    font.loadFromFile("./assets/font.ttf");
+    soundManager->load_song((char *) "./assets/sounds/cyka.mp3");
     soundManager->play();
     soundManager->pause();
     soundManager->play();
@@ -17,13 +18,9 @@ SoundTestState::SoundTestState(Game *pGame) : game(pGame) {
 //          shapes[i]->setFillColor(sf::Color());
 //
 //      }
-    shape.setSize({game->get_window()->getSize().x, game->get_window()->getSize().y});
-    shape.setPosition({0, 0});
+    cyka = sf::Text("CHEEKI BREEKI", font, 175);
+    cyka.setPosition({30 , 225});
     beatDec->audio_process(); // launch beats detection
-    float *beat = beatDec->get_beat();
-    for(int i = 0; i < soundManager->get_length()/1024; i++) {
-        std::cout << ((beat[i] == 1) ? "YAAS" : "NOPE") << "\n";
-    }
 }
 
 SoundTestState::~SoundTestState() {
@@ -48,36 +45,35 @@ void SoundTestState::input(sf::Event &event) {
 }
 
 void SoundTestState::update(const sf::Time delta) {
-//    float *beat = beatDec->get_beat();
-//
-//    float current_pos = soundManager->get_current_time_PCM() / 1024.f;
-//    bool found = false;
-//
-//    int lower_pos = (int) current_pos + 1;
-//    while (found == false) {
-//        lower_pos--;
-//        if (beat[lower_pos] > 0) found = true;
-//    }
-//    found = false;
-//    int upper_pos = (int) current_pos - 1;
-//    while (found == false) {
-//        upper_pos++;
-//        if (beat[upper_pos] > 0) found = true;
-//    }
-//
-//    int L = upper_pos - lower_pos;
-//    float t = current_pos - (float) lower_pos;
-//    std::cout << t << "\n";
-//    if (t > 10) {
-//        shape.setFillColor(sf::Color::Red);
-//
-//    } else {
-//        shape.setFillColor(sf::Color::Black);
-//    }
+    float *beat = beatDec->get_beat();
+
+    float current_pos = soundManager->get_current_time_PCM() / 1024.f;
+    bool found = false;
+
+    int lower_pos = (int) current_pos + 1;
+    while (found == false) {
+        lower_pos--;
+        if (beat[lower_pos] > 0) found = true;
+    }
+    found = false;
+    int upper_pos = (int) current_pos - 1;
+    while (found == false) {
+        upper_pos++;
+        if (beat[upper_pos] > 0) found = true;
+    }
+
+    int L = upper_pos - lower_pos;
+    float t = current_pos - (float) lower_pos;
+    std::cout << t << "\n";
+    if (t > 10) {
+        cyka.setFillColor(sf::Color::Yellow);
+    } else {
+        cyka.setFillColor(sf::Color::Black);
+    }
 }
 
 void SoundTestState::draw(sf::RenderWindow &window) {
-    window.draw(shape);
+    window.draw(cyka);
 
 
 
@@ -92,8 +88,8 @@ void SoundTestState::draw(sf::RenderWindow &window) {
 //    }
 //    for (int b = 0; b < 64 - 1; b++) {
 //        float hzRange = (44100 / 2) / spec[b];
-////        if(hzRange == 22050) {
-////            std::cout << hzRange << "\n";
+//        if(hzRange == 22050) {
+//           std::cout << hzRange << "\n";
 //            sf::RectangleShape *t = shapes[b];
 //            t->setPosition({int(0.1f + (blockWidth + blockGap) * b), window.getSize().y});
 //            t->setSize({blockWidth, int(-blockMaxHeight * spec[b])});
