@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "ScreenObject.h"
+#include "../ScreenObjects/ScreenObject.h"
 
 class bullet : public ScreenObject {
 public:

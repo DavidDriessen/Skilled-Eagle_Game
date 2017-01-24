@@ -15,6 +15,7 @@
 #include "GameStates/ControllesState.hpp"
 #include "GameStates/ControlsState.hpp"
 #include "GameStates/PauseState.hpp"
+#include "Audio/SoundManager.h"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -22,7 +23,6 @@ private:
     const sf::Time TimePerFrame = sf::seconds(1.f/60.f);
 
     sf::RenderWindow &window;
-    FmodApi fmod;
     IState * iState;
     MenuState* menuState;
     SettingsState* settingsState;

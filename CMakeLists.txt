@@ -54,6 +54,10 @@ add_executable(${EXECUTABLE_NAME}
         Source/ScreenObjects/items/weapon.hpp
         Source/ScreenObjects/bullet.cpp
         Source/ScreenObjects/bullet.hpp
+        Source/Audio/BeatDetector.h
+        Source/Audio/BeatDetector.cpp
+        Source/Audio/SoundManager.h
+        Source/Audio/SoundManager.cpp
         Source/GameStates/PauseState.cpp
         Source/GameStates/PauseState.hpp
         )

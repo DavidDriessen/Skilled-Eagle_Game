@@ -1,42 +1,81 @@
-//
-// Created by david on 11/16/2016.
-//
-
-#include <SFML/Graphics.hpp>
+#include "Audio/SoundManager.h"
+#include "Audio/BeatDetector.h"
 #include "Game.h"
-#include <stdlib.h>
+#include <SFML/Graphics.hpp>
+#include <sstream>
+#include <libltdl/lt_system.h>
+#include <iostream>
 
-int main() {
-    sf::RenderWindow window(sf::VideoMode(640, 480), "WaveForms");
-    // Game application class
-    window.setFramerateLimit(60);
-    Game waveForms(window);
+#define K_GRAVITE 4
 
-//    FMOD_RESULT result;
-//    FMOD::System *system = NULL;
-//    FMOD::Sound *sound;
-//    FMOD::Channel *channel;
-//    fmod_error(FMOD::System_Create(&system));
-//    fmod_error(system->init(512, FMOD_INIT_NORMAL, 0));
-//    system->createStream("./assets/sounds/song.mp3", FMOD_DEFAULT, 0, &sound);
-//    system->playSound(sound, 0, false, &channel);
+int main(int argc, char *argv[]) {
+    // Create main window
+    sf::RenderWindow App(sf::VideoMode(800, 600), "Beat detector");
+    Game waveForms(App);
+    // Create SoundManager
+//    SoundManager *snd_mng = new SoundManager();
+//    snd_mng->load_song((char *) "./assets/sounds/song.mp3"); // load song in arguments
+//    snd_mng->play();
+//    snd_mng->pause();
+//    snd_mng->play();
+//    // Create BeatDetector
+//    BeatDetector *beatdec = new BeatDetector(snd_mng);
+//    float time = (float) (snd_mng->get_current_time_PCM() / 44100.f);
+//    sf::CircleShape beat_light;
+//    int window = 430; // (44100/1024)*10sec
+//    float offset = 0;
+//    beat_light.setRadius(100);
+//    beat_light.setFillColor(sf::Color::Blue);
+//    float hight = 100.f;
+//    beatdec->audio_process(); // launch beats detection
+//    while (App.isOpen()) {
+//        sf::Event event;
+//        while (App.pollEvent(event)) {
+//            if (event.key.code == sf::Keyboard::H) {
+//                snd_mng->change_pitch(0.01f);
+//            }
 //
-//    FMOD::DSP *dsp;
-//    system->createDSPByType(FMOD_DSP_TYPE::FMOD_DSP_TYPE_FFT, &dsp);
-//    dsp->setActive(true);
-//    system->playSound(sound, 0, false, &channel);
-//    channel->addDSP(FMOD_CHANNELCONTROL_DSP_HEAD, dsp);
-//    sf::RectangleShape shape;
-//    shape.setSize({20, 20});
-//    shape.setFillColor(sf::Color::Red);
-//    shape.setScale({1, 1});
-//    shape.setPosition({window.getSize().x/2, window.getSize().y/2});
-//    while (1) {
-
+//            if (event.key.code == sf::Keyboard::J) {
+//                snd_mng->change_pitch(-0.01f);
+//            }
+//        }
+//        float *beat = beatdec->get_beat();
 //
-////        std::cout << std::to_string(fft->spectrum[0][0]) << "\n";
+//        // saut dynamique de la beat_light
+//        // verifie ou sont les beats les plus proches
+//        float current_pos = snd_mng->get_current_time_PCM() / 1024.f;
+//        // celui de gauche
+//        bool found = false;
+//        int lower_pos = (int) current_pos + 1;
+//        while (found == false) {
+//            lower_pos--;
+//            if (beat[lower_pos] > 0) found = true;
+//        }
+//        // celui de droite
+//        found = false;
+//        int upper_pos = (int) current_pos - 1;
+//        while (found == false) {
+//            upper_pos++;
+//            if (beat[upper_pos] > 0) found = true;
+//        }
+//        // calcul de la hauteur
+//        int L = upper_pos - lower_pos; // la distance a sauter
+//        float t = current_pos - (float) lower_pos; // le temps ecoul� depuis le debut du saut
+//        hight = -(K_GRAVITE / 2) * t * t + (K_GRAVITE / 2) * L * t; // equation de cinematique
+////        beat_light.setPosition(App.getSize().x/2, (beat_light.getPosition().y+100) - hight);
+//        if (t > 10) {
+//            App.clear(sf::Color::Red);
+//            beat_light.setFillColor(sf::Color::Red);
+//        } else {
+//            App.clear(sf::Color::Black);
+//            beat_light.setFillColor(sf::Color::Blue);
+//        }
+////        App.draw(beat_light);
+////        beat_light.setPosition(beat_light.getPosition().x, 0);
 //
+//        App.display();
+//        std::cout << beatdec->get_tempo() << "\n";
 //    }
-//    Game waveForms(window);
-    return 0;
+
+    return EXIT_SUCCESS;
 }
