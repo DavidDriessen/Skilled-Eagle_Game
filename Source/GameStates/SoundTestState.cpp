@@ -6,7 +6,11 @@
 #include "SoundTestState.hpp"
 #include "../Game.h"
 
-SoundTestState::SoundTestState(Game *pGame) : game(pGame) {
+
+
+
+SoundTestState::SoundTestState(Game *pGame, SoundManager *soundManager) {
+    this->soundManager = soundManager;
     font.loadFromFile("./assets/font.ttf");
     soundManager->load_song((char *) "./assets/sounds/cyka.mp3");
     soundManager->play();
@@ -97,6 +101,7 @@ void SoundTestState::draw(sf::RenderWindow &window) {
 ////        }
 //    }
 }
+
 
 
 

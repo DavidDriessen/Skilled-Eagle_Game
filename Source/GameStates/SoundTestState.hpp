@@ -14,25 +14,25 @@
 class Game;
 
 class SoundTestState : public IState {
-    private:
-        Game *game;
-        SoundManager *soundManager = new SoundManager();
-        BeatDetector *beatDec;
-        sf::RectangleShape shape;
-        sf::RectangleShape *shapes[2048];
-        sf::Font font;
-        sf::Text cyka;
-        bool showBeat = false;
-    public:
-        SoundTestState(Game *pGame);
+private:
+    Game *game;
+    SoundManager *soundManager = nullptr;
+    BeatDetector *beatDec = nullptr;
+    sf::RectangleShape shape;
+    sf::RectangleShape *shapes[2048];
+    sf::Font font;
+    sf::Text cyka;
+    bool showBeat = false;
+public:
+    SoundTestState(Game *pGame, SoundManager *pManager);
 
-        ~SoundTestState();
+    ~SoundTestState();
 
-        void input(sf::Event &event);
+    void input(sf::Event &event);
 
-        void update(const sf::Time delta);
+    void update(const sf::Time delta);
 
-        void draw(sf::RenderWindow &window);
+    void draw(sf::RenderWindow &window);
 
 
 };

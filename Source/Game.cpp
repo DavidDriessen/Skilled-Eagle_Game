@@ -4,17 +4,10 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow &w) : window(w),
-                                  soundTestState(new SoundTestState(this)),
-                                  menuState(new MenuState(this)),
-                                  playState(new PlayState(this)),
-                                  settingsState(new SettingsState(this)),
-                                  splashState(new SplashState(this)),
-                                  controlsState(new ControlsState(this)),
-                                  pauseState(new PauseState(this)){
+Game::Game(sf::RenderWindow &w) : window(w), splashState(new SplashState(this)){
     iState = splashState;
+    soundManager = new SoundManager();
     sf::Clock clock;
-
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (window.isOpen()) {
         input();
@@ -57,14 +50,23 @@ void Game::draw() {
 }
 
 void Game::go_to_play() {
+    if(playState == nullptr) {
+        playState = new PlayState(this);
+    }
     iState = playState;
 }
 
 void Game::go_to_menu() {
+    if(menuState == nullptr) {
+        menuState = new MenuState(this);
+    }
     iState = menuState;
 }
 
 void Game::go_to_options() {
+    if(settingsState == nullptr) {
+        settingsState = new SettingsState(this);
+    }
     if (iState == pauseState) {
         settingsState->setBack([&]() { go_to_pause(); });
     } else if (iState == menuState) {
@@ -74,14 +76,23 @@ void Game::go_to_options() {
 }
 
 void Game::go_to_test() {
+    if(soundTestState == nullptr) {
+        soundTestState = new SoundTestState(this, soundManager);
+    }
     iState = soundTestState;
 }
 
 void Game::go_to_controls() {
+    if(controlsState == nullptr) {
+        controlsState = new ControlsState(this);
+    }
     iState = controlsState;
 }
 
 void Game::go_to_pause() {
+    if(pauseState == nullptr) {
+        pauseState = new PauseState(this);
+    }
     iState = pauseState;
 }
 

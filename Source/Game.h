@@ -23,13 +23,14 @@ private:
 
     sf::RenderWindow &window;
     IState * iState;
-    MenuState* menuState;
-    SettingsState* settingsState;
-    ControlsState* controlsState;
-    PauseState* pauseState;
-    PlayState* playState;
-    SplashState* splashState;
-    SoundTestState* soundTestState;
+    SoundManager* soundManager = nullptr;
+    SplashState* splashState = nullptr;
+    SoundTestState* soundTestState = nullptr;
+    MenuState* menuState = nullptr;
+    PlayState* playState = nullptr;
+    SettingsState* settingsState = nullptr;
+    ControlsState* controlsState = nullptr;
+    PauseState* pauseState = nullptr;
     sf::Time mStatisticsUpdateTime;
 
     std::size_t mStatisticsNumFrames;
