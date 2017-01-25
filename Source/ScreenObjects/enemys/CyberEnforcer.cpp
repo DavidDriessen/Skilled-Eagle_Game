@@ -5,7 +5,7 @@
 #include "CyberEnforcer.h"
 #include "../../Level.h"
 #include <iostream>
-CyberEnforcer::CyberEnforcer(Level &lvl, sf::Vector2f vec) : level(lvl), character(new Character(vec, 0.3, 0.1, 100, 172, 260, 0.2, lvl)){
+CyberEnforcer::CyberEnforcer(Level &lvl, sf::Vector2f vec) : level(lvl), character(new Character(vec, 0.3, 0.4, 10, 172, 260, 0.2, lvl)){
 
 }
 
@@ -23,7 +23,7 @@ void CyberEnforcer::input(sf::Event &event) {
 
 void CyberEnforcer::update(const sf::Time delta) {
     sf::Time time = clock.getElapsedTime();
-    if(time.asSeconds() >= 1.5) {
+    if(time.asSeconds() >= 0.5) {
         direction = !direction;
         clock.restart();
     }

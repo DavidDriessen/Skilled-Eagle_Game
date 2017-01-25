@@ -6,7 +6,7 @@
 #include "Level.h"
 #include <iostream>
 
-Level::Level(const char * location) : player(sf::Vector2f(0, 400), 0.3, 0.4, 100, 172, 260, 0.2, *this) {
+Level::Level(const char * location) : player(sf::Vector2f(0, 400), 0.3, 0.4, 10, 172, 260, 0.2, *this) {
     std::string loc = location;
     init_new_map(loc);
 }

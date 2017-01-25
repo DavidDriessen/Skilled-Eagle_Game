@@ -14,7 +14,7 @@ PlayState::PlayState(Game *pGame): level("assets/Levels/awesomeLevel.txt") {
     (*game->getControls()).assign_pressed(Right, [&]() { level.get_player().right(); });
     (*game->getControls()).assign_released(Right, [&]() { level.get_player().stop(); });
     (*game->getControls()).assign_pressed(Jump, [&]() { level.get_player().up(); });
-    (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); });
+    (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); std::cout << "DERPING"; });
     (*game->getControls()).assign_pressed(GrabWeapon, [&]() { level.get_player().grab_for_weapon(level.get_weapons()); });
 }
 
