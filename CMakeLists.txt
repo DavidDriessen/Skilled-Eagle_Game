@@ -45,11 +45,11 @@ add_executable(${EXECUTABLE_NAME}
         Source/Character.hpp
         Source/GameStates/ControlsState.cpp
         Source/GameStates/ControlsState.hpp
-        Source/screenObjects/items/rangedWeapon.cpp
-        Source/screenObjects/items/rangedWeapon.hpp
-        Source/screenObjects/items/weapon.hpp
-        Source/screenObjects/bullet.cpp
-        Source/screenObjects/bullet.hpp
+        Source/ScreenObjects/items/rangedWeapon.cpp
+        Source/ScreenObjects/items/rangedWeapon.hpp
+        Source/ScreenObjects/items/weapon.hpp
+        Source/ScreenObjects/bullet.cpp
+        Source/ScreenObjects/bullet.hpp
         Source/GameStates/PauseState.cpp
         Source/GameStates/PauseState.hpp
         )
