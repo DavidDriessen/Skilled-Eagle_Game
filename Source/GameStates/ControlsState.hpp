@@ -28,6 +28,9 @@ struct KeyActions {
 class ControlsState : public IState, public Menu {
 private:
     Game *game;
+    sf::Font font;
+    sf::Text text;
+    sf::RectangleShape shape;
     std::vector<std::function<void(void)>> actions;
     std::vector<sf::String> btn = {
             "Jump",

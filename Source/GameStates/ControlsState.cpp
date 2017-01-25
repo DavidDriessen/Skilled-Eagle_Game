@@ -8,6 +8,18 @@
 
 ControlsState::ControlsState(Game *pGame) : Menu(600, 500) {
     game = pGame;
+    font.loadFromFile("./assets/font.ttf");
+    shape.setSize({500, 150});
+    shape.setFillColor(sf::Color::Black);
+    shape.setOutlineColor(sf::Color::Yellow);
+    shape.setOutlineThickness(5);
+
+    sf::String t("Press the key to bind.");
+    text.setString(t);
+    text.setFont(font);
+    text.setScale(2, 1);
+    text.setStyle(sf::Text::Italic);
+    text.setFillColor(sf::Color::Blue);
 
     std::string line;
     std::ifstream f("./assets/Settings/Controls.txt");
@@ -54,23 +66,11 @@ void ControlsState::update(const sf::Time delta) {
 
 void ControlsState::draw(sf::RenderWindow &window) {
     if (key_to_bind) {
-        sf::Font font;
-        font.loadFromFile("./assets/font.ttf");
         sf::Vector2i mid = sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2);
-
-        sf::RectangleShape shape({500, 150});
         shape.setPosition(sf::Vector2f(mid.x - 250, mid.y - 50));
-        shape.setFillColor(sf::Color::Black);
-        shape.setOutlineColor(sf::Color::Yellow);
-        shape.setOutlineThickness(5);
         window.draw(shape);
 
-        sf::String t("Press the key to bind.");
-        sf::Text text(t, font);
-        text.setPosition((float) mid.x - (float) t.getSize() / 2.0f * 20.0f, (float) mid.y + 5);
-        text.setScale(2, 1);
-        text.setStyle(sf::Text::Italic);
-        text.setFillColor(sf::Color::Blue);
+        text.setPosition((float) mid.x - (float) text.getString().getSize() / 2.0f * 20.0f, (float) mid.y + 5);
         window.draw(text);
     } else {
         btn[0] = sf::String("Jump: ") + KeyboardKeyNames[key[Jump].key];

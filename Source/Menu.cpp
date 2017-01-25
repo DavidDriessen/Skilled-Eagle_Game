@@ -5,31 +5,29 @@
 #include "Menu.hpp"
 #include "GameStates/IState.h"
 
-Menu::Menu(float width, float height, int start) : width(width), height(height), start(start), selected(start - 1) {
+Menu::Menu(float width, float height, int start) : width(width), height(height), start(start), selected(start - 1), shape({width, height}) {
+    font.loadFromFile("./assets/font.ttf");
+    shape.setFillColor(sf::Color::Black);
+    shape.setOutlineColor(sf::Color::Yellow);
+    shape.setOutlineThickness(5);
 
+    hover.setFillColor(sf::Color::Black);
+    hover.setOutlineColor(sf::Color::Yellow);
+    hover.setOutlineThickness(5);
 }
 
 void Menu::draw(sf::RenderWindow &window, std::vector<sf::String> txt) {
     int index = 0;
     float btn = -((float) txt.size() / 2.0f);
-    sf::Font font;
-    font.loadFromFile("./assets/font.ttf");
     mid = sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2);
-
-    sf::RectangleShape shape({width, height});
     shape.setPosition(sf::Vector2f(mid.x - width / 2, mid.y - height / 2));
-    shape.setFillColor(sf::Color::Black);
-    shape.setOutlineColor(sf::Color::Yellow);
-    shape.setOutlineThickness(5);
+
     window.draw(shape);
 
     for (auto &t : txt) {
         if (index == selected && index >= start) {
-            sf::RectangleShape hover({(float) t.getSize() * 30.0f + 25, btnHeidth + 3});
+            hover.setSize({(float) t.getSize() * 30.0f + 25, btnHeidth + 3});
             hover.setPosition((float) mid.x - (float) t.getSize() / 2.0f * 30.0f - 5, (float) mid.y + btn * btnHeidth);
-            hover.setFillColor(sf::Color::Black);
-            hover.setOutlineColor(sf::Color::Yellow);
-            hover.setOutlineThickness(5);
             window.draw(hover);
         }
 

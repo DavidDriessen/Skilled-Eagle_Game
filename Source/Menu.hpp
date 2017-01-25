@@ -13,9 +13,12 @@
 class Menu {
     int selected;
     int start;
+    sf::Font font;
     sf::Vector2i mid;
     float btnHeidth = 60.0f;
     float width, height;
+    sf::RectangleShape shape;
+    sf::RectangleShape hover;
 public:
     Menu(float width = 400, float height = 400, int start = 0);
 
