@@ -12,7 +12,7 @@ MenuState::MenuState(Game *pGame) : Menu(600, 500) {
     actions.push_back([&]() { std::cout << "Character \n"; });
     actions.push_back([&]() { std::cout << "Score \n"; });
     actions.push_back([&]() { game->go_to_options(); });
-    actions.push_back([&]() { game->quite(); });
+    actions.push_back([&]() { game->quit(); });
 }
 
 void MenuState::input(sf::Event &event) {

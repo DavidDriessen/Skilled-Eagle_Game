@@ -96,7 +96,7 @@ void Game::go_to_pause() {
     iState = pauseState;
 }
 
-void Game::quite() {
+void Game::quit() {
     window.close();
 }
 

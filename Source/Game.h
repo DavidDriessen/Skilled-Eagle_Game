@@ -51,9 +51,7 @@ public:
 
     void go_to_pause();
 
-    void go_to_test();
-
-    void quite();
+    void quit();
 
     sf::RenderWindow * get_window() {
         return &window;
