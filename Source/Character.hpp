@@ -50,6 +50,9 @@ private:
     int playerHealthPoints;
     int playerStaminaPoints;
 
+        int characterHealthPoints;
+        int characterStaminaPoints;
+
     sf::Vector2f healthBarOffset = sf::Vector2f(0,-30.0);
     sf::Vector2f staminaBarOffset = sf::Vector2f(0,-20.0);
 
