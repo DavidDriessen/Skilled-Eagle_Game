@@ -25,8 +25,8 @@ Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, flo
     colRect = sprite.getGlobalBounds();
     sprite_state = 0;
 
-    this->playerHealthPoints = 20;
-    this->playerStaminaPoints = 20;
+    this->characterHealthPoints = 80;
+    this->characterStaminaPoints = 20;
     healthBar =  new StatusBar("health bar", position + healthBarOffset, sf::Color(34,139,34));
     staminaBar = new StatusBar("stamina bar", position + staminaBarOffset, sf::Color::Blue);
     sprite.setPosition(position);
@@ -164,8 +164,6 @@ void Character::draw(sf::RenderWindow &window) {
 }
 
 void Character::update(const sf::Time delta) {
-    staminaTimer = staminaClock.getElapsedTime();
-    healthTimer =  healthClock.getElapsedTime();
     if(directionRight && moving){
         float currentVelocity = speed * delta.asMilliseconds();
         colRect.left += currentVelocity * 2;
@@ -203,27 +201,29 @@ void Character::update(const sf::Time delta) {
 }
 
 void Character::update_status_bars(){
-    if (playerHealthPoints < 0 ){
-        playerHealthPoints = 0;
+    staminaTimer = staminaClock.getElapsedTime();
+    healthTimer =  healthClock.getElapsedTime();
+    if (characterHealthPoints < 0 ){
+        characterHealthPoints = 0;
     }
-    if (playerStaminaPoints < 0 ){
-        playerStaminaPoints = 0;
+    if (characterStaminaPoints < 0 ){
+        characterStaminaPoints = 0;
     }
 
-    if(healthTimer > healthRegenCooldown && playerHealthPoints < 100){
-        playerHealthPoints++;
+    if(healthTimer > healthRegenCooldown && characterHealthPoints < 100){
+        characterHealthPoints++;
         healthTimer = sf::Time::Zero;
         healthClock.restart();
     }
 
-    if(staminaTimer > staminaRegenCooldown && playerStaminaPoints < 100){
-        playerStaminaPoints++;
+    if(staminaTimer > staminaRegenCooldown && characterStaminaPoints < 100){
+        characterStaminaPoints++;
         staminaTimer = sf::Time::Zero;
         staminaClock.restart();
     }
 
-    healthBar->set_StatusBar(playerHealthPoints, position + healthBarOffset);
-    staminaBar->set_StatusBar(playerStaminaPoints, position + staminaBarOffset);
+    healthBar->set_StatusBar(characterHealthPoints, position + healthBarOffset);
+    staminaBar->set_StatusBar(characterStaminaPoints, position + staminaBarOffset);
 }
 
 void Character::input(sf::Event &event) {
