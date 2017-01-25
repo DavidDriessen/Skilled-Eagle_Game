@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow &w) : window(w), splashState(new SplashState(this)){
+Game::Game(sf::RenderWindow &w) : window(w), splashState(new SplashState(this)), controlsState(new ControlsState(this)){
     iState = splashState;
     soundManager = new SoundManager();
     sf::Clock clock;
