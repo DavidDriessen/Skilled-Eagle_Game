@@ -21,21 +21,27 @@ void StatusBar::draw(sf::RenderWindow &window) {
 }
 
 void StatusBar::input(sf::Event &event) {
-
 }
 
 void StatusBar::update(const sf::Time delta) {
-    shape.setSize(sf::Vector2f(currentStatus/2.9, 5));
+}
+
+float StatusBar::Calculate_percentage_of(float  newCurrentstatus ,float maximumOfStatus){
+    return (newCurrentstatus / maximumOfStatus) * 100;
+
 }
 
 
-
-void StatusBar::set_StatusBar(int newCurrentStatus, sf::Vector2f position){
+void StatusBar::set_StatusBar(float newCurrentStatus, sf::Vector2f position){
     currentStatus = newCurrentStatus;
     shape.setPosition(position);
-    shape.setSize(sf::Vector2f(currentStatus/2.9, 5));
+    shape.setSize(sf::Vector2f(currentStatus/2.9, bar_height));
 }
 
 StatusBar::~StatusBar() {
 
+}
+
+void StatusBar::set_StatusBar_hudSize() {
+    bar_height = 20;
 }

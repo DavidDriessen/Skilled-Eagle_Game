@@ -7,7 +7,7 @@
 #include "Level.h"
 #include "ScreenObjects/PowerUp.hpp"
 
-Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level) {
+Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level, bool isEnemy = false) {
     this->position = startPos;
     this->gravity = gravity;
     this->speed = speed;
@@ -25,10 +25,16 @@ Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, flo
     colRect = sprite.getGlobalBounds();
     sprite_state = 0;
 
-    this->characterHealthPoints = 80;
-    this->characterStaminaPoints = 20;
     healthBar =  new StatusBar("health bar", position + healthBarOffset, sf::Color(34,139,34));
     staminaBar = new StatusBar("stamina bar", position + staminaBarOffset, sf::Color::Blue);
+
+    this->isEnemy = isEnemy;
+    this->hudLocation = sf::Vector2f(10.0,50.0);
+
+    if(!isEnemy){
+        healthBar->set_StatusBar_hudSize();
+        staminaBar->set_StatusBar_hudSize();
+    }
     sprite.setPosition(position);
 }
 
@@ -159,8 +165,11 @@ void Character::jump(const sf::Time delta){
 
 void Character::draw(sf::RenderWindow &window) {
     window.draw(sprite);
+
+    if(!isEnemy){
+        staminaBar->draw(window);
+    }
     healthBar->draw(window);
-    staminaBar->draw(window);
 }
 
 void Character::update(const sf::Time delta) {
@@ -201,8 +210,10 @@ void Character::update(const sf::Time delta) {
 }
 
 void Character::update_status_bars(){
+
     staminaTimer = staminaClock.getElapsedTime();
     healthTimer =  healthClock.getElapsedTime();
+
     if (characterHealthPoints < 0 ){
         characterHealthPoints = 0;
     }
@@ -210,20 +221,26 @@ void Character::update_status_bars(){
         characterStaminaPoints = 0;
     }
 
-    if(healthTimer > healthRegenCooldown && characterHealthPoints < 100){
-        characterHealthPoints++;
+    if(healthTimer > healthRegenCooldown && characterHealthPoints < maximumHealth){
+        characterHealthPoints+=10;
         healthTimer = sf::Time::Zero;
         healthClock.restart();
     }
 
-    if(staminaTimer > staminaRegenCooldown && characterStaminaPoints < 100){
-        characterStaminaPoints++;
+    if(staminaTimer > staminaRegenCooldown && characterStaminaPoints < maximumStamina){
+        characterStaminaPoints+=10;
         staminaTimer = sf::Time::Zero;
         staminaClock.restart();
     }
 
-    healthBar->set_StatusBar(characterHealthPoints, position + healthBarOffset);
-    staminaBar->set_StatusBar(characterStaminaPoints, position + staminaBarOffset);
+    if(isEnemy) {
+        healthBarOffset.y = -15;
+        healthBar->set_StatusBar(healthBar->Calculate_percentage_of(characterHealthPoints, maximumHealth), position + healthBarOffset);
+    }
+    else{
+        healthBar->set_StatusBar(healthBar->Calculate_percentage_of(characterHealthPoints, maximumHealth)*3, hudLocation +  healthBarOffset);
+        staminaBar->set_StatusBar(staminaBar->Calculate_percentage_of(characterStaminaPoints, maximumStamina)*3, hudLocation + staminaBarOffset);
+    }
 }
 
 void Character::input(sf::Event &event) {
@@ -302,11 +319,19 @@ PowerUp *Character::get_powerUp() {
     return powerUp;
 }
 
-
-
 void Character::setSpeed(float s) {
     speed = s;
 }
+
+StatusBar * Character::get_statusBar(bool choose) {
+    if(choose){
+        return healthBar;
+    }
+    else{
+        return staminaBar;
+    }
+}
+
 
 
 float Character::getSpeed() {
