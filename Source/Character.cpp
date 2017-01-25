@@ -5,21 +5,22 @@
 #include <iostream>
 #include "Character.hpp"
 
-Character::Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale) {
+Character::Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level) {
     this->position = startPos;
-    this->groundHeight = startPos.y;
     this->gravity = gravity;
     this->speed = speed;
-    this->jumpHeigth = jumpHeight;
+    this->jumpHeight = jumpHeight;
     this->sprite_width = sprite_width;
     this->sprite_height = sprite_height;
     this->sprite_scale = sprite_scale;
+    this->level = &level;
     img.loadFromFile("assets/images/Nuken.png");
     img.createMaskFromColor(sf::Color::Magenta);
     texture.loadFromImage(img);
     sprite.setTexture(texture);
     sprite.setTextureRect(sf::IntRect(0, 0, sprite_width, sprite_height));
     sprite.setScale(this->sprite_scale, this->sprite_scale);
+    colRect = sprite.getGlobalBounds();
     sprite_state = 0;
 }
 
@@ -30,22 +31,49 @@ void Character::move(sf::Vector2f direction){
 void Character::jump(const sf::Time delta){
     //ascending
     if(jumping && !descending){
-        move(sf::Vector2f(0, -speed * delta.asMilliseconds()));
-        sprite_state ++;
+        float currentVelocity = -speed * delta.asMilliseconds();
+        colRect.top += currentVelocity;
+        jumpTime ++;
+        if(collisionWithLevel(*level)){
+            colRect = sprite.getGlobalBounds();
+            descending = true;
+        }
+        else{
+            move(sf::Vector2f(0, currentVelocity));
+            sprite_state ++;
+            colRect = sprite.getGlobalBounds();
+        }
     }
     //switch
-    if(position.y <= groundHeight - jumpHeigth){
+    if(jumpTime > jumpHeight){
         descending = true;
     }
     //descending
-    if(position.y < groundHeight && descending){
-        move(sf::Vector2f(0, gravity * delta.asMilliseconds()));
-        sprite_state ++;
+    if(descending){
+        float currentVelocity = speed * delta.asMilliseconds();
+        colRect.top += currentVelocity;
+        if(collisionWithLevel(*level)){
+            move(sf::Vector2f(0,-currentVelocity));
+            colRect = sprite.getGlobalBounds();
+            descending = false;
+            jumping = false;
+            jumpTime = 0;
+            sprite_state = 1;
+        }
+        else{
+            move(sf::Vector2f(0, currentVelocity));
+            sprite_state ++;
+            colRect = sprite.getGlobalBounds();
+        }
     }
-    //touch ground
-    if(position.y >= groundHeight){
-        descending = false;
-        jumping = false;
+    if(!descending && !jumping){
+        colRect.top += 10;
+        if(!collisionWithLevel(*level)){
+            descending = true;
+        }
+        else{
+            colRect = sprite.getGlobalBounds();
+        }
     }
 }
 
@@ -56,16 +84,31 @@ void Character::draw(sf::RenderWindow &window) {
 
 void Character::update(const sf::Time delta) {
     if(directionRight && moving){
-        move(sf::Vector2f(speed * delta.asMilliseconds(), 0));
-        if(!jumping){
-            sprite_state++;
+        float currentVelocity = speed * delta.asMilliseconds();
+        colRect.left += currentVelocity;
+        if(collisionWithLevel(*level)){
+            colRect = sprite.getGlobalBounds();
+        }
+        else{
+            move(sf::Vector2f(currentVelocity, 0));
+            if(!jumping){
+                sprite_state++;
+            }
         }
     }
     if(!directionRight && moving){
-        move(sf::Vector2f(-speed * delta.asMilliseconds() , 0));
-        if(!jumping){
-            sprite_state++;
+        float currentVelocity = -speed * delta.asMilliseconds();
+        colRect.left += currentVelocity;
+        if(collisionWithLevel(*level)){
+            colRect = sprite.getGlobalBounds();
         }
+        else{
+            move(sf::Vector2f(currentVelocity , 0));
+            if(!jumping){
+                sprite_state++;
+            }
+        }
+
     }
     jump(delta);
     animation();
@@ -137,4 +180,15 @@ void Character::up() {
 
 void Character::stop() {
     moving = false;
+
 }
+
+ScreenObject* Character::collisionWithLevel(Level &level) {
+    for(auto &object : level.get_blocks()){
+        if(colRect.intersects(object->getRect())){
+            return object;
+        }
+    }
+    return nullptr;
+}
+

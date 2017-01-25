@@ -13,6 +13,7 @@ public:
     virtual void input(sf::Event &event) = 0;
     virtual void update(const sf::Time delta) = 0;
     virtual void draw(sf::RenderWindow &window) = 0;
+    virtual sf::Rect<float> getRect() = 0;
 };
 
 
