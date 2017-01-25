@@ -5,25 +5,54 @@
 #include <stdlib.h>
 #include "SoundTestState.hpp"
 #include "../Game.h"
+#include <sstream>
 
 
-
-
-SoundTestState::SoundTestState(Game *pGame, SoundManager *soundManager) {
+SoundTestState::SoundTestState(Game *pGame, SoundManager *soundManager) : game(pGame) {
+    std::ifstream input("./assets/sounds/beats/cyka.blyat");
+    std::string line = "";
     this->soundManager = soundManager;
     font.loadFromFile("./assets/font.ttf");
     soundManager->load_song((char *) "./assets/sounds/cyka.mp3");
     soundManager->play();
     soundManager->pause();
     beatDec = new BeatDetector(soundManager);
-//      for(int i = 0; i < 64; i++) {
-//          shapes[i] = new sf::RectangleShape;
-//          shapes[i]->setFillColor(sf::Color());
-//
-//      }
+    int length = soundManager->get_length();
+    int count = 0;
+    if (input.is_open()) {
+        std::cout << "LOAD FROM FILE\n";
+        beat = new float[soundManager->get_length() / 1024];
+        if(getline(input, line)) {
+            bpm = std::stoi(line);
+        }
+        char c;
+        while (input.get(c)) {
+            if (c == '\n') {
+                break;
+            }
+            float k = float(int(c) - '0');
+            beat[count++] = k;
+        }
+    }
+
+
     cyka = sf::Text("CHEEKI BREEKI", font, 175);
-    cyka.setPosition({30 , 225});
-    beatDec->audio_process(); // launch beats detection
+    cyka.setPosition({30, 225});
+
+    if(count != (soundManager->get_length()/1024)-1) {
+        beatDec->audio_process(); // launch beats detection
+        beat = beatDec->get_beat();
+
+        std::ofstream output("./assets/sounds/beats/cyka.blyat");
+        if (output.is_open()) {
+            output.clear();
+            output << beatDec->get_tempo() << "\n";
+            for (int i = 0; i < soundManager->get_length() / 1024; i++) {
+                output << ((beat[i] == 0) ? 0 : 1);
+            }
+        }
+    }
+
 }
 
 SoundTestState::~SoundTestState() {
@@ -32,25 +61,22 @@ SoundTestState::~SoundTestState() {
 
 void SoundTestState::input(sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        soundManager->toggle_play();
-    }
-    if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
-        soundManager->reset();
         soundManager->pause();
+    }
+    else if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        soundManager->reset();
         game->go_to_menu();
     }
-    if (event.key.code == sf::Keyboard::H) {
+    else if (event.key.code == sf::Keyboard::H) {
         soundManager->change_pitch(0.01f);
     }
 
-    if (event.key.code == sf::Keyboard::J) {
+    else if (event.key.code == sf::Keyboard::J) {
         soundManager->change_pitch(-0.01f);
     }
 }
 
 void SoundTestState::update(const sf::Time delta) {
-    float *beat = beatDec->get_beat();
-
     float current_pos = soundManager->get_current_time_PCM() / 1024.f;
     bool found = false;
 
@@ -68,7 +94,6 @@ void SoundTestState::update(const sf::Time delta) {
 
     int L = upper_pos - lower_pos;
     float t = current_pos - (float) lower_pos;
-    std::cout << t << "\n";
     if (t > 10) {
         cyka.setFillColor(sf::Color::Yellow);
     } else {
@@ -78,28 +103,6 @@ void SoundTestState::update(const sf::Time delta) {
 
 void SoundTestState::draw(sf::RenderWindow &window) {
     window.draw(cyka);
-
-
-
-
-// OUT DATED SPECTRUM STUFF
-//    int blockGap = 4 / (64 / 64);
-//    int blockWidth = int((int(window.getSize().x) * 2.0f) / int(64) - blockGap);
-//    int blockMaxHeight = 200;
-//    float *spec = fmod->get_spec();
-//    if(fmod->isBeat()) {
-//        window.draw(shape);
-//    }
-//    for (int b = 0; b < 64 - 1; b++) {
-//        float hzRange = (44100 / 2) / spec[b];
-//        if(hzRange == 22050) {
-//           std::cout << hzRange << "\n";
-//            sf::RectangleShape *t = shapes[b];
-//            t->setPosition({int(0.1f + (blockWidth + blockGap) * b), window.getSize().y});
-//            t->setSize({blockWidth, int(-blockMaxHeight * spec[b])});
-//            window.draw(*t);
-////        }
-//    }
 }
 
 

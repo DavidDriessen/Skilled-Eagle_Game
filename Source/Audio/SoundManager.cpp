@@ -64,6 +64,7 @@ void SoundManager::pause(void)
 void SoundManager::reset(void)
 {
     FMOD_Channel_SetPosition(canal, 0, FMOD_TIMEUNIT_PCM);
+    FMOD_Channel_SetPaused(canal, 1); // On met en pause
 }
 
 int* SoundManager::get_left_data()

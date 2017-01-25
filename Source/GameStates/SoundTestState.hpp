@@ -23,18 +23,21 @@ private:
     sf::Font font;
     sf::Text cyka;
     bool showBeat = false;
+    float *beat = nullptr;
+    int bpm = 0;
+
 public:
+
     SoundTestState(Game *pGame, SoundManager *pManager);
 
     ~SoundTestState();
 
     void input(sf::Event &event);
 
+
     void update(const sf::Time delta);
 
     void draw(sf::RenderWindow &window);
-
-
 };
 
 
