@@ -25,6 +25,41 @@ Character::Character(sf::Vector2f startPos, float gravity, float speed, float ju
     sprite_state = 0;
 }
 
+Weapon* Character::get_weapon() {
+    return weapon;
+}
+
+void Character::assign_weapon(Weapon *new_weapon) {
+    if(weapon != nullptr) {
+        weapon->update_weapon_position(sf::Vector2f(position.x, position.y), directionRight);
+        weapon->set_is_owned(false);
+    }
+    weapon = new_weapon;
+    weapon->set_is_owned(true);
+}
+
+void Character::grab_for_weapon(std::vector<Weapon*> &weapons) {
+    for(auto &gun : weapons) {
+        if(gun->get_sprite().getGlobalBounds().intersects(sprite.getGlobalBounds()) &&
+           !gun->get_is_owned()) {
+            assign_weapon(gun);
+            break;
+        }
+    }
+}
+
+void Character::attack() {
+    if(weapon != nullptr) {
+        int s = directionRight ? 3 : -3;
+        weapon->set_direction(sf::Vector2f(s, 0));
+        weapon->use();
+    }
+}
+
+sf::Sprite &Character::get_sprite() {
+    return sprite;
+}
+
 void Character::move(sf::Vector2f direction){
     position += direction;
 }
@@ -113,6 +148,9 @@ void Character::update(const sf::Time delta) {
     }
     jump(delta);
     animation();
+    if(weapon != nullptr) {
+        weapon->update_weapon_position(sprite.getPosition(), directionRight);
+    }
 }
 
 void Character::input(sf::Event &event) {

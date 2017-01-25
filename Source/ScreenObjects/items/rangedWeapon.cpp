@@ -2,15 +2,22 @@
 // Created by jer on 19-1-2017.
 //
 
-#include "rangedWeapon.hpp"
+#include "RangedWeapon.hpp"
 
-rangedWeapon::rangedWeapon(std::string s, int damage, sf::Vector2f playerPosition) :
+RangedWeapon::RangedWeapon(std::string s, int damage, sf::Vector2f playerPosition, int range) :
         name(s),
         damage(damage),
-        position(playerPosition) {}
+        position(playerPosition),
+        range(range){
+    std::string path = "assets/images/"+ s + ".png";
+    texture.loadFromFile(path);
+    sprite.setTexture(texture);
+    sprite.setPosition(playerPosition);
+    sprite.scale(0.6,0.6);
+}
 
 
-void rangedWeapon::update() {
+void RangedWeapon::update() {
     for (std::unique_ptr<bullet> &kogel  : bulletVector) {
         kogel->update(sf::Time::Zero);
     }
@@ -22,34 +29,41 @@ void rangedWeapon::update() {
     cooldown = clock.getElapsedTime();
 }
 
-void rangedWeapon::draw(sf::RenderWindow &window) {
+void RangedWeapon::draw(sf::RenderWindow &window) {
     for (std::unique_ptr<bullet> &kogel  : bulletVector) {
         kogel->draw(window);
     }
+    window.draw(sprite);
 }
 
-void rangedWeapon::update_weapon_position(sf::Vector2f playerPosition) {
-    position = playerPosition;
+void RangedWeapon::update_weapon_position(sf::Vector2f playerPosition, bool character_right_direction) {
+    if(right_direction != character_right_direction) {
+        sprite.scale(-1.f, 1.f);
+        right_direction = character_right_direction;
+    }
+    position = right_direction ? sf::Vector2f(playerPosition.x, playerPosition.y + 10) : sf::Vector2f(playerPosition.x + 30 , playerPosition.y + 10);
+    sprite.setPosition(position);
 }
 
-void rangedWeapon::set_direction(sf::Vector2f newDirection) {
+void RangedWeapon::set_direction(sf::Vector2f newDirection) {
     direction = newDirection;
 }
 
-void rangedWeapon::use() {
+void RangedWeapon::use() {
     if (cooldown > cooldownPeriod) {
-        bulletVector.push_back(std::make_unique<bullet>("bullet", position, 20, direction));
+        sf::Vector2f spawnVec = position;
+        spawnVec.x += right_direction ? 0 : -sprite.getTextureRect().width / 2;
+        spawnVec.y += 10;
+        bulletVector.push_back(std::make_unique<bullet>("bullet", spawnVec, 20, direction));
         cooldown = sf::Time::Zero;
         clock.restart();
     }
 }
 
-
-void rangedWeapon::check_collision(ScreenObject &obj) {
+void RangedWeapon::check_collision(ScreenObject &obj) {
     for (std::unique_ptr<bullet> &kogel  : bulletVector) {
         if (kogel->collision(obj)) {
             kogel->set_hasCollision();
-            std::cout << name << "\n";
         }
     }
 }

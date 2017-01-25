@@ -20,6 +20,7 @@ private:
 public:
     CyberEnforcer(Level *lvl, sf::Vector2f vec);
     ~CyberEnforcer();
+    Character* get_character();
     void input(sf::Event &event);
     void update(const sf::Time delta);
     void draw(sf::RenderWindow &window);

@@ -35,8 +35,15 @@ void PlayState::update(const sf::Time delta) {
     for(auto &object : level.get_blocks()) {
         object->update(delta);
     }
+    if(level.get_player().get_weapon() == nullptr) {
+        level.get_player().grab_for_weapon(level.get_weapons());
+    }
     for(auto &object : level.get_cyber_enforcers()) {
         object->update(delta);
+        object->get_character()->grab_for_weapon(level.get_weapons());
+    }
+    for(auto &gun : level.get_weapons()) {
+        gun->update();
     }
 }
 
@@ -49,6 +56,9 @@ void PlayState::draw(sf::RenderWindow &window) {
         object->draw(window);
     }
     for(auto &object : level.get_cyber_enforcers()) {
+        object->draw(window);
+    }
+    for(auto &object : level.get_weapons()) {
         object->draw(window);
     }
 }

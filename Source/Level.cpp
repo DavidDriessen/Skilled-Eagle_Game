@@ -44,6 +44,15 @@ void Level::init_object(char c, float x, float y) {
     case 'C':
         cyber_enforcers.push_back(new CyberEnforcer(this, sf::Vector2f(x, y - 16)));
         break;
+    case '@':
+        weapons.push_back(new RangedWeapon("pistol1", 2, sf::Vector2f(x, y), 15 * 32));
+        break;
+    case '#':
+        weapons.push_back(new RangedWeapon("pistol", 2, sf::Vector2f(x, y), 15 * 32));
+        break;
+    case '!':
+        weapons.push_back(new RangedWeapon("pistol2", 2, sf::Vector2f(x, y), 15 * 32));
+        break;
     default:
         std::string resultString = "\nUndifined char : ";
         throw resultString + c + "\n";
@@ -54,12 +63,16 @@ std::vector<ScreenObject*> &Level::get_blocks() {
     return blocks;
 }
 
+std::vector<CyberEnforcer*> &Level::get_cyber_enforcers() {
+    return cyber_enforcers;
+}
+
 std::vector<PowerUp*> &Level::get_powerUps() {
     return powerUps;
 }
 
-std::vector<ScreenObject*> &Level::get_cyber_enforcers() {
-    return cyber_enforcers;
+std::vector<Weapon*> &Level::get_weapons() {
+    return weapons;
 }
 
 Character& Level::get_player() {

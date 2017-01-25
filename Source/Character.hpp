@@ -6,6 +6,8 @@
 #define SKILLED_EAGLE_GAME_MOVEMENT_H
 
 #include <SFML/Graphics.hpp>
+#include "ScreenObjects/items/Weapon.hpp"
+#include "ScreenObjects/items/RangedWeapon.hpp"
 #include "Level.h"
 
 class PowerUp;
@@ -34,9 +36,15 @@ class Character {
         void move(sf::Vector2f direction);
         void jump(const sf::Time delta);
         void animation();
-
+        Weapon * weapon = nullptr;
     public:
         Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level);
+        Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale);
+        sf::Sprite &get_sprite();
+        Weapon * get_weapon();
+        void assign_weapon(Weapon *new_weapon);
+        void grab_for_weapon(std::vector<Weapon*> &weapons);
+        void attack();
         void draw(sf::RenderWindow &window);
         void update(const sf::Time delta);
         void input(sf::Event &event);

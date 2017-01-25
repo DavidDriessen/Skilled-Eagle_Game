@@ -12,6 +12,10 @@ CyberEnforcer::~CyberEnforcer() {
     delete character;
 }
 
+Character* CyberEnforcer::get_character() {
+    return character;
+}
+
 void CyberEnforcer::input(sf::Event &event) {
 
 }
