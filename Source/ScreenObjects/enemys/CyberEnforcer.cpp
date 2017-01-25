@@ -3,8 +3,9 @@
 //
 
 #include "CyberEnforcer.h"
+#include "../../Level.h"
 #include <iostream>
-CyberEnforcer::CyberEnforcer(Level *lvl, sf::Vector2f vec) : level(lvl), character(new Character(vec, 0.3, 0.1, 100, 172, 260, 0.2)){
+CyberEnforcer::CyberEnforcer(Level &lvl, sf::Vector2f vec) : level(lvl), character(new Character(vec, 0.3, 0.1, 100, 172, 260, 0.2, lvl)){
 
 }
 
@@ -32,4 +33,8 @@ void CyberEnforcer::update(const sf::Time delta) {
 
 void CyberEnforcer::draw(sf::RenderWindow &window) {
     character->draw(window);
+}
+
+sf::FloatRect CyberEnforcer::getFloatRect() {
+    return character->get_sprite().getGlobalBounds();
 }

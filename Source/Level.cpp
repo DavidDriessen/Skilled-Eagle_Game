@@ -6,7 +6,7 @@
 #include "Level.h"
 #include <iostream>
 
-Level::Level(const char * location) {
+Level::Level(const char * location) : player(sf::Vector2f(0, 400), 0.3, 0.4, 100, 172, 260, 0.2, *this) {
     std::string loc = location;
     init_new_map(loc);
 }
@@ -42,7 +42,7 @@ void Level::init_object(char c, float x, float y) {
         blocks.push_back(new Block(sf::Vector2f(x, y)));
         break;
     case 'C':
-        cyber_enforcers.push_back(new CyberEnforcer(this, sf::Vector2f(x, y - 16)));
+        cyber_enforcers.push_back(new CyberEnforcer(*this, sf::Vector2f(x, y - 16)));
         break;
     case '@':
         weapons.push_back(new RangedWeapon("pistol1", 2, sf::Vector2f(x, y), 15 * 32));

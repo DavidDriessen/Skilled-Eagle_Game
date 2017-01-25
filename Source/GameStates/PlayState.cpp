@@ -9,12 +9,13 @@
 
 PlayState::PlayState(Game *pGame): level("assets/Levels/awesomeLevel.txt") {
     game = pGame;
-
-    (*game->getControls()).assign_pressed(Left, [&]() { player.left(); });
-    (*game->getControls()).assign_released(Left, [&]() { player.stop(); });
-    (*game->getControls()).assign_pressed(Right, [&]() { player.right(); });
-    (*game->getControls()).assign_released(Right, [&]() { player.stop(); });
-    (*game->getControls()).assign_pressed(Jump, [&]() { player.up(); });
+    (*game->getControls()).assign_pressed(Left, [&]() { level.get_player().left(); });
+    (*game->getControls()).assign_released(Left, [&]() { level.get_player().stop(); });
+    (*game->getControls()).assign_pressed(Right, [&]() { level.get_player().right(); });
+    (*game->getControls()).assign_released(Right, [&]() { level.get_player().stop(); });
+    (*game->getControls()).assign_pressed(Jump, [&]() { level.get_player().up(); });
+    (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); });
+    (*game->getControls()).assign_pressed(GrabWeapon, [&]() { level.get_player().grab_for_weapon(level.get_weapons()); });
 }
 
 void PlayState::input(sf::Event &event) {

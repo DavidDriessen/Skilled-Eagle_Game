@@ -9,7 +9,7 @@
 #include "ScreenObjects/items/Weapon.hpp"
 #include "ScreenObjects/items/RangedWeapon.hpp"
 #include "Level.h"
-
+class Level;
 class PowerUp;
 
 class Character {
@@ -39,7 +39,6 @@ class Character {
         Weapon * weapon = nullptr;
     public:
         Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level);
-        Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale);
         sf::Sprite &get_sprite();
         Weapon * get_weapon();
         void assign_weapon(Weapon *new_weapon);

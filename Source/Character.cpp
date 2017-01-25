@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Character.hpp"
+#include "Level.h"
 #include "screenObjects/items/PowerUp.hpp"
 
 Character::Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level) {

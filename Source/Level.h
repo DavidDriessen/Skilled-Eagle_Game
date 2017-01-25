@@ -21,9 +21,8 @@ private:
     std::vector<PowerUp*> powerUps;
     std::vector<CyberEnforcer*> cyber_enforcers;
     std::vector<Weapon*> weapons;
-    Character player = Character(sf::Vector2f(0, 300), 0.3, 0.4, 100, 172, 260, 0.2);
-
-     void init_object(char c, float x, float y);
+    Character player;
+    void init_object(char c, float x, float y);
 public:
     Level(const char *location);
     ~Level();

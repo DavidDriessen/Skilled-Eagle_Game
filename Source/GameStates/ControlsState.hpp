@@ -16,7 +16,9 @@ enum Actions {
     Jump,
     Left,
     Right,
-    ActionsCount
+    Attack,
+    GrabWeapon,
+    ActionsCount,
 };
 
 struct KeyActions {
@@ -35,7 +37,9 @@ private:
     std::vector<sf::String> btn = {
             "Jump",
             "Left",
-            "Right"};
+            "Right",
+            "Attack",
+            "GrabWeapon"};
     std::map<Actions, KeyActions> key;
     KeyActions *key_to_bind;
     std::vector<sf::String> KeyboardKeyNames = {
