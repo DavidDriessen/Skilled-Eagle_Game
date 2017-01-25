@@ -32,7 +32,7 @@ void Character::jump(const sf::Time delta){
     //ascending
     if(jumping && !descending){
         float currentVelocity = -speed * delta.asMilliseconds();
-        colRect.top += currentVelocity;
+        colRect.top += currentVelocity * 2;
         jumpTime ++;
         if(collisionWithLevel(*level)){
             colRect = sprite.getGlobalBounds();
@@ -51,9 +51,8 @@ void Character::jump(const sf::Time delta){
     //descending
     if(descending){
         float currentVelocity = speed * delta.asMilliseconds();
-        colRect.top += currentVelocity;
+        colRect.top += currentVelocity * 2;
         if(collisionWithLevel(*level)){
-            move(sf::Vector2f(0,-currentVelocity));
             colRect = sprite.getGlobalBounds();
             descending = false;
             jumping = false;
@@ -67,11 +66,13 @@ void Character::jump(const sf::Time delta){
         }
     }
     if(!descending && !jumping){
-        colRect.top += 10;
-        if(!collisionWithLevel(*level)){
+        colRect.top += speed * delta.asMilliseconds() * 2;
+        auto col = collisionWithLevel(*level);
+        if(!col){
             descending = true;
         }
         else{
+            position = {position.x, col->getFloatRect().top - sprite.getGlobalBounds().height};
             colRect = sprite.getGlobalBounds();
         }
     }
@@ -85,7 +86,7 @@ void Character::draw(sf::RenderWindow &window) {
 void Character::update(const sf::Time delta) {
     if(directionRight && moving){
         float currentVelocity = speed * delta.asMilliseconds();
-        colRect.left += currentVelocity;
+        colRect.left += currentVelocity * 2;
         if(collisionWithLevel(*level)){
             colRect = sprite.getGlobalBounds();
         }
@@ -98,7 +99,7 @@ void Character::update(const sf::Time delta) {
     }
     if(!directionRight && moving){
         float currentVelocity = -speed * delta.asMilliseconds();
-        colRect.left += currentVelocity;
+        colRect.left += currentVelocity * 2;
         if(collisionWithLevel(*level)){
             colRect = sprite.getGlobalBounds();
         }
