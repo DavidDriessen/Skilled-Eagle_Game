@@ -70,7 +70,7 @@ add_executable(${EXECUTABLE_NAME}
         Source/GameStates/PauseState.hpp
         Source/screenObjects/items/PowerUp.cpp
         Source/screenObjects/items/PowerUp.hpp
-        )
+        Source/GameStates/SoonState.cpp Source/GameStates/SoonState.hpp)
 
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})

@@ -9,8 +9,8 @@ MenuState::MenuState(Game *pGame) : Menu(600, 500) {
     game = pGame;
     actions.push_back([&]() { game->go_to_play(); });
     actions.push_back([&]() { game->go_to_test(); });
-    actions.push_back([&]() { std::cout << "Character \n"; });
-    actions.push_back([&]() { std::cout << "Score \n"; });
+    actions.push_back([&]() { game->go_to_soon(); });
+    actions.push_back([&]() { game->go_to_soon(); });
     actions.push_back([&]() { game->go_to_options(); });
     actions.push_back([&]() { game->quit(); });
 }

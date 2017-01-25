@@ -14,6 +14,7 @@
 #include "GameStates/ControlsState.hpp"
 #include "GameStates/PauseState.hpp"
 #include "Audio/SoundManager.h"
+#include "GameStates/SoonState.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -27,6 +28,7 @@ private:
     SoundTestState* soundTestState = nullptr;
     MenuState* menuState = nullptr;
     PlayState* playState = nullptr;
+    SoonState* soonState = nullptr;
     SettingsState* settingsState = nullptr;
     ControlsState* controlsState = nullptr;
     PauseState* pauseState = nullptr;
@@ -50,6 +52,8 @@ public:
     void go_to_controls();
 
     void go_to_pause();
+
+    void go_to_soon();
 
     void quit();
 

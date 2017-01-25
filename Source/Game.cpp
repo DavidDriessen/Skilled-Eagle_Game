@@ -96,6 +96,13 @@ void Game::go_to_pause() {
     iState = pauseState;
 }
 
+void Game::go_to_soon() {
+    if(soonState == nullptr) {
+        soonState = new SoonState(this);
+    }
+    iState = soonState;
+}
+
 void Game::quit() {
     window.close();
 }
