@@ -6,7 +6,8 @@
 #define SKILLED_EAGLE_GAME_POWERUP_HPP
 
 #include <SFML/Graphics.hpp>
-#include "../../Character.hpp"
+
+class Character;
 
 class PowerUp {
     bool available = true;
