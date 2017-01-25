@@ -12,7 +12,6 @@
 #include "GameStates/SplashState.hpp"
 #include "Audio/FmodApi.hpp"
 #include "GameStates/SoundTestState.hpp"
-#include "GameStates/ControllesState.hpp"
 #include "GameStates/ControlsState.hpp"
 #include "GameStates/PauseState.hpp"
 #include "Audio/SoundManager.h"

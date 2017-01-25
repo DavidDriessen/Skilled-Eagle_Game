@@ -1,6 +1,0 @@
-[submodule "BeatDetectorForGames"]
-	path = BeatDetectorForGames
-	url = git@github.com:Terracorrupt/BeatDetectorForGames.git
-[submodule "3rd-party/BeatDetectorForGames"]
-	path = 3rd-party/BeatDetectorForGames
-	url = git@github.com:Terracorrupt/BeatDetectorForGames.git

@@ -10,8 +10,9 @@ Game::Game(sf::RenderWindow &w) : window(w),
                                   playState(new PlayState(this)),
                                   settingsState(new SettingsState(this)),
                                   splashState(new SplashState(this)),
-                                  controllesState(new ControllesState(this)) {
-    iState = soundTestState;
+                                  controlsState(new ControlsState(this)),
+                                  pauseState(new PauseState(this)){
+    iState = splashState;
     sf::Clock clock;
 
     sf::Time timeSinceLastUpdate = sf::Time::Zero;

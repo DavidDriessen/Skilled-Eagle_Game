@@ -19,41 +19,49 @@ include_directories("${PROJECT_BINARY_DIR}")
 # Define sources and executable
 set(EXECUTABLE_NAME ${PROJECT_NAME})
 add_executable(${EXECUTABLE_NAME}
+        #CORE
         Source/main.cpp
-        Source/GameStates/IState.h
-        Source/GameStates/PlayState.cpp
-        Source/GameStates/PlayState.h
-        Source/GameStates/MenuState.cpp
-        Source/GameStates/MenuState.h
-        Source/GameStates/SettingsState.cpp
-        Source/GameStates/SettingsState.h
         Source/Game.cpp
         Source/Game.h
+
+        #STATES
+        Source/GameStates/IState.h
+        Source/GameStates/PlayState.h
+        Source/GameStates/PlayState.cpp
+        Source/GameStates/MenuState.h
+        Source/GameStates/MenuState.cpp
+        Source/GameStates/SettingsState.h
+        Source/GameStates/SettingsState.cpp
+        Source/GameStates/SplashState.hpp
+        Source/GameStates/SplashState.cpp
+        Source/GameStates/SoundTestState.hpp
+        Source/GameStates/SoundTestState.cpp
+        Source/GameStates/ControlsState.cpp
+        Source/GameStates/ControlsState.hpp
+        Source/GameStates/PauseState.cpp
+        Source/GameStates/PauseState.hpp
+        #Environment
         Source/Level.cpp
         Source/Level.h
         Source/ScreenObjects/ScreenObject.cpp
         Source/ScreenObjects/ScreenObject.h
         Source/ScreenObjects/Block.cpp
         Source/ScreenObjects/Block.h
+
+        #GUI
         Source/Menu.cpp
         Source/Menu.hpp
-        Source/GameStates/SplashState.cpp
-        Source/GameStates/SplashState.hpp
-        Source/Audio/FmodApi.cpp
-        Source/Audio/FmodApi.hpp
-        Source/GameStates/SoundTestState.cpp
-        Source/GameStates/SoundTestState.hpp
-        Source/GameStates/ControllesState.cpp
-        Source/GameStates/ControllesState.hpp
+
+        #CHARACTERS
         Source/Character.cpp
         Source/Character.hpp
-        Source/GameStates/ControlsState.cpp
-        Source/GameStates/ControlsState.hpp
         Source/ScreenObjects/items/rangedWeapon.cpp
         Source/ScreenObjects/items/rangedWeapon.hpp
         Source/ScreenObjects/items/weapon.hpp
         Source/ScreenObjects/bullet.cpp
         Source/ScreenObjects/bullet.hpp
+
+        #AUDIO
         Source/Audio/BeatDetector.h
         Source/Audio/BeatDetector.cpp
         Source/Audio/SoundManager.h

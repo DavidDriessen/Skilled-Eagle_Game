@@ -11,7 +11,6 @@ SoundTestState::SoundTestState(Game *pGame) : game(pGame) {
     soundManager->load_song((char *) "./assets/sounds/cyka.mp3");
     soundManager->play();
     soundManager->pause();
-    soundManager->play();
     beatDec = new BeatDetector(soundManager);
 //      for(int i = 0; i < 64; i++) {
 //          shapes[i] = new sf::RectangleShape;
@@ -33,6 +32,7 @@ void SoundTestState::input(sf::Event &event) {
     }
     if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
         soundManager->reset();
+        soundManager->pause();
         game->go_to_menu();
     }
     if (event.key.code == sf::Keyboard::H) {
