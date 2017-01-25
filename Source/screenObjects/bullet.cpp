@@ -34,7 +34,7 @@ bool bullet::collision(ScreenObject &obj) {
 //    return bullet_box.getGlobalBounds().intersects(obj.getFloatrect());
 }
 
-sf::FloatRect &bullet::getFloatrect() {
+sf::FloatRect bullet::getFloatRect() {
     hitbox = bullet_box.getGlobalBounds();
     return hitbox;
 }

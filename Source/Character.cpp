@@ -185,7 +185,7 @@ void Character::stop() {
 
 ScreenObject* Character::collisionWithLevel(Level &level) {
     for(auto &object : level.get_blocks()){
-        if(colRect.intersects(object->getRect())){
+        if(colRect.intersects(object->getFloatRect())){
             return object;
         }
     }

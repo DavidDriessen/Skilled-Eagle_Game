@@ -28,7 +28,3 @@ void Block::update(const sf::Time delta) {
 void Block::draw(sf::RenderWindow &window) {
     window.draw(shape);
 }
-
-sf::Rect<float> Block::getRect() {
-    return sf::Rect<float>();
-}

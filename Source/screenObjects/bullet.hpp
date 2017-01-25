@@ -35,8 +35,7 @@ public:
 
     void set_hasCollision();
 
-    sf::FloatRect &getFloatrect();
-
+    sf::FloatRect getFloatRect();
 
 };
 

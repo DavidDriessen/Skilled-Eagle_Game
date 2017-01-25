@@ -17,7 +17,7 @@ public:
     void input(sf::Event &event);
     void update(const sf::Time delta);
     void draw(sf::RenderWindow & window);
-    sf::Rect<float> getRect();
+    sf::FloatRect getFloatRect();
 };
 
 
