@@ -9,7 +9,8 @@ Game::Game(sf::RenderWindow &w) : window(w), splashState(new SplashState(this)),
     soundManager = new SoundManager();
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
-    window.setView(sf::View(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y)));
+    view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
+    window.setView(view);
 
     while (window.isOpen()) {
         input();
@@ -95,7 +96,7 @@ void Game::go_to_pause() {
     if(pauseState == nullptr) {
         pauseState = new PauseState(this);
     }
-    window.setView(sf::View(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y)));
+    window.setView(view);
     iState = pauseState;
 }
 

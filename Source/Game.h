@@ -22,6 +22,7 @@ private:
     const sf::Time TimePerFrame = sf::seconds(1.f/60.f);
 
     sf::RenderWindow &window;
+    sf::View view;
     IState * iState;
     SoundManager* soundManager = nullptr;
     SplashState* splashState = nullptr;
