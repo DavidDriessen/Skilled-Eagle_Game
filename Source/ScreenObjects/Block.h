@@ -9,10 +9,11 @@
 #include "ScreenObject.h"
 class Block : public ScreenObject {
 private:
+    sf::Texture texture_block;
     sf::RectangleShape shape;
-    sf::FloatRect rect;
+    sf::String file;
 public:
-    Block(sf::Vector2f vec);
+    Block(sf::String file, sf::Vector2f vec, sf::Vector2f size = sf::Vector2f(32, 32));
     ~Block();
     void input(sf::Event &event);
     void update(const sf::Time delta);

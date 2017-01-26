@@ -24,38 +24,50 @@ Level::~Level() {
 
 void Level::init_object(char c, float x, float y) {
     switch (c) {
-    case '-':
-        blocks.push_back(new Block(sf::Vector2f(x, y)));
-        break;
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-        powerUps.push_back(new PowerUp(sf::Vector2f(x, y)));
-        break;
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-        blocks.push_back(new Block(sf::Vector2f(x, y)));
-        break;
-    case 'C':
-        cyber_enforcers.push_back(new CyberEnforcer(*this, sf::Vector2f(x, y - 16)));
-        break;
-    case '@':
-        weapons.push_back(new RangedWeapon("assault", 6, sf::Vector2f(x, y), 7 * 32, sf::milliseconds(200)));
-        break;
-    case '#':
-        weapons.push_back(new RangedWeapon("pistol", 4, sf::Vector2f(x, y), 4 * 32, sf::milliseconds(100)));
-        break;
-    case '!':
-        weapons.push_back(new RangedWeapon("sniper", 8, sf::Vector2f(x, y), 13 * 32, sf::milliseconds(500)));
-        break;
-    default:
-        std::string resultString = "\nUndifined char : ";
-        throw resultString + c + "\n";
+        case '-':
+            blocks.push_back(new Block("floor1.png", sf::Vector2f(x, y)));
+            break;
+        case '*':
+            blocks.push_back(new Block("floor2.png", sf::Vector2f(x, y)));
+            break;
+        case '&':
+            blocks.push_back(new Block("floor3.png", sf::Vector2f(x, y)));
+            break;
+        case '^':
+            blocks.push_back(new Block("floor4.png", sf::Vector2f(x, y)));
+            break;
+        case '$':
+            blocks.push_back(new Block("end.png", sf::Vector2f(x, y), sf::Vector2f(128, 32)));
+            break;
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+            powerUps.push_back(new PowerUp(sf::Vector2f(x, y)));
+            break;
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            powerUps.push_back(new PowerUp(sf::Vector2f(x, y)));
+            break;
+        case 'C':
+            cyber_enforcers.push_back(new CyberEnforcer(*this, sf::Vector2f(x, y - 16)));
+            break;
+        case '@':
+            weapons.push_back(new RangedWeapon("assault", 6, sf::Vector2f(x, y), 7 * 32, sf::milliseconds(200)));
+            break;
+        case '#':
+            weapons.push_back(new RangedWeapon("pistol", 4, sf::Vector2f(x, y), 4 * 32, sf::milliseconds(100)));
+            break;
+        case '!':
+            weapons.push_back(new RangedWeapon("sniper", 8, sf::Vector2f(x, y), 13 * 32, sf::milliseconds(500)));
+            break;
+        default:
+            std::string resultString = "\nUndifined char : ";
+            throw resultString + c + "\n";
     }
 }
 

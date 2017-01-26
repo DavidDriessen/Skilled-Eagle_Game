@@ -9,6 +9,8 @@ Game::Game(sf::RenderWindow &w) : window(w), splashState(new SplashState(this)),
     soundManager = new SoundManager();
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
+    window.setView(sf::View(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y)));
+
     while (window.isOpen()) {
         input();
         sf::Time elapsedTime = clock.restart();

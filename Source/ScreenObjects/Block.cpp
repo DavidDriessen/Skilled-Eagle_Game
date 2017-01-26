@@ -5,12 +5,12 @@
 #include "Block.h"
 #include <iostream>
 
-Block::Block(sf::Vector2f vec) : rect(vec, sf::Vector2f(32, 32)) {
+Block::Block(sf::String file, sf::Vector2f vec, sf::Vector2f size){
+    texture_block.loadFromFile("assets/images/" + file);
     shape.setPosition(vec);
-    shape.setFillColor(sf::Color::Red);
-    shape.setOutlineColor(sf::Color::Black);
-    shape.setOutlineThickness(1.f);
-    shape.setSize(sf::Vector2f(32, 32));
+    shape.setTexture(&texture_block);
+    shape.setSize(size);
+
 }
 
 Block::~Block() {
