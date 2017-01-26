@@ -119,6 +119,7 @@ void Character::jump(const sf::Time delta){
 
 void Character::draw(sf::RenderWindow &window) {
     sprite.setPosition(position);
+    window.setView(sf::View(sf::Vector2f(colRect.left, colRect.top-(window.getSize().y/6)) ,sf::Vector2f(window.getSize().x, window.getSize().y)));
     window.draw(sprite);
 }
 

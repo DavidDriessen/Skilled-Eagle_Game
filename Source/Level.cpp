@@ -25,7 +25,7 @@ Level::~Level() {
 void Level::init_object(char c, float x, float y) {
     switch (c) {
         case '-':
-            blocks.push_back(new Block("floor1.png", sf::Vector2f(x, y)));
+            blocks.push_back(new Block("floor.png", sf::Vector2f(x, y)));
             break;
         case '*':
             blocks.push_back(new Block("floor2.png", sf::Vector2f(x, y)));
