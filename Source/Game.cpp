@@ -93,6 +93,7 @@ void Game::go_to_pause() {
     if(pauseState == nullptr) {
         pauseState = new PauseState(this);
     }
+    window.setView(sf::View(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y)));
     iState = pauseState;
 }
 
@@ -116,7 +117,6 @@ void Game::update_debug(sf::Time dt) {
     mStatisticsUpdateTime += dt;
     mStatisticsNumFrames += 1;
     if (mStatisticsUpdateTime >= sf::seconds(1.0f)) {
-        std::cout << "FPS: " + std::to_string(mStatisticsNumFrames) << "\n";
         mStatisticsUpdateTime -= sf::seconds(1.0f);
         mStatisticsNumFrames = 0;
     }

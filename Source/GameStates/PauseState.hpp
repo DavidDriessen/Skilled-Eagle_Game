@@ -13,10 +13,11 @@ class Game;
 
 class PauseState : public IState, public Menu {
 private:
+    int temp =512;
     Game *game;
     std::vector<std::function<void(void)>> actions;
     std::vector<sf::String> btn = {
-            "HighScore:    ",
+            "HighScore:",
             "Resume",
             "Options",
             "Main Menu"};

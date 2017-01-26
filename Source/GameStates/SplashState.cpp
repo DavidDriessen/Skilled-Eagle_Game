@@ -26,7 +26,9 @@ SplashState::SplashState(Game *pGame ){
 
 
 void SplashState::input(sf::Event &event) {
-
+    if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        game->go_to_menu();
+    }
 }
 
 

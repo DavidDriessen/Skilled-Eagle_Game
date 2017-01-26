@@ -24,5 +24,6 @@ void PauseState::update(const sf::Time delta) {
 }
 
 void PauseState::draw(sf::RenderWindow &window) {
+    btn[0] = sf::String("HighScore: ") + std::to_string(temp);
     Menu::draw(window, btn);
 }
