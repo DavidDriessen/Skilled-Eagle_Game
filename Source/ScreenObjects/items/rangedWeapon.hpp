@@ -23,7 +23,7 @@ private:
     int range;
     bool is_owned = false;
     bool right_direction = true;
-    float bullit_speed_from_gun = 10;
+    float bullet_speed_from_gun = 10;
 public:
     RangedWeapon(std::string s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown);
     bool get_is_owned() const {
@@ -38,11 +38,11 @@ public:
     std::string get_type() {
         return "ranged";
     }
-    float get_bullit_speed() const {
-        return bullit_speed_from_gun;
+    float get_bullet_speed() const {
+        return bullet_speed_from_gun;
     }
-    void set_bullit_speed(float speed) {
-        bullit_speed_from_gun = speed;
+    void set_bullet_speed(float speed) {
+        bullet_speed_from_gun = speed;
     }
     int get_range() {
         return range;
