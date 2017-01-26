@@ -5,7 +5,6 @@
 #ifndef SKILLED_EAGLE_GAME_SOUNDTESTSTATE_HPP
 #define SKILLED_EAGLE_GAME_SOUNDTESTSTATE_HPP
 
-#include "../Audio/FmodApi.hpp"
 #include <SFML/Graphics.hpp>
 #include "IState.h"
 #include "../Audio/SoundManager.h"

@@ -10,7 +10,6 @@
 #include "GameStates/SettingsState.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/SplashState.hpp"
-#include "Audio/FmodApi.hpp"
 #include "GameStates/SoundTestState.hpp"
 #include "GameStates/ControlsState.hpp"
 #include "GameStates/PauseState.hpp"
