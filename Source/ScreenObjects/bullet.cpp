@@ -24,7 +24,7 @@ void Bullet::draw(sf::RenderWindow &window) {
 
 void Bullet::update(sf::Time delta) {
     position += direction;
-    fly_distance-= direction.x;
+    fly_distance-= fabs(direction.x);
 }
 
 void Bullet::set_hasCollision() {

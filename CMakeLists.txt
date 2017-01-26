@@ -55,6 +55,8 @@ add_executable(${EXECUTABLE_NAME}
         #CHARACTERS
         Source/Character.cpp
         Source/Character.hpp
+        Source/ScreenObjects/enemies/CyberEnforcer.h
+        Source/ScreenObjects/enemies/CyberEnforcer.cpp
         Source/ScreenObjects/items/rangedWeapon.cpp
         Source/ScreenObjects/items/rangedWeapon.hpp
         Source/ScreenObjects/items/weapon.hpp

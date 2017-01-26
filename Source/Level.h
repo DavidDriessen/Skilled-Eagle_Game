@@ -9,7 +9,7 @@
 #include <fstream>
 #include "ScreenObjects/ScreenObject.h"
 #include "ScreenObjects/Block.h"
-#include "ScreenObjects/enemys/CyberEnforcer.h"
+#include "ScreenObjects/enemies/CyberEnforcer.h"
 #include "Character.hpp"
 #include "ScreenObjects/items/Weapon.hpp"
 #include "screenObjects/items/PowerUp.hpp"
