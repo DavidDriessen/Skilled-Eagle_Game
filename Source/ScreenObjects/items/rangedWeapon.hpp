@@ -15,7 +15,7 @@ private:
     sf::Vector2f position;
     sf::Sprite sprite;
     sf::Texture texture;
-    std::vector<std::unique_ptr<bullet>> bulletVector;
+    std::vector<std::unique_ptr<Bullet>> bulletVector;
     sf::Vector2f direction;
     sf::Clock clock;
     sf::Time cooldownPeriod = sf::milliseconds(200);
@@ -23,8 +23,9 @@ private:
     int range;
     bool is_owned = false;
     bool right_direction = true;
+    float bullit_speed_from_gun = 10;
 public:
-    RangedWeapon(std::string s, int damage, sf::Vector2f playerPosition, int range);
+    RangedWeapon(std::string s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown);
     bool get_is_owned() const {
         return is_owned;
     }
@@ -35,8 +36,13 @@ public:
         return name;
     }
     std::string get_type() {
-        std::string type = "ranged";
-        return type;
+        return "ranged";
+    }
+    float get_bullit_speed() const {
+        return bullit_speed_from_gun;
+    }
+    void set_bullit_speed(float speed) {
+        bullit_speed_from_gun = speed;
     }
     int get_range() {
         return range;

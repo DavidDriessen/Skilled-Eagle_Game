@@ -51,8 +51,10 @@ void Character::grab_for_weapon(std::vector<Weapon*> &weapons) {
 
 void Character::attack() {
     if(weapon != nullptr) {
-        int s = directionRight ? 3 : -3;
-        weapon->set_direction(sf::Vector2f(s, 0));
+        if(weapon->get_type() == "ranged") {
+            int s = directionRight ? 10 : -10;
+            weapon->set_direction(sf::Vector2f(s, 0));
+        }
         weapon->use();
     }
 }

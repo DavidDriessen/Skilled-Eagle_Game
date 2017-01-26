@@ -8,13 +8,15 @@
 #include <iostream>
 #include <vector>
 #include "../ScreenObject.h"
-#include "../bullet.hpp"
+#include "../Bullet.hpp"
 
 class Weapon{
 public:
     virtual std::string get_name() = 0;
     virtual std::string get_type() = 0;
     virtual int get_range() = 0;
+    virtual float get_bullit_speed() const = 0;
+    virtual void set_bullit_speed(float speed) = 0;
     virtual void update() = 0;
     virtual void use() = 0;
     virtual bool get_is_owned() const = 0;

@@ -2,39 +2,41 @@
 // Created by jer on 19-1-2017.
 //
 
-#include "bullet.hpp"
+#include "Bullet.hpp"
 
-bullet::bullet(std::string s, sf::Vector2f newPosition, int damage, sf::Vector2f direction, sf::Color color,
+Bullet::Bullet(std::string s, sf::Vector2f newPosition, int damage, sf::Vector2f direction, float fly_range, sf::Color color,
                sf::Vector2f size) :
         color(color),
         size(size),
         bullet_box(sf::RectangleShape(size)),
         damage(damage),
-        direction(direction) {
+        direction(direction),
+        fly_distance(fly_range){
     bullet_box.setFillColor(color);
     name = s;
     position = newPosition;;
 }
 
-void bullet::draw(sf::RenderWindow &window) {
+void Bullet::draw(sf::RenderWindow &window) {
     bullet_box.setPosition(position);
     window.draw(bullet_box);
 }
 
-void bullet::update(sf::Time delta) {
+void Bullet::update(sf::Time delta) {
     position += direction;
+    fly_distance-= direction.x;
 }
 
-void bullet::set_hasCollision() {
+void Bullet::set_hasCollision() {
     hasCollision = true;
 }
 
-bool bullet::collision(ScreenObject &obj) {
+bool Bullet::collision(ScreenObject &obj) {
     return false;
 //    return bullet_box.getGlobalBounds().intersects(obj.getFloatrect());
 }
 
-sf::FloatRect bullet::getFloatRect() {
+sf::FloatRect Bullet::getFloatRect() {
     hitbox = bullet_box.getGlobalBounds();
     return hitbox;
 }

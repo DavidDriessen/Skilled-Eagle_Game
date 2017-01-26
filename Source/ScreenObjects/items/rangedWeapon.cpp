@@ -4,11 +4,12 @@
 
 #include "RangedWeapon.hpp"
 
-RangedWeapon::RangedWeapon(std::string s, int damage, sf::Vector2f playerPosition, int range) :
+RangedWeapon::RangedWeapon(std::string s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown) :
         name(s),
         damage(damage),
         position(playerPosition),
-        range(range){
+        range(range),
+        cooldownPeriod(cooldown){
     std::string path = "assets/images/"+ s + ".png";
     texture.loadFromFile(path);
     sprite.setTexture(texture);
@@ -18,19 +19,19 @@ RangedWeapon::RangedWeapon(std::string s, int damage, sf::Vector2f playerPositio
 
 
 void RangedWeapon::update() {
-    for (std::unique_ptr<bullet> &kogel  : bulletVector) {
+    for (std::unique_ptr<Bullet> &kogel  : bulletVector) {
         kogel->update(sf::Time::Zero);
     }
 
-    bulletVector.erase(std::remove_if(bulletVector.begin(), bulletVector.end(), [](std::unique_ptr<bullet> &kogel) {
-                                          return kogel->hasCollision;
+    bulletVector.erase(std::remove_if(bulletVector.begin(), bulletVector.end(), [](std::unique_ptr<Bullet> &kogel) {
+                                          return kogel->hasCollision || kogel->is_fly_distance_reached();
                                       }
     ), bulletVector.end());
     cooldown = clock.getElapsedTime();
 }
 
 void RangedWeapon::draw(sf::RenderWindow &window) {
-    for (std::unique_ptr<bullet> &kogel  : bulletVector) {
+    for (std::unique_ptr<Bullet> &kogel  : bulletVector) {
         kogel->draw(window);
     }
     window.draw(sprite);
@@ -54,14 +55,14 @@ void RangedWeapon::use() {
         sf::Vector2f spawnVec = position;
         spawnVec.x += right_direction ? 0 : -sprite.getTextureRect().width / 2;
         spawnVec.y += 10;
-        bulletVector.push_back(std::make_unique<bullet>("bullet", spawnVec, 20, direction));
+        bulletVector.push_back(std::make_unique<Bullet>("Bullet", spawnVec, 20, direction, range));
         cooldown = sf::Time::Zero;
         clock.restart();
     }
 }
 
 void RangedWeapon::check_collision(ScreenObject &obj) {
-    for (std::unique_ptr<bullet> &kogel  : bulletVector) {
+    for (std::unique_ptr<Bullet> &kogel  : bulletVector) {
         if (kogel->collision(obj)) {
             kogel->set_hasCollision();
         }

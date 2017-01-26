@@ -45,13 +45,13 @@ void Level::init_object(char c, float x, float y) {
         cyber_enforcers.push_back(new CyberEnforcer(*this, sf::Vector2f(x, y - 16)));
         break;
     case '@':
-        weapons.push_back(new RangedWeapon("pistol1", 2, sf::Vector2f(x, y), 15 * 32));
+        weapons.push_back(new RangedWeapon("assault", 6, sf::Vector2f(x, y), 7 * 32, sf::milliseconds(200)));
         break;
     case '#':
-        weapons.push_back(new RangedWeapon("pistol", 2, sf::Vector2f(x, y), 15 * 32));
+        weapons.push_back(new RangedWeapon("pistol", 4, sf::Vector2f(x, y), 4 * 32, sf::milliseconds(100)));
         break;
     case '!':
-        weapons.push_back(new RangedWeapon("pistol2", 2, sf::Vector2f(x, y), 15 * 32));
+        weapons.push_back(new RangedWeapon("sniper", 8, sf::Vector2f(x, y), 13 * 32, sf::milliseconds(500)));
         break;
     default:
         std::string resultString = "\nUndifined char : ";
