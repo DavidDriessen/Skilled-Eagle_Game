@@ -53,6 +53,8 @@ public:
 
     void go_to_pause();
 
+    void go_to_test();
+
     void go_to_soon();
 
     void quit();
