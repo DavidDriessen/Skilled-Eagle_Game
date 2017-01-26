@@ -8,7 +8,6 @@
 #include <SFML/Graphics.hpp>
 #include "ScreenObjects/items/Weapon.hpp"
 #include "ScreenObjects/items/RangedWeapon.hpp"
-#include "Level.h"
 class Level;
 class PowerUp;
 

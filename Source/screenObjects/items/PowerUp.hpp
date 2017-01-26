@@ -6,9 +6,7 @@
 #define SKILLED_EAGLE_GAME_POWERUP_HPP
 
 #include <SFML/Graphics.hpp>
-
 class Character;
-
 class PowerUp {
     bool available = true;
     sf::Image img;

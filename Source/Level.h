@@ -14,7 +14,6 @@
 #include "ScreenObjects/items/Weapon.hpp"
 #include "screenObjects/items/PowerUp.hpp"
 class CyberEnforcer;
-
 class Level {
 private:
     std::vector<ScreenObject*> blocks;
