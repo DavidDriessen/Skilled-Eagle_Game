@@ -22,6 +22,8 @@ public:
     void set_StatusBar(float newCurrentStatus, sf::Vector2f position);
     void set_StatusBar_hudSize();
     float Calculate_percentage_of(float  newCurrentstatus ,float maximumOfStatus);
+
+    sf::FloatRect getFloatRect();
 private:
 
     std::string name;
