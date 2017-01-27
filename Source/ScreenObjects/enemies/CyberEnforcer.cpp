@@ -5,7 +5,7 @@
 #include "CyberEnforcer.h"
 #include "../../Level.h"
 #include <iostream>
-CyberEnforcer::CyberEnforcer(Level &lvl, sf::Vector2f vec) : level(lvl), character(new Character(vec, 0.3, 0.1, 10, 172, 260, 0.2, lvl)){
+CyberEnforcer::CyberEnforcer(sf::Texture t, Level &lvl, sf::Vector2f vec) : level(lvl), character(new Character(t, vec, 0.3, 0.1, 10, 172, 260, 0.2, lvl)){
 
 }
 

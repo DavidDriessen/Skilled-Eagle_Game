@@ -7,7 +7,7 @@
 #include "Level.h"
 #include "ScreenObjects/PowerUp.hpp"
 
-Character::Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level) {
+Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level) {
     this->position = startPos;
     this->gravity = gravity;
     this->speed = speed;
@@ -16,7 +16,7 @@ Character::Character(sf::Vector2f startPos, float gravity, float speed, float ju
     this->sprite_height = sprite_height;
     this->sprite_scale = sprite_scale;
     this->level = &level;
-    img.loadFromFile("assets/images/Nuken.png");
+    img = text.copyToImage();
     img.createMaskFromColor(sf::Color::Magenta);
     texture.loadFromImage(img);
     sprite.setTexture(texture);

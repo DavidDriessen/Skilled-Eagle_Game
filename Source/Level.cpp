@@ -4,9 +4,10 @@
 
 #include <SFML/System/Vector2.hpp>
 #include "Level.h"
+#include "Game.h"
 #include <iostream>
 
-Level::Level(const char * location) : player(sf::Vector2f(100, 100), 0.3, 0.4, 10, 172, 260, 0.2, *this) {
+Level::Level(const char * location, Game* game) : game(game), player(game->getTextures().get(Textures::Cyber),sf::Vector2f(100, 100), 0.3, 0.4, 10, 172, 260, 0.2, *this) {
     std::string loc = location;
     init_new_map(loc);
 }
@@ -25,45 +26,45 @@ Level::~Level() {
 void Level::init_object(char c, float x, float y) {
     switch (c) {
         case '-':
-            blocks.push_back(new Block("floor.png", sf::Vector2f(x, y)));
+            blocks.push_back(new Block(game->getTextures().get(Textures::Floor), sf::Vector2f(x, y)));
             break;
         case '*':
-            blocks.push_back(new Block("floor2.png", sf::Vector2f(x, y)));
+            blocks.push_back(new Block(game->getTextures().get(Textures::Floor2), sf::Vector2f(x, y)));
             break;
         case '&':
-            blocks.push_back(new Block("floor3.png", sf::Vector2f(x, y)));
+            blocks.push_back(new Block(game->getTextures().get(Textures::Floor3), sf::Vector2f(x, y)));
             break;
         case '^':
-            blocks.push_back(new Block("floor4.png", sf::Vector2f(x, y)));
+            blocks.push_back(new Block(game->getTextures().get(Textures::Floor4), sf::Vector2f(x, y)));
             break;
         case '$':
-            blocks.push_back(new Block("end.png", sf::Vector2f(x, y), sf::Vector2f(128, 32)));
+            blocks.push_back(new Block(game->getTextures().get(Textures::Finish), sf::Vector2f(x, y), sf::Vector2f(128, 32)));
             break;
         case '0':
         case '1':
         case '2':
         case '3':
         case '4':
-            powerUps.push_back(new PowerUp(sf::Vector2f(x, y)));
+            powerUps.push_back(new PowerUp(game->getTextures().get(Textures::Loot), game->getTextures().get(Textures::LootUsed), sf::Vector2f(x, y)));
             break;
         case '5':
         case '6':
         case '7':
         case '8':
         case '9':
-            powerUps.push_back(new PowerUp(sf::Vector2f(x, y)));
+            powerUps.push_back(new PowerUp(game->getTextures().get(Textures::Loot), game->getTextures().get(Textures::LootUsed), sf::Vector2f(x, y)));
             break;
         case 'C':
-            cyber_enforcers.push_back(new CyberEnforcer(*this, sf::Vector2f(x, y - 16)));
+            cyber_enforcers.push_back(new CyberEnforcer(game->getTextures().get(Textures::Cyber), *this, sf::Vector2f(x, y - 16)));
             break;
         case '@':
-            weapons.push_back(new RangedWeapon("assault", 6, sf::Vector2f(x, y), 7 * 32, sf::milliseconds(200)));
+            weapons.push_back(new RangedWeapon(game->getTextures().get(Textures::Assault), 6, sf::Vector2f(x, y), 7 * 32, sf::milliseconds(200)));
             break;
         case '#':
-            weapons.push_back(new RangedWeapon("pistol", 4, sf::Vector2f(x, y), 4 * 32, sf::milliseconds(100)));
+            weapons.push_back(new RangedWeapon(game->getTextures().get(Textures::Pistol), 4, sf::Vector2f(x, y), 4 * 32, sf::milliseconds(100)));
             break;
         case '!':
-            weapons.push_back(new RangedWeapon("sniper", 8, sf::Vector2f(x, y), 13 * 32, sf::milliseconds(500)));
+            weapons.push_back(new RangedWeapon(game->getTextures().get(Textures::Sniper), 8, sf::Vector2f(x, y), 13 * 32, sf::milliseconds(500)));
             break;
         case 'P':
             player.set_position({x, y});

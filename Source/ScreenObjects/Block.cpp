@@ -5,8 +5,8 @@
 #include "Block.h"
 #include <iostream>
 
-Block::Block(sf::String file, sf::Vector2f vec, sf::Vector2f size){
-    texture_block.loadFromFile("assets/images/" + file);
+Block::Block(sf::Texture t, sf::Vector2f vec, sf::Vector2f size){
+    texture_block = sf::Texture(t);
     shape.setPosition(vec);
     shape.setTexture(&texture_block);
     shape.setSize(size);

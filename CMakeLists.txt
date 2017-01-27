@@ -42,6 +42,7 @@ add_executable(${EXECUTABLE_NAME}
         Source/GameStates/PauseState.hpp
         Source/GameStates/SoonState.cpp
         Source/GameStates/SoonState.hpp
+
         #Environment
         Source/Level.cpp
         Source/Level.h
@@ -73,9 +74,14 @@ add_executable(${EXECUTABLE_NAME}
         Source/Audio/BeatDetector.cpp
         Source/Audio/SoundManager.h
         Source/Audio/SoundManager.cpp
-        Source/Audio/BeatListener.hpp
-        )
+        Source/GameStates/PauseState.cpp
+        Source/GameStates/PauseState.hpp
 
+        #Utility
+        Source/Utility/ResourceHolder.hpp
+        Source/Utility/ResourceIdentifiers.hpp
+        Source/Utility/ResourceHolder.inl
+        )
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 #Find any version 2.X of SFML

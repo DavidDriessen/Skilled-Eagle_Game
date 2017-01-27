@@ -20,7 +20,7 @@ class Menu {
     sf::RectangleShape shape;
     sf::RectangleShape hover;
 public:
-    Menu(float width = 400, float height = 400, int start = 0);
+    Menu(sf::Font f, float width = 400, float height = 400, int start = 0);
 
     void draw(sf::RenderWindow &window, std::vector<sf::String> txt);
 

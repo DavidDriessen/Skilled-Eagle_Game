@@ -5,7 +5,7 @@
 #include "MenuState.h"
 #include "../Game.h"
 
-MenuState::MenuState(Game *pGame) : Menu(600, 500) {
+MenuState::MenuState(Game *pGame) : Menu(pGame->getFonts().get(Fonts::Default), 600, 500) {
     game = pGame;
     actions.push_back([&]() { game->go_to_play(); });
     actions.push_back([&]() { game->go_to_test(); });

@@ -7,7 +7,7 @@
 #include "PlayState.h"
 #include "../Game.h"
 
-PlayState::PlayState(Game *pGame, SoundManager* soundManager): level("assets/Levels/awesomeLevel.txt") {
+PlayState::PlayState(Game *pGame, SoundManager* soundManager): level("assets/Levels/awesomeLevel.txt", pGame) {
     game = pGame;
     this->soundManager = soundManager;
     soundManager->load_song((char *) "./assets/sounds/cyka.mp3");

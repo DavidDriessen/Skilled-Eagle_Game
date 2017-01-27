@@ -19,7 +19,7 @@ class PowerUp {
     bool activated = false;
 
 public:
-    PowerUp(sf::Vector2<float> vector2);
+    PowerUp(sf::Texture active, sf::Texture used, sf::Vector2<float> vector2);
     void update(const sf::Time delta, Character &player);
     void draw(sf::RenderWindow & window);
     int getFunction();

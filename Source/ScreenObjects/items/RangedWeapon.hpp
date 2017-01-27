@@ -10,7 +10,6 @@
 class RangedWeapon : public Weapon {
 private:
     int damage;
-    std::string name;
     sf::Vector2f position;
     sf::Sprite sprite;
     sf::Texture texture;
@@ -24,15 +23,12 @@ private:
     bool right_direction = true;
     float bullet_speed_from_gun = 10;
 public:
-    RangedWeapon(std::string s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown);
+    RangedWeapon(sf::Texture s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown);
     bool get_is_owned() const {
         return is_owned;
     }
     void set_is_owned(bool owned) {
         is_owned = owned;
-    }
-    std::string get_name() {
-        return name;
     }
     std::string get_type() {
         return "ranged";

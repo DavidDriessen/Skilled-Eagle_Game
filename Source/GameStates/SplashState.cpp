@@ -10,15 +10,15 @@ SplashState::SplashState() {
 SplashState::SplashState(Game *pGame ){
     game = pGame;
 
-    texture_name.loadFromFile("assets/images/splashName.png");
+    texture_name = sf::Texture(pGame->getTextures().get(Textures::SplashName));
     sprite_name.setTexture(texture_name);
     sprite_name.setPosition(0,0);
 
-    texture_eagle.loadFromFile("assets/images/splashScreen.png");
+    texture_eagle = sf::Texture(pGame->getTextures().get(Textures::SplashScreen));
     sprite_eagle.setTexture(texture_eagle);
     sprite_eagle.setPosition(0,0);
 
-    texture_presents.loadFromFile("assets/images/splashPresents.png");
+    texture_presents = sf::Texture(pGame->getTextures().get(Textures::SplashPresents));
     sprite_presents.setTexture(texture_presents);
     sprite_presents.setPosition(0,0);
 

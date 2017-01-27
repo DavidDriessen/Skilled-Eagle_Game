@@ -17,7 +17,7 @@ private:
     sf::Clock clock;
     bool direction;
 public:
-    CyberEnforcer(Level &lvl, sf::Vector2f vec);
+    CyberEnforcer(sf::Texture t, Level &lvl, sf::Vector2f vec);
     ~CyberEnforcer();
     Character* get_character();
     void input(sf::Event &event);

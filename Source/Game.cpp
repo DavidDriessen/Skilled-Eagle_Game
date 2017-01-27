@@ -4,9 +4,11 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow &w) : window(w), splashState(new SplashState(this)), controlsState(new ControlsState(this)){
+Game::Game(sf::RenderWindow &w) : window(w){
+    loadResources();
+    this->splashState = new SplashState(this);
+    iState = splashState;
     soundManager = new SoundManager();
-    iState = new PlayState(this, soundManager);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
@@ -33,6 +35,24 @@ Game::~Game() {
     delete settingsState;
 }
 
+void Game::loadResources() {
+    fonts.load(Fonts::Default, "./assets/font.ttf");
+    textures.load(Textures::SplashScreen, "./assets/images/splashScreen.png");
+    textures.load(Textures::SplashName, "./assets/images/splashName.png");
+    textures.load(Textures::SplashPresents, "./assets/images/splashPresents.png");
+    textures.load(Textures::Sniper, "./assets/images/sniper.png");
+    textures.load(Textures::Assault, "./assets/images/assault.png");
+    textures.load(Textures::Pistol, "./assets/images/pistol.png");
+    textures.load(Textures::Floor, "./assets/images/floor.png");
+    textures.load(Textures::Floor2, "./assets/images/floor2.png");
+    textures.load(Textures::Floor3, "./assets/images/floor3.png");
+    textures.load(Textures::Floor4, "./assets/images/floor4.png");
+    textures.load(Textures::Finish, "./assets/images/end.png");
+    textures.load(Textures::Cyber, "./assets/images/Nuken.png");
+    textures.load(Textures::Loot, "./assets/images/loot.png");
+    textures.load(Textures::LootUsed, "./assets/images/loot2.png");
+}
+
 void Game::input() {
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -54,6 +74,7 @@ void Game::draw() {
 
 void Game::go_to_play() {
     if(playState == nullptr) {
+        controlsState = new ControlsState(this);
         playState = new PlayState(this, soundManager);
     }
     iState = playState;

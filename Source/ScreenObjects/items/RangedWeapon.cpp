@@ -4,14 +4,12 @@
 
 #include "RangedWeapon.hpp"
 
-RangedWeapon::RangedWeapon(std::string s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown) :
-        name(s),
+RangedWeapon::RangedWeapon(sf::Texture s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown) :
         damage(damage),
         position(playerPosition),
         range(range),
         cooldownPeriod(cooldown){
-    std::string path = "assets/images/"+ s + ".png";
-    texture.loadFromFile(path);
+    texture = sf::Texture(s);
     sprite.setTexture(texture);
     sprite.setPosition(playerPosition);
     sprite.scale(0.6,0.6);

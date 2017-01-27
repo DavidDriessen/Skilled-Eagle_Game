@@ -5,8 +5,8 @@
 #include "Menu.hpp"
 #include "GameStates/IState.h"
 
-Menu::Menu(float width, float height, int start) : width(width), height(height), start(start), selected(start - 1), shape({width, height}) {
-    font.loadFromFile("./assets/font.ttf");
+Menu::Menu(sf::Font f, float width, float height, int start) : width(width), height(height), start(start), selected(start - 1), shape({width, height}) {
+    font = sf::Font(f);
     shape.setFillColor(sf::Color::Black);
     shape.setOutlineColor(sf::Color::Yellow);
     shape.setOutlineThickness(5);

@@ -6,7 +6,7 @@
 #include "ControlsState.hpp"
 #include "../Game.h"
 
-ControlsState::ControlsState(Game *pGame) : Menu(600, 500) {
+ControlsState::ControlsState(Game *pGame) : Menu(pGame->getFonts().get(Fonts::Default), 600, 500) {
     game = pGame;
     font.loadFromFile("./assets/font.ttf");
     shape.setSize({500, 150});

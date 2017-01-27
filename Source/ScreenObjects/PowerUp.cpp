@@ -5,11 +5,9 @@
 #include "PowerUp.hpp"
 #include "../Character.hpp"
 
-PowerUp::PowerUp(sf::Vector2f vec) : rect(vec, sf::Vector2f(32, 32)) {
-    img.loadFromFile("assets/images/loot2.png");
-    img2.loadFromFile("assets/images/loot.png");
-    texture.loadFromImage(img);
-    texture2.loadFromImage(img2);
+PowerUp::PowerUp(sf::Texture active, sf::Texture used, sf::Vector2f vec) : rect(vec, sf::Vector2f(32, 32)) {
+    texture = sf::Texture(active);
+    texture2 = sf::Texture(used);
     sprite.setPosition(rect.left, rect.top);
     sprite.setTexture(texture);
     sprite.setScale(1, 1);

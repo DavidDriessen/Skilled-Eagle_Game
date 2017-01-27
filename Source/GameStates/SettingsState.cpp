@@ -6,7 +6,7 @@
 #include "SettingsState.h"
 #include "../Game.h"
 
-SettingsState::SettingsState(Game *pGame) : Menu(600, 500) {
+SettingsState::SettingsState(Game *pGame) : Menu(pGame->getFonts().get(Fonts::Default), 600, 500) {
     game = pGame;
     actions.push_back([&]() {
         res += direction;

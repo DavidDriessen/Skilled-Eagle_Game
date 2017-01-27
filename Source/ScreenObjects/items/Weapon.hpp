@@ -12,7 +12,6 @@
 
 class Weapon{
 public:
-    virtual std::string get_name() = 0;
     virtual std::string get_type() = 0;
     virtual int get_range() = 0;
     virtual float get_bullet_speed() const = 0;

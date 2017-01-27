@@ -37,7 +37,7 @@ class Character {
         void animation();
         Weapon * weapon = nullptr;
     public:
-        Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level);
+        Character(sf::Texture t, sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level);
         sf::Sprite &get_sprite();
         Weapon * get_weapon();
         void assign_weapon(Weapon *new_weapon);

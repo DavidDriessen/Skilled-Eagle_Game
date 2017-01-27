@@ -15,6 +15,8 @@
 #include "GameStates/PauseState.hpp"
 #include "Audio/SoundManager.h"
 #include "GameStates/SoonState.hpp"
+#include "Utility/ResourceHolder.hpp"
+#include "Utility/ResourceIdentifiers.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -34,8 +36,10 @@ private:
     ControlsState* controlsState = nullptr;
     PauseState* pauseState = nullptr;
     sf::Time mStatisticsUpdateTime;
-
     std::size_t mStatisticsNumFrames;
+    TextureHolder textures;
+    FontHolder fonts;
+    void loadResources();
 public:
     Game(sf::RenderWindow &w);
 
@@ -69,6 +73,14 @@ public:
     void update_debug(sf::Time dt);
 
     ControlsState* getControls();
+
+    const TextureHolder &getTextures() const {
+        return textures;
+    }
+
+    const FontHolder &getFonts() const {
+        return fonts;
+    }
 };
 
 

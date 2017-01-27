@@ -13,6 +13,8 @@
 #include "Character.hpp"
 #include "ScreenObjects/items/Weapon.hpp"
 #include "ScreenObjects/PowerUp.hpp"
+
+class Game;
 class CyberEnforcer;
 class Level {
 private:
@@ -21,9 +23,10 @@ private:
     std::vector<CyberEnforcer*> cyber_enforcers;
     std::vector<Weapon*> weapons;
     Character player;
+    Game *game = nullptr;
     void init_object(char c, float x, float y);
 public:
-    Level(const char *location);
+    Level(const char *location, Game* game);
     ~Level();
     std::vector<ScreenObject*> &get_blocks();
     std::vector<PowerUp*> &get_powerUps();
