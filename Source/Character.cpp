@@ -322,13 +322,12 @@ void Character::setSpeed(float s) {
     speed = s;
 }
 
-StatusBar * Character::get_statusBar(bool choose) {
-    if(choose){
+StatusBar * Character::get_HealthBar() {
         return healthBar;
-    }
-    else{
+}
+
+StatusBar * Character::get_StaminaBar() {
         return staminaBar;
-    }
 }
 
 
