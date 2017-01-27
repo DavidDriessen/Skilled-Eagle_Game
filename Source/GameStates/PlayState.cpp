@@ -23,6 +23,7 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
     (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); });
     (*game->getControls()).assign_pressed(GrabWeapon, [&]() { level.get_player().grab_for_weapon(level.get_weapons()); });
     (*game->getControls()).assign_pressed(ActivatePowerup, [&](){level.get_player().get_powerUp()->setActive(true); });
+    game->getOverlay()->addDebugValue("BPM", std::to_string(beatDec->get_tempo()));
 }
 
 void PlayState::input(sf::Event &event) {
@@ -61,9 +62,11 @@ void PlayState::update(const sf::Time delta) {
     for (auto &gun : level.get_weapons()) {
         gun->update();
     }
+    game->getOverlay()->addDebugValue("SPEED", std::to_string(level.get_player().getSpeed()));
 }
 
 void PlayState::draw(sf::RenderWindow &window) {
+    game->getView()->setCenter(sf::Vector2f(level.get_player().getPosition().x, level.get_player().getPosition().y-(game->get_window()->getSize().y/6)));
     level.get_player().draw(window);
     for (auto &object : level.get_powerUps()) {
         object->draw(window);

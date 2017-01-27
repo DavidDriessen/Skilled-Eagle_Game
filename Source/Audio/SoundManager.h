@@ -35,6 +35,9 @@ public:
     std::string getSoundName() {
         return loadedSoundName;
     }
+
+    int get_current_time_MS();
+
 private:
     FMOD_SYSTEM *system;
     FMOD_SOUND *backgroundMusic;

@@ -6,6 +6,7 @@
 
 Game::Game(sf::RenderWindow &w) : window(w){
     loadResources();
+    this->overlay = new DebugOverlay(this);
     this->splashState = new SplashState(this);
     iState = splashState;
     soundManager = new SoundManager();
@@ -58,17 +59,27 @@ void Game::input() {
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             window.close();
+        if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde)) {
+            overlay->toggleHide();
+        }
         iState->input(event);
     }
 }
 
 void Game::update(const sf::Time delta) {
+    overlay->setPos(view.getCenter()-view.getSize()/2.0f);
+    overlay->addDebugValue("PITCH", std::to_string(soundManager->get_pitch()));
+    overlay->addDebugValue("DURATION", std::to_string(soundManager->get_current_time_MS()));
+    overlay->update(delta);
     iState->update(delta);
+    update_debug(delta);
 }
 
 void Game::draw() {
     window.clear();
+    window.setView(view);
     iState->draw(window);
+    overlay->draw(window);
     window.display();
 }
 
@@ -124,7 +135,7 @@ void Game::go_to_pause() {
     if (pauseState == nullptr) {
         pauseState = new PauseState(this);
     }
-    window.setView(view);
+    view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
     iState = pauseState;
 }
 
@@ -149,6 +160,7 @@ void Game::update_debug(sf::Time dt) {
     mStatisticsNumFrames += 1;
     if (mStatisticsUpdateTime >= sf::seconds(1.0f)) {
         mStatisticsUpdateTime -= sf::seconds(1.0f);
+        overlay->addDebugValue("FPS", std::to_string(mStatisticsNumFrames));
         mStatisticsNumFrames = 0;
     }
 }
@@ -165,4 +177,28 @@ void Game::set_level(std::string level_name) {
     } else {
         playState->set_level(map);
     }
+}
+
+sf::View* Game::getView() {
+    return &view;
+}
+
+void Game::setView(sf::View &view) {
+    Game::view = view;
+}
+
+sf::RenderWindow *Game::get_window() {
+    return &window;
+}
+
+const TextureHolder &Game::getTextures() const {
+    return textures;
+}
+
+const FontHolder &Game::getFonts() const {
+    return fonts;
+}
+
+DebugOverlay *Game::getOverlay() const {
+    return overlay;
 }

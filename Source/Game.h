@@ -17,6 +17,7 @@
 #include "GameStates/SoonState.hpp"
 #include "Utility/ResourceHolder.hpp"
 #include "Utility/ResourceIdentifiers.hpp"
+#include "Utility/DebugOverlay.hpp"
 #include "GameStates/LevelSelectState.hpp"
 #include <SFML/Graphics.hpp>
 
@@ -26,28 +27,34 @@ private:
 
     sf::RenderWindow &window;
     sf::View view;
-    IState * iState;
-    SoundManager* soundManager = nullptr;
-    SplashState* splashState = nullptr;
-    SoundTestState* soundTestState = nullptr;
+    IState *iState;
+    SoundManager *soundManager = nullptr;
+    SplashState *splashState = nullptr;
+    SoundTestState *soundTestState = nullptr;
     LevelSelectState* levelSelectState = nullptr;
-    MenuState* menuState = nullptr;
-    PlayState* playState = nullptr;
-    SoonState* soonState = nullptr;
-    SettingsState* settingsState = nullptr;
-    ControlsState* controlsState = nullptr;
-    PauseState* pauseState = nullptr;
+    MenuState *menuState = nullptr;
+    PlayState *playState = nullptr;
+    SoonState *soonState = nullptr;
+    SettingsState *settingsState = nullptr;
+    ControlsState *controlsState = nullptr;
+    PauseState *pauseState = nullptr;
+    DebugOverlay *overlay;
     sf::Time mStatisticsUpdateTime;
     std::size_t mStatisticsNumFrames;
     TextureHolder textures;
     FontHolder fonts;
+
     void loadResources();
+
 public:
     Game(sf::RenderWindow &w);
 
     ~Game();
+
     void draw();
+
     void update(const sf::Time delta);
+
     void input();
 
     void go_to_play();
@@ -68,25 +75,23 @@ public:
 
     void quit();
 
-    sf::RenderWindow * get_window() {
-        return &window;
-    }
+    sf::View *getView();
+
+    void setView(sf::View &view);
+
+    sf::RenderWindow *get_window();
 
     sf::Vector2i get_Mouse_Position();
 
     void update_debug(sf::Time dt);
 
-    ControlsState* getControls();
+    ControlsState *getControls();
 
-    const TextureHolder &getTextures() const {
-        return textures;
-    }
+    const TextureHolder &getTextures() const;
 
-    const FontHolder &getFonts() const {
-        return fonts;
-    }
+    const FontHolder &getFonts() const;
 
-    void set_level(std::string string);
+    DebugOverlay *getOverlay() const;
 };
 
 
