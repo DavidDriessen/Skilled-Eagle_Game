@@ -13,6 +13,7 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
     soundManager->load_song((char *) "./assets/sounds/cyka.mp3");
     soundManager->play();
     beatDec = new BeatDetector(soundManager);
+    bpm = beatDec->get_tempo();
 
     beatDec->add_listener(this);
     (*game->getControls()).assign_pressed(Left, [&]() { level.get_player().left(); });
@@ -22,6 +23,7 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
     (*game->getControls()).assign_pressed(Jump, [&]() { level.get_player().up(); });
     (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); });
     (*game->getControls()).assign_pressed(GrabWeapon, [&]() { level.get_player().grab_for_weapon(level.get_weapons()); });
+    (*game->getControls()).assign_pressed(ActivatePowerup, [&](){if(level.get_player().get_powerUp()){level.get_player().get_powerUp()->setActive(true);} });
     (*game->getControls()).assign_pressed(ActivatePowerup, [&](){level.get_player().get_powerUp()->setActive(true); });
     game->getOverlay()->addDebugValue("BPM", std::to_string(beatDec->get_tempo()));
 }
@@ -45,11 +47,54 @@ void PlayState::input(sf::Event &event) {
 
 void PlayState::update(const sf::Time delta) {
     beatDec->update();
-    level.get_player().update(delta);
-    for (auto &object : level.get_powerUps()) {
+    pitch = soundManager->get_pitch();
+
+    for(auto &object : level.get_powerUps()) {
         object->update(delta, level.get_player());
     }
-    for (auto &object : level.get_blocks()) {
+
+    level.get_player().update(delta);
+    level.get_player().setSpeed(bpm * pitch/400);
+    if(level.get_player().get_powerUp()) {
+        if (level.get_player().get_powerUp()->getActive() && !level.get_player().get_powerUp()->getUsed()) {
+            switch (level.get_player().get_powerUp()->getFunction()) {
+                case 0:
+                    soundManager->change_pitch(0.5f);
+                    break;
+                case 1:
+                    soundManager->change_pitch(0.5f);
+                    break;
+                case 2:
+                    soundManager->change_pitch(0.5f);
+                    break;
+                case 3:
+                    soundManager->change_pitch(0.5f);
+                    break;
+            }
+            level.get_player().get_powerUp()->setUsed(true);
+        }
+        std::cout << level.get_player().get_powerUp()->getActiveTime().asSeconds() << "\n";
+        if (level.get_player().get_powerUp()->getActiveTime() > sf::seconds(5) && !level.get_player().get_powerUp()->getDone() && level.get_player().get_powerUp()->getActive()){
+            switch (level.get_player().get_powerUp()->getFunction()) {
+                case 0:
+                    soundManager->change_pitch(-0.5f);
+                    break;
+                case 1:
+                    soundManager->change_pitch(-0.5f);
+                    break;
+                case 2:
+                    soundManager->change_pitch(-0.5f);
+                    break;
+                case 3:
+                    soundManager->change_pitch(-0.5f);
+                    break;
+            }
+            level.get_player().get_powerUp()->setDone(true);
+            level.get_player().get_powerUp()->setActive(false);
+        }
+    }
+
+    for(auto &object : level.get_blocks()) {
         object->update(delta);
     }
     if (level.get_player().get_weapon() == nullptr) {

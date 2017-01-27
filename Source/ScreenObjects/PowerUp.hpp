@@ -15,8 +15,11 @@ class PowerUp {
     sf::Texture texture;
     sf::Sprite sprite;
     sf::FloatRect rect;
+    sf::Clock timer;
     int function = rand() % 3;
     bool activated = false;
+    bool done = false;
+    bool used = false;
 
 public:
     PowerUp(sf::Texture active, sf::Texture used, sf::Vector2<float> vector2);
@@ -26,6 +29,14 @@ public:
 
     void setActive(bool status);
     bool getActive();
+
+    bool getDone();
+    void setDone(bool status);
+
+    void setUsed(bool status);
+    bool getUsed();
+
+    sf::Time getActiveTime();
 
 };
 

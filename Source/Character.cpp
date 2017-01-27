@@ -154,36 +154,9 @@ void Character::update(const sf::Time delta) {
     if(weapon != nullptr) {
         weapon->update_weapon_position(sprite.getPosition(), directionRight);
     }
-    if(powerUp && powerUp->getActive()){
-        std::cout<<powerUp->getActive();
-        switch (powerUp->getFunction()){
-            case 0: std::cout<< 0 << "\n"; break;
-            case 1: std::cout<< 1 << "\n"; break;
-            case 2: std::cout<< 2 << "\n"; break;
-            case 3: std::cout<< 3 << "\n"; break;
-        }
-    }
 }
 
 void Character::input(sf::Event &event) {
-//    if(event.type == event.KeyPressed && (event.key.code == sf::Keyboard::Key::Left || event.key.code == sf::Keyboard::Key::Right)){
-//        moving = true;
-//    }
-//    if(event.type == event.KeyReleased && (event.key.code == sf::Keyboard::Key::Left || event.key.code == sf::Keyboard::Key::Right)){
-//        moving = false;
-//    }
-//    if (moving){
-//        if(event.key.code == sf::Keyboard::Key::Left){
-//            directionRight = false;
-//        }
-//        if(event.key.code == sf::Keyboard::Key::Right){
-//            directionRight = true;
-//        }
-//        if(event.key.code == sf::Keyboard::Key::Up){
-//            jumping = true;
-//            sprite_state = 0;
-//        }
-//    }
 }
 
 void Character::animation(){

@@ -23,6 +23,9 @@ private:
     Level level;
     SoundManager *soundManager = nullptr;
     BeatDetector *beatDec = nullptr;
+    float bpm;
+    float pitch;
+
 public:
     PlayState(Game *pGame, SoundManager* soundManager, std::string map);
     ~PlayState() {

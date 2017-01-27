@@ -18,6 +18,10 @@ void PowerUp::update(const sf::Time delta, Character &player) {
         player.set_powerUp(this);
         available = false;
         sprite.setTexture(texture2);
+        timer.restart();
+    }
+    if(activated && !used) {
+        timer.restart();
     }
 }
 
@@ -35,5 +39,23 @@ void PowerUp::setActive(bool status){
 
 bool PowerUp::getActive(){
     return activated;
+}
+sf::Time PowerUp::getActiveTime(){
+    return timer.getElapsedTime();
+}
+
+bool PowerUp::getDone(){
+    return done;
+}
+void PowerUp::setDone(bool status){
+    done = status;
+}
+
+bool PowerUp::getUsed() {
+    return used;
+}
+
+void PowerUp::setUsed(bool status){
+    used = status;
 }
 
