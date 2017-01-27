@@ -166,10 +166,9 @@ void Character::jump(const sf::Time delta){
 void Character::draw(sf::RenderWindow &window) {
     window.draw(sprite);
 
-    if(!isEnemy){
-        staminaBar->draw(window);
+    if(isEnemy){
+        healthBar->draw(window);
     }
-    healthBar->draw(window);
 }
 
 void Character::update(const sf::Time delta) {
