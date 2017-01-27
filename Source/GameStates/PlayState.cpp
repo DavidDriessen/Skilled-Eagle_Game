@@ -22,6 +22,7 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager): level("assets/Lev
     (*game->getControls()).assign_pressed(Jump, [&]() { level.get_player().up(); });
     (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); });
     (*game->getControls()).assign_pressed(GrabWeapon, [&]() { level.get_player().grab_for_weapon(level.get_weapons()); });
+    (*game->getControls()).assign_pressed(ActivatePowerup, [&](){level.get_player().get_powerUp()->setActive(true); });
 }
 
 void PlayState::input(sf::Event &event) {

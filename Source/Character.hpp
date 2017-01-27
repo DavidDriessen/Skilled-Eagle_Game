@@ -56,6 +56,7 @@ class Character {
 
         sf::FloatRect get_rect();
         void set_powerUp(PowerUp* p);
+        PowerUp* get_powerUp();
         void set_position(sf::Vector2f pos){
             position = pos;
             sprite.setPosition(pos);

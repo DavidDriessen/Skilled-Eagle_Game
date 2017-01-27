@@ -48,6 +48,9 @@ ControlsState::ControlsState(Game *pGame) : Menu(600, 500) {
     actions.push_back([&]() {
         key_to_bind = &key[GrabWeapon];
     });
+    actions.push_back([&](){
+        key_to_bind = &key[ActivatePowerup];
+    });
     key_to_bind = NULL;
 }
 
@@ -84,6 +87,7 @@ void ControlsState::draw(sf::RenderWindow &window) {
         btn[2] = sf::String("Right: ") + KeyboardKeyNames[key[Right].key];
         btn[3] = sf::String("Attack: ") + KeyboardKeyNames[key[Attack].key];
         btn[4] = sf::String("Grab Weapon: ") + KeyboardKeyNames[key[GrabWeapon].key];
+        btn[5] = sf::String("Activate Powerup: ") + KeyboardKeyNames[key[ActivatePowerup].key];
         Menu::draw(window, btn);
     }
 }

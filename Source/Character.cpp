@@ -71,7 +71,7 @@ void Character::jump(const sf::Time delta){
     //ascending
     if(jumping && !descending){
         float currentVelocity = -speed * delta.asMilliseconds();
-        colRect.top += currentVelocity * 2;
+        colRect.top += currentVelocity * 1.5;
         jumpTime ++;
         if(collisionWithLevel(*level)){
             colRect = sprite.getGlobalBounds();
@@ -90,7 +90,7 @@ void Character::jump(const sf::Time delta){
     //descending
     if(descending){
         float currentVelocity = speed * delta.asMilliseconds();
-        colRect.top += currentVelocity * 2;
+        colRect.top += currentVelocity * 1.5;
         if(collisionWithLevel(*level)){
             colRect = sprite.getGlobalBounds();
             descending = false;
@@ -154,6 +154,15 @@ void Character::update(const sf::Time delta) {
     animation();
     if(weapon != nullptr) {
         weapon->update_weapon_position(sprite.getPosition(), directionRight);
+    }
+    if(powerUp && powerUp->getActive()){
+        std::cout<<powerUp->getActive();
+        switch (powerUp->getFunction()){
+            case 0: std::cout<< 0 << "\n"; break;
+            case 1: std::cout<< 1 << "\n"; break;
+            case 2: std::cout<< 2 << "\n"; break;
+            case 3: std::cout<< 3 << "\n"; break;
+        }
     }
 }
 
@@ -241,6 +250,12 @@ sf::FloatRect Character::get_rect() {
 void Character::set_powerUp(PowerUp *p) {
     powerUp = p;
 }
+
+PowerUp *Character::get_powerUp() {
+    return powerUp;
+}
+
+
 
 void Character::setSpeed(float s) {
     speed = s;
