@@ -42,6 +42,11 @@ StatusBar::~StatusBar() {
 
 }
 
+sf::FloatRect StatusBar::getFloatRect(){
+
+}
+
+
 void StatusBar::set_StatusBar_hudSize() {
     bar_height = 20;
 }

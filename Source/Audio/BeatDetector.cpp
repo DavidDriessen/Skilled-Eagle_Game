@@ -28,7 +28,7 @@ BeatDetector::BeatDetector(SoundManager *snd_mgr) {
     if (input.is_open()) {
         std::cout << "LOAD FROM FILE\n";
         if (getline(input, line)) {
-            tempo = std::stoi(line);
+            //tempo = std::stoi(line);
         }
         char c;
         while (input.get(c)) {

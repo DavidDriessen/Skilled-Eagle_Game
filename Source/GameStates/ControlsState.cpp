@@ -117,7 +117,7 @@ void ControlsState::save() {
     f.clear();
     std::string *data = new std::string[ActionsCount];
     for (auto &k: key) {
-        data[k.first].append(std::to_string(k.second.key));
+        //data[k.first].append(std::to_string(k.second.key));
         data[k.first].append("\n");
     }
     for (int i = 0; i < ActionsCount; i++) {
