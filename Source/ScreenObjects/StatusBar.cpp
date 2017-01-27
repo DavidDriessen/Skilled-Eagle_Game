@@ -32,6 +32,9 @@ float StatusBar::Calculate_percentage_of(float  newCurrentstatus ,float maximumO
 }
 
 
+
+
+
 void StatusBar::set_StatusBar(float newCurrentStatus, sf::Vector2f position){
     currentStatus = newCurrentStatus;
     shape.setPosition(position);
@@ -49,4 +52,10 @@ sf::FloatRect StatusBar::getFloatRect(){
 
 void StatusBar::set_StatusBar_hudSize() {
     bar_height = 20;
+}
+
+void StatusBar::add_position(sf::Vector2f hudOrigin) {
+    position = hudOrigin;
+    shape.setPosition(position);
+
 }

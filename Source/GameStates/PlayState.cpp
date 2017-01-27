@@ -16,6 +16,9 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
     bpm = beatDec->get_tempo();
 
     beatDec->add_listener(this);
+
+    playerHUD.set_hud_player(&level.get_player());
+
     (*game->getControls()).assign_pressed(Left, [&]() { level.get_player().left(); });
     (*game->getControls()).assign_released(Left, [&]() { level.get_player().stop(); });
     (*game->getControls()).assign_pressed(Right, [&]() { level.get_player().right(); });
@@ -140,7 +143,8 @@ void PlayState::update(const sf::Time delta) {
 void PlayState::draw(sf::RenderWindow &window) {
     game->getView()->setCenter(sf::Vector2f(level.get_player().getPosition().x, level.get_player().getPosition().y-(game->get_window()->getSize().y/6)));
     level.get_player().draw(window);
-    for (auto &object : level.get_powerUps()) {
+    playerHUD.draw(window);
+    for(auto &object : level.get_powerUps()) {
         object->draw(window);
     }
     for (auto &object : level.get_blocks()) {
