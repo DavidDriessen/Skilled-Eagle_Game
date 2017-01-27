@@ -119,7 +119,6 @@ void Character::jump(const sf::Time delta){
 
 void Character::draw(sf::RenderWindow &window) {
     sprite.setPosition(position);
-    window.setView(sf::View(sf::Vector2f(colRect.left, colRect.top-(window.getSize().y/6)) ,sf::Vector2f(window.getSize().x, window.getSize().y)));
     window.draw(sprite);
 }
 
@@ -259,4 +258,18 @@ PowerUp *Character::get_powerUp() {
 
 void Character::setSpeed(float s) {
     speed = s;
+}
+
+
+float Character::getSpeed() {
+    return speed;
+}
+
+sf::Vector2f Character::getPosition() {
+    return sprite.getPosition();
+}
+
+void Character::set_position(sf::Vector2f pos) {
+    position = pos;
+    sprite.setPosition(pos);
 }

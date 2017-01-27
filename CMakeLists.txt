@@ -84,6 +84,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/Utility/ResourceHolder.hpp
         Source/Utility/ResourceIdentifiers.hpp
         Source/Utility/ResourceHolder.inl
+        Source/Utility/DebugOverlay.cpp
+        Source/Utility/DebugOverlay.hpp
         )
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})

@@ -90,6 +90,13 @@ int SoundManager::get_current_time_PCM()
     return pos;
 }
 
+int SoundManager::get_current_time_MS()
+{
+    unsigned int pos=0;
+    FMOD_Channel_GetPosition(channel,&pos,FMOD_TIMEUNIT_MS);
+    return pos;
+}
+
 void SoundManager::set_current_time(int PCM)
 {
     FMOD_Channel_SetPosition(channel,PCM,FMOD_TIMEUNIT_PCM);
