@@ -3,7 +3,7 @@
 //
 
 #include "PowerUp.hpp"
-#include "../../Character.hpp"
+#include "../Character.hpp"
 
 PowerUp::PowerUp(sf::Vector2f vec) : rect(vec, sf::Vector2f(32, 32)) {
     img.loadFromFile("assets/images/Nuken.png");

@@ -12,7 +12,7 @@
 #include "ScreenObjects/enemies/CyberEnforcer.h"
 #include "Character.hpp"
 #include "ScreenObjects/items/Weapon.hpp"
-#include "screenObjects/items/PowerUp.hpp"
+#include "ScreenObjects/PowerUp.hpp"
 class CyberEnforcer;
 class Level {
 private:

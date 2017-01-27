@@ -7,8 +7,14 @@
 #include "PlayState.h"
 #include "../Game.h"
 
-PlayState::PlayState(Game *pGame): level("assets/Levels/awesomeLevel.txt") {
+PlayState::PlayState(Game *pGame, SoundManager* soundManager): level("assets/Levels/awesomeLevel.txt") {
     game = pGame;
+    this->soundManager = soundManager;
+    soundManager->load_song((char *) "./assets/sounds/cyka.mp3");
+    soundManager->play();
+    beatDec = new BeatDetector(soundManager);
+
+    beatDec->add_listener(this);
     (*game->getControls()).assign_pressed(Left, [&]() { level.get_player().left(); });
     (*game->getControls()).assign_released(Left, [&]() { level.get_player().stop(); });
     (*game->getControls()).assign_pressed(Right, [&]() { level.get_player().right(); });
@@ -22,6 +28,13 @@ void PlayState::input(sf::Event &event) {
     if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         game->go_to_pause();
     }
+    else if (event.key.code == sf::Keyboard::H) {
+        soundManager->change_pitch(0.01f);
+    }
+
+    else if (event.key.code == sf::Keyboard::J) {
+        soundManager->change_pitch(-0.01f);
+    }
     game->getControls()->run_actions(event);
     for(auto &object : level.get_blocks()) {
         object->input(event);
@@ -29,6 +42,7 @@ void PlayState::input(sf::Event &event) {
 }
 
 void PlayState::update(const sf::Time delta) {
+    beatDec->update();
     level.get_player().update(delta);
     for(auto &object : level.get_powerUps()) {
         object->update(delta, level.get_player());
@@ -63,3 +77,15 @@ void PlayState::draw(sf::RenderWindow &window) {
         object->draw(window);
     }
 }
+
+void PlayState::onBeat() {
+
+}
+
+void PlayState::onPeak(float peak) {
+
+}
+
+
+
+

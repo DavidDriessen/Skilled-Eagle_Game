@@ -40,6 +40,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/GameStates/ControlsState.hpp
         Source/GameStates/PauseState.cpp
         Source/GameStates/PauseState.hpp
+        Source/GameStates/SoonState.cpp
+        Source/GameStates/SoonState.hpp
         #Environment
         Source/Level.cpp
         Source/Level.h
@@ -47,33 +49,31 @@ add_executable(${EXECUTABLE_NAME}
         Source/ScreenObjects/ScreenObject.h
         Source/ScreenObjects/Block.cpp
         Source/ScreenObjects/Block.h
-
         #GUI
         Source/Menu.cpp
         Source/Menu.hpp
+
+        #ITEMS
+        Source/ScreenObjects/PowerUp.cpp
+        Source/ScreenObjects/PowerUp.hpp
 
         #CHARACTERS
         Source/Character.cpp
         Source/Character.hpp
         Source/ScreenObjects/enemies/CyberEnforcer.h
         Source/ScreenObjects/enemies/CyberEnforcer.cpp
-        Source/ScreenObjects/items/rangedWeapon.cpp
-        Source/ScreenObjects/items/rangedWeapon.hpp
-        Source/ScreenObjects/items/weapon.hpp
-        Source/ScreenObjects/bullet.cpp
-        Source/ScreenObjects/bullet.hpp
+        Source/ScreenObjects/items/RangedWeapon.cpp
+        Source/ScreenObjects/items/RangedWeapon.hpp
+        Source/ScreenObjects/items/Weapon.hpp
+        Source/ScreenObjects/Bullet.cpp
+        Source/ScreenObjects/Bullet.hpp
 
         #AUDIO
         Source/Audio/BeatDetector.h
         Source/Audio/BeatDetector.cpp
         Source/Audio/SoundManager.h
         Source/Audio/SoundManager.cpp
-        Source/GameStates/PauseState.cpp
-        Source/GameStates/PauseState.hpp
-        Source/screenObjects/items/PowerUp.cpp
-        Source/screenObjects/items/PowerUp.hpp
-        Source/GameStates/SoonState.cpp
-        Source/GameStates/SoonState.hpp
+        Source/Audio/BeatListener.hpp
         )
 
 # Detect and add SFML

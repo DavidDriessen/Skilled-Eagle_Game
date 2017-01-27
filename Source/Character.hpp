@@ -51,6 +51,7 @@ class Character {
         void right();
         void up();
         void stop();
+        void setSpeed(float s);
         ScreenObject* collisionWithLevel(Level &level);
 
         sf::FloatRect get_rect();

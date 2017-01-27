@@ -12,7 +12,7 @@
 
 class Game;
 
-class SoundTestState : public IState {
+class SoundTestState : public IState, public BeatListener {
 private:
     Game *game;
     SoundManager *soundManager = nullptr;
@@ -22,7 +22,7 @@ private:
     sf::Font font;
     sf::Text cyka;
     bool showBeat = false;
-    float *beat = nullptr;
+    void *beat = nullptr;
     int bpm = 0;
 
 public:
@@ -37,6 +37,12 @@ public:
     void update(const sf::Time delta);
 
     void draw(sf::RenderWindow &window);
+
+    void onBeat();
+
+    void onPeak(float peak) {
+
+    }
 };
 
 

@@ -2,6 +2,7 @@
 #define SOUNDMANAGER_H
 
 #include "fmod.h"
+#include "iostream"
 
 class SoundManager {
 public:
@@ -31,16 +32,21 @@ public:
     float get_pitch();
     void toggle_play();
 
+    std::string getSoundName() {
+        return loadedSoundName;
+    }
 private:
     FMOD_SYSTEM *system;
-    FMOD_SOUND *musique;
-    FMOD_CHANNEL *canal;
+    FMOD_SOUND *backgroundMusic;
+    FMOD_SOUND *gamePlayMusic;
+    FMOD_CHANNEL *channel;
 
     int *data_left_channel;     // 16 premiers bits
     int *data_right_channel;    // 16 derniers bits
     float *spectre;
     unsigned int length;
     float pitch;
+    std::string loadedSoundName;
 
 };
 

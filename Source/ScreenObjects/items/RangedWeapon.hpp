@@ -5,7 +5,6 @@
 #ifndef SKILLED_EAGLE_GAME_RANGEDWEAPON_HPP
 #define SKILLED_EAGLE_GAME_RANGEDWEAPON_HPP
 
-#include <docobjectservice.h>
 #include "Weapon.hpp"
 
 class RangedWeapon : public Weapon {

@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Character.hpp"
 #include "Level.h"
-#include "screenObjects/items/PowerUp.hpp"
+#include "ScreenObjects/PowerUp.hpp"
 
 Character::Character(sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level) {
     this->position = startPos;
@@ -240,4 +240,8 @@ sf::FloatRect Character::get_rect() {
 
 void Character::set_powerUp(PowerUp *p) {
     powerUp = p;
+}
+
+void Character::setSpeed(float s) {
+    speed = s;
 }

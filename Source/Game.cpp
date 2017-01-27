@@ -5,8 +5,8 @@
 #include "Game.h"
 
 Game::Game(sf::RenderWindow &w) : window(w), splashState(new SplashState(this)), controlsState(new ControlsState(this)){
-    iState = splashState;
     soundManager = new SoundManager();
+    iState = new PlayState(this, soundManager);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
@@ -54,7 +54,7 @@ void Game::draw() {
 
 void Game::go_to_play() {
     if(playState == nullptr) {
-        playState = new PlayState(this);
+        playState = new PlayState(this, soundManager);
     }
     iState = playState;
 }

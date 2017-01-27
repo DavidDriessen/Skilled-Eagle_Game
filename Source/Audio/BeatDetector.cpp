@@ -3,6 +3,8 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <cstring>
 
 #define K_ENERGIE_RATIO  1.3 // le ratio entre les energie1024 et energie44100 pour la d�tection des peak d'energie
 #define K_TRAIN_DIMP_SIZE 108 // la taille du train d'impulsions pour la convolution (en pack de 1024 (430=10sec))
@@ -10,6 +12,10 @@
 using namespace std;
 
 BeatDetector::BeatDetector(SoundManager *snd_mgr) {
+    std::string songPath = snd_mgr->getSoundName();
+    std::string songName = songPath.substr(songPath.find_last_of("/\\") + 1);
+    std::ifstream input("assets/sounds/beats/"+  songName + ".beats");
+    std::string line = "";
     this->snd_mgr = snd_mgr;
     length = snd_mgr->get_length();
     energie1024 = new float[length / 1024];
@@ -18,6 +24,36 @@ BeatDetector::BeatDetector(SoundManager *snd_mgr) {
     beat = new float[length / 1024];
     energie_peak = new float[length / 1024 + 21];
     for (int i = 0; i < length / 1024 + 21; i++) energie_peak[i] = 0;
+    int count = 0;
+    if (input.is_open()) {
+        std::cout << "LOAD FROM FILE\n";
+        if (getline(input, line)) {
+            tempo = std::stoi(line);
+        }
+        char c;
+        while (input.get(c)) {
+            if (c == '\n') {
+                break;
+            }
+            float k = float(int(c) - '0');
+            beat[count++] = k;
+        }
+    }
+
+    if (count != (length / 1024) - 1) {
+        audio_process(); // launch beats detection
+        beat = get_beat();
+
+        std::ofstream output("assets/sounds/beats/"+  songName + ".beats");
+        if (output.is_open()) {
+            output.clear();
+            output << get_tempo() << "\n";
+            for (int i = 0; i < length / 1024; i++) {
+                output << ((beat[i] == 0) ? 0 : 1);
+            }
+        }
+    }
+
 }
 
 BeatDetector::~BeatDetector() {
@@ -198,6 +234,35 @@ void BeatDetector::audio_process(void) {
     }
 }
 
+void BeatDetector::update(void) {
+    float current_pos = snd_mgr->get_current_time_PCM() / 1024.f;
+    bool found = false;
+
+    int lower_pos = (int) current_pos + 1;
+    while (found == false) {
+        lower_pos--;
+        if (beat[lower_pos] > 0) found = true;
+    }
+    found = false;
+    int upper_pos = (int) current_pos - 1;
+    while (found == false) {
+        upper_pos++;
+        if (beat[upper_pos] > 0) found = true;
+    }
+
+    int L = upper_pos - lower_pos;
+    float t = current_pos - (float) lower_pos;
+    if (t > 10) {
+        for(auto &b : listeners) {
+            b.second->onBeat();
+        }
+    }
+    for(auto &b : listeners) {
+        b.second->onPeak(energie1024[(int)current_pos]);
+    }
+
+}
+
 float *BeatDetector::get_energie1024(void) {
     return energie1024;
 }
@@ -220,4 +285,17 @@ float *BeatDetector::get_beat() {
 
 int BeatDetector::get_tempo(void) {
     return tempo;
+}
+
+void BeatDetector::remove_listener(int id) {
+    for(auto &b : listeners) {
+        if(b.first == id) {
+            listeners.erase(listeners.begin()+b.first);
+            break;
+        }
+    }
+}
+
+void BeatDetector::add_listener(BeatListener *l) {
+    listeners.push_back({listeners.size(), l});
 }
