@@ -22,7 +22,7 @@ public:
     void set_StatusBar(float newCurrentStatus, sf::Vector2f position);
     void set_StatusBar_hudSize();
     float Calculate_percentage_of(float  newCurrentstatus ,float maximumOfStatus);
-
+    void add_position(sf::Vector2f hudOrigin);
     sf::FloatRect getFloatRect();
 private:
 

@@ -83,8 +83,10 @@ add_executable(${EXECUTABLE_NAME}
         Source/Audio/BeatDetector.cpp
         Source/Audio/SoundManager.h
         Source/Audio/SoundManager.cpp
-        Source/GameStates/PauseState.cpp
-        Source/GameStates/PauseState.hpp
+        Source/Audio/BeatListener.hpp
+        Source/ScreenObjects/HudDisplay.cpp
+        Source/ScreenObjects/HudDisplay.hpp
+        )
 
         #Utility
         Source/Utility/ResourceHolder.hpp

@@ -14,7 +14,7 @@
 #include "../Character.hpp"
 #include "../Audio/BeatListener.hpp"
 #include "../Audio/BeatDetector.h"
-
+#include "../ScreenObjects/HudDisplay.hpp"
 class Game;
 
 class PlayState : public IState, public BeatListener {
@@ -26,6 +26,7 @@ private:
     float bpm;
     float pitch;
 
+    HudDisplay    playerHUD;
 public:
     PlayState(Game *pGame, SoundManager* soundManager, std::string map);
     ~PlayState() {
