@@ -65,6 +65,9 @@ void Level::init_object(char c, float x, float y) {
         case '!':
             weapons.push_back(new RangedWeapon("sniper", 8, sf::Vector2f(x, y), 13 * 32, sf::milliseconds(500)));
             break;
+        case 'P':
+            player.set_position({x, y});
+            break;
         default:
             std::string resultString = "\nUndifined char : ";
             throw resultString + c + "\n";
