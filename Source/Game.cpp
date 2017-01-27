@@ -80,15 +80,22 @@ void Game::go_to_play() {
     iState = playState;
 }
 
+void Game::go_to_level_select() {
+    if (levelSelectState == nullptr) {
+        levelSelectState = new LevelSelectState(this);
+    }
+    iState = levelSelectState;
+}
+
 void Game::go_to_menu() {
-    if(menuState == nullptr) {
+    if (menuState == nullptr) {
         menuState = new MenuState(this);
     }
     iState = menuState;
 }
 
 void Game::go_to_options() {
-    if(settingsState == nullptr) {
+    if (settingsState == nullptr) {
         settingsState = new SettingsState(this);
     }
     if (iState == pauseState) {
@@ -100,21 +107,21 @@ void Game::go_to_options() {
 }
 
 void Game::go_to_test() {
-    if(soundTestState == nullptr) {
+    if (soundTestState == nullptr) {
         soundTestState = new SoundTestState(this, soundManager);
     }
     iState = soundTestState;
 }
 
 void Game::go_to_controls() {
-    if(controlsState == nullptr) {
+    if (controlsState == nullptr) {
         controlsState = new ControlsState(this);
     }
     iState = controlsState;
 }
 
 void Game::go_to_pause() {
-    if(pauseState == nullptr) {
+    if (pauseState == nullptr) {
         pauseState = new PauseState(this);
     }
     window.setView(view);
@@ -122,7 +129,7 @@ void Game::go_to_pause() {
 }
 
 void Game::go_to_soon() {
-    if(soonState == nullptr) {
+    if (soonState == nullptr) {
         soonState = new SoonState(this);
     }
     iState = soonState;
@@ -148,4 +155,11 @@ void Game::update_debug(sf::Time dt) {
 
 ControlsState *Game::getControls() {
     return controlsState;
+}
+
+void Game::set_level(std::string string) {
+    if (playState == nullptr) {
+        playState = new PlayState(this, soundManager);
+    }
+    playState->set_level(string);
 }

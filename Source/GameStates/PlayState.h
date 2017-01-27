@@ -34,10 +34,11 @@ public:
 
     void draw(sf::RenderWindow &window);
 
-
     void onBeat();
 
     void onPeak(float peak);
+
+    void set_level(std::string level);
 };
 
 

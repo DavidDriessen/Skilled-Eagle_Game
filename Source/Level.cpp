@@ -19,6 +19,9 @@ Level::~Level() {
     for (auto &cyberEnforcer : cyber_enforcers) {
         delete cyberEnforcer;
     }
+    for (auto &power : powerUps) {
+        delete power;
+    }
     blocks.clear();
     cyber_enforcers.clear();
 }

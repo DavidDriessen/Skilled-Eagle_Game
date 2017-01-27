@@ -17,6 +17,7 @@
 #include "GameStates/SoonState.hpp"
 #include "Utility/ResourceHolder.hpp"
 #include "Utility/ResourceIdentifiers.hpp"
+#include "GameStates/LevelSelectState.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -29,6 +30,7 @@ private:
     SoundManager* soundManager = nullptr;
     SplashState* splashState = nullptr;
     SoundTestState* soundTestState = nullptr;
+    LevelSelectState* levelSelectState = nullptr;
     MenuState* menuState = nullptr;
     PlayState* playState = nullptr;
     SoonState* soonState = nullptr;
@@ -49,6 +51,8 @@ public:
     void input();
 
     void go_to_play();
+
+    void go_to_level_select();
 
     void go_to_menu();
 
@@ -81,6 +85,8 @@ public:
     const FontHolder &getFonts() const {
         return fonts;
     }
+
+    void set_level(std::string string);
 };
 
 

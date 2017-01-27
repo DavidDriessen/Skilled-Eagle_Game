@@ -1,9 +1,9 @@
 //
-// Created by robbie on 17-1-2017.
+// Created by david on 1/27/2017.
 //
 
-#ifndef MENU_H
-#define MENU_H
+#ifndef SKILLED_EAGLE_GAME_LEVELSELECTSTATE_HPP
+#define SKILLED_EAGLE_GAME_LEVELSELECTSTATE_HPP
 
 #include <SFML/System/String.hpp>
 #include <vector>
@@ -14,19 +14,13 @@
 
 class Game;
 
-class MenuState : public IState, public Menu {
+class LevelSelectState: public IState, public Menu {
 private:
     Game *game;
     std::vector<std::function<void(void)>> actions;
-    std::vector<sf::String> btn = {
-            "Select Level",
-            "Sound Test",
-            "Edit Character",
-            "Show Highscores",
-            "Options",
-            "Quit"};
+    std::vector<sf::String> btn;
 public:
-    MenuState(Game *pGame);
+    LevelSelectState(Game *pGame);
 
     void input(sf::Event &event);
 
@@ -36,4 +30,4 @@ public:
 };
 
 
-#endif //WAVEFORMS_MENU_H
+#endif //SKILLED_EAGLE_GAME_LEVELSELECTSTATE_HPP

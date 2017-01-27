@@ -26,7 +26,7 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager): level("assets/Lev
 }
 
 void PlayState::input(sf::Event &event) {
-    if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+    if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         game->go_to_pause();
     }
     else if (event.key.code == sf::Keyboard::H) {
@@ -37,7 +37,7 @@ void PlayState::input(sf::Event &event) {
         soundManager->change_pitch(-0.01f);
     }
     game->getControls()->run_actions(event);
-    for(auto &object : level.get_blocks()) {
+    for (auto &object : level.get_blocks()) {
         object->input(event);
     }
 }
@@ -45,36 +45,36 @@ void PlayState::input(sf::Event &event) {
 void PlayState::update(const sf::Time delta) {
     beatDec->update();
     level.get_player().update(delta);
-    for(auto &object : level.get_powerUps()) {
+    for (auto &object : level.get_powerUps()) {
         object->update(delta, level.get_player());
     }
-    for(auto &object : level.get_blocks()) {
+    for (auto &object : level.get_blocks()) {
         object->update(delta);
     }
-    if(level.get_player().get_weapon() == nullptr) {
+    if (level.get_player().get_weapon() == nullptr) {
         level.get_player().grab_for_weapon(level.get_weapons());
     }
-    for(auto &object : level.get_cyber_enforcers()) {
+    for (auto &object : level.get_cyber_enforcers()) {
         object->update(delta);
         object->get_character()->grab_for_weapon(level.get_weapons());
     }
-    for(auto &gun : level.get_weapons()) {
+    for (auto &gun : level.get_weapons()) {
         gun->update();
     }
 }
 
 void PlayState::draw(sf::RenderWindow &window) {
     level.get_player().draw(window);
-    for(auto &object : level.get_powerUps()) {
+    for (auto &object : level.get_powerUps()) {
         object->draw(window);
     }
-    for(auto &object : level.get_blocks()) {
+    for (auto &object : level.get_blocks()) {
         object->draw(window);
     }
-    for(auto &object : level.get_cyber_enforcers()) {
+    for (auto &object : level.get_cyber_enforcers()) {
         object->draw(window);
     }
-    for(auto &object : level.get_weapons()) {
+    for (auto &object : level.get_weapons()) {
         object->draw(window);
     }
 }
@@ -87,6 +87,7 @@ void PlayState::onPeak(float peak) {
 
 }
 
-
-
-
+void PlayState::set_level(std::string level_name) {
+    std::string map = std::string("./assets/Levels/") + level_name;
+    new (&level) Level(map.c_str());
+}

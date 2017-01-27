@@ -42,6 +42,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/GameStates/PauseState.hpp
         Source/GameStates/SoonState.cpp
         Source/GameStates/SoonState.hpp
+        Source/GameStates/LevelSelectState.cpp
+        Source/GameStates/LevelSelectState.hpp
 
         #Environment
         Source/Level.cpp
@@ -50,6 +52,7 @@ add_executable(${EXECUTABLE_NAME}
         Source/ScreenObjects/ScreenObject.h
         Source/ScreenObjects/Block.cpp
         Source/ScreenObjects/Block.h
+
         #GUI
         Source/Menu.cpp
         Source/Menu.hpp
