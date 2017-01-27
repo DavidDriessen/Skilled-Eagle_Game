@@ -23,7 +23,7 @@ SoundTestState::SoundTestState(Game *pGame, SoundManager *soundManager) : game(p
         std::cout << "LOAD FROM FILE\n";
         beat = new float[soundManager->get_length() / 1024];
         if(getline(input, line)) {
-            bpm = std::stoi(line);
+            //bpm = std::stoi(line);
         }
         char c;
         while (input.get(c)) {
