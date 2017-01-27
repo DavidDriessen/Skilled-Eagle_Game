@@ -7,7 +7,7 @@
 #include "PlayState.h"
 #include "../Game.h"
 
-PlayState::PlayState(Game *pGame, SoundManager* soundManager): level("assets/Levels/awesomeLevel.txt", pGame) {
+PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): level(map.c_str(), pGame) {
     game = pGame;
     this->soundManager = soundManager;
     soundManager->load_song((char *) "./assets/sounds/cyka.mp3");
@@ -87,7 +87,6 @@ void PlayState::onPeak(float peak) {
 
 }
 
-void PlayState::set_level(std::string level_name) {
-    std::string map = std::string("./assets/Levels/") + level_name;
-    new (&level) Level(map.c_str());
+void PlayState::set_level(std::string map) {
+    new (&level) Level(map.c_str(), game);
 }

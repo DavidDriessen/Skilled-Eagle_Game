@@ -24,7 +24,7 @@ private:
     SoundManager *soundManager = nullptr;
     BeatDetector *beatDec = nullptr;
 public:
-    PlayState(Game *pGame, SoundManager* soundManager);
+    PlayState(Game *pGame, SoundManager* soundManager, std::string map);
     ~PlayState() {
         delete beatDec;
     }

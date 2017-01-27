@@ -6,7 +6,7 @@
 #include "LevelSelectState.hpp"
 #include "../Game.h"
 
-LevelSelectState::LevelSelectState(Game *pGame) : Menu(600, 500) {
+LevelSelectState::LevelSelectState(Game *pGame) : Menu(pGame->getFonts().get(Fonts::Default), 600, 500) {
     game = pGame;
     DIR *dir;
     struct dirent *ent;

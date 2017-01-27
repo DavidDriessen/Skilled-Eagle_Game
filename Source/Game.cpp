@@ -75,7 +75,7 @@ void Game::draw() {
 void Game::go_to_play() {
     if(playState == nullptr) {
         controlsState = new ControlsState(this);
-        playState = new PlayState(this, soundManager);
+        playState = new PlayState(this, soundManager, std::string("./assets/Levels/awesomeLevel.txt"));
     }
     iState = playState;
 }
@@ -157,9 +157,12 @@ ControlsState *Game::getControls() {
     return controlsState;
 }
 
-void Game::set_level(std::string string) {
-    if (playState == nullptr) {
-        playState = new PlayState(this, soundManager);
+void Game::set_level(std::string level_name) {
+    std::string map = std::string("./assets/Levels/") + level_name;
+    if (playState == nullptr || controlsState == nullptr) {
+        controlsState = new ControlsState(this);
+        playState = new PlayState(this, soundManager, map);
+    } else {
+        playState->set_level(map);
     }
-    playState->set_level(string);
 }
