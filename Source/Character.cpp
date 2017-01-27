@@ -24,6 +24,7 @@ Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, flo
     sprite.setScale(this->sprite_scale, this->sprite_scale);
     colRect = sprite.getGlobalBounds();
     sprite_state = 0;
+    sprite.setPosition(position);
 }
 
 Weapon* Character::get_weapon() {

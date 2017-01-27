@@ -34,7 +34,6 @@ void PlayState::input(sf::Event &event) {
     else if (event.key.code == sf::Keyboard::H) {
         soundManager->change_pitch(0.01f);
     }
-
     else if (event.key.code == sf::Keyboard::J) {
         soundManager->change_pitch(-0.01f);
     }
@@ -154,6 +153,7 @@ void PlayState::draw(sf::RenderWindow &window) {
     for (auto &object : level.get_weapons()) {
         object->draw(window);
     }
+    window.setView(sf::View(sf::Vector2f(level.get_player().get_rect().left, level.get_player().get_rect().top-(window.getSize().y/6)) ,sf::Vector2f(window.getSize().x, window.getSize().y)));
 }
 
 void PlayState::onBeat() {
