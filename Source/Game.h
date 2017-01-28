@@ -75,6 +75,8 @@ public:
 
     void quit();
 
+    void set_level(std::string string);
+
     sf::View *getView();
 
     void setView(sf::View &view);
