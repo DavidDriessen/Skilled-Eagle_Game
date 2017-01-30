@@ -53,7 +53,9 @@ void PlayState::update(const sf::Time delta) {
     level.get_player().update(delta);
     for (auto &gun : level.get_weapons()) {
         if (level.get_player().get_weapon() != gun) {
-            gun->check_collision(level.get_player());
+            if(gun->check_collision(level.get_player())){
+                game->go_to_level_select();
+            }
         }
     }
     for (auto &object : level.get_powerUps()) {
