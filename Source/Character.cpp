@@ -62,7 +62,7 @@ void Character::attack() {
             hit_rectangle.left = position.x;
             hit_rectangle.top = position.y;
             hit_rectangle.width = directionRight ? 64 : -32;
-            hit_rectangle.height = position.y + 32;
+            hit_rectangle.height = 32;
             for(const auto &obj : level->get_cyber_enforcers()) {
                 if(obj->getFloatRect().intersects(hit_rectangle)) {
 
