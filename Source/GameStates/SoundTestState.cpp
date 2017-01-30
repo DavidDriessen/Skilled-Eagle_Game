@@ -9,13 +9,12 @@
 
 
 SoundTestState::SoundTestState(Game *pGame, SoundManager *soundManager) : game(pGame) {
-    this->soundManager = soundManager;
+    game = pGame;
+    this->soundManager =  game->getSoundManager();;
     font.loadFromFile("./assets/font.ttf");
-    soundManager->load_song((char *) "./assets/sounds/cyka.mp3");
-    soundManager->play();
-    soundManager->pause();
-    beatDec = new BeatDetector(soundManager);
+    beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
     beat = beatDec->get_beat();
+    soundManager->play(SOUND_TYPES::GAME_SOUND);
     cyka = sf::Text("CHEEKI BREEKI", font, 175);
     cyka.setPosition({30, 225});
 
@@ -29,18 +28,18 @@ SoundTestState::~SoundTestState() {
 
 void SoundTestState::input(sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        soundManager->pause();
+        soundManager->pause(SOUND_TYPES::GAME_SOUND);
     }
     else if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-        soundManager->reset();
+        soundManager->reset(SOUND_TYPES::GAME_SOUND);
         game->go_to_menu();
     }
     else if (event.key.code == sf::Keyboard::H) {
-        soundManager->change_pitch(0.01f);
+        soundManager->change_pitch(0.01f, SOUND_TYPES::GAME_SOUND);
     }
 
     else if (event.key.code == sf::Keyboard::J) {
-        soundManager->change_pitch(-0.01f);
+        soundManager->change_pitch(-0.01f, SOUND_TYPES::GAME_SOUND);
     }
 }
 
