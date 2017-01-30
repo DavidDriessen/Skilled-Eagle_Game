@@ -14,7 +14,7 @@ PowerUp::PowerUp(sf::Texture active, sf::Texture used, sf::Vector2f vec) : rect(
 }
 
 void PowerUp::update(const sf::Time delta, Character &player) {
-    if (available && rect.intersects(player.get_rect())) {
+    if (available && rect.intersects(player.get_rect()) && (!player.get_powerUp() || (player.get_powerUp() && player.get_powerUp()->getDone()))) {
         player.set_powerUp(this);
         available = false;
         sprite.setTexture(texture2);

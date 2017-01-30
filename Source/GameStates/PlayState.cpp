@@ -73,7 +73,6 @@ void PlayState::update(const sf::Time delta) {
             }
             level.get_player().get_powerUp()->setUsed(true);
         }
-        std::cout << level.get_player().get_powerUp()->getActiveTime().asSeconds() << "\n";
         if (level.get_player().get_powerUp()->getActiveTime() > sf::seconds(5) && !level.get_player().get_powerUp()->getDone() && level.get_player().get_powerUp()->getActive()){
             switch (level.get_player().get_powerUp()->getFunction()) {
                 case 0:
