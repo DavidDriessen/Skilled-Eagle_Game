@@ -57,6 +57,18 @@ void Character::attack() {
             weapon->set_direction(sf::Vector2f(s, 0));
         }
         weapon->use();
+        if(weapon->get_type() == "sword") {
+            sf::FloatRect hit_rectangle;
+            hit_rectangle.left = position.x;
+            hit_rectangle.top = position.y;
+            hit_rectangle.width = directionRight ? 64 : -32;
+            hit_rectangle.height = position.y + 32;
+            for(const auto &obj : level->get_cyber_enforcers()) {
+                if(obj->getFloatRect().intersects(hit_rectangle)) {
+
+                }
+            }
+        }
     }
 }
 

@@ -73,6 +73,9 @@ void Level::init_object(char c, float x, float y) {
         case '!':
             weapons.push_back(new RangedWeapon(game->getTextures().get(Textures::Sniper), 8, sf::Vector2f(x, y), 13 * 32, sf::milliseconds(500)));
             break;
+        case '%':
+            weapons.push_back(new MeleeWeapon(game->getTextures().get(Textures::Sword), 8, sf::Vector2f(x, y), 13 * 32, sf::milliseconds(500)));
+            break;
         case 'P':
             player.set_position({x, y});
             break;
