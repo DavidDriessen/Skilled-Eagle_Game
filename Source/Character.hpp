@@ -15,6 +15,7 @@ class PowerUp;
 
 class Character {
 private:
+    int hp = 100;
     PowerUp *powerUp = NULL;
     sf::Vector2f position;
     sf::Image img;
@@ -85,6 +86,8 @@ public:
     void set_position(sf::Vector2f pos);
 
     sf::Vector2f getPosition();
+
+    bool take_damage(int damage);
 };
 
 
