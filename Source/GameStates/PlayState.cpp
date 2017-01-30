@@ -24,7 +24,6 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
     (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); });
     (*game->getControls()).assign_pressed(GrabWeapon, [&]() { level.get_player().grab_for_weapon(level.get_weapons()); });
     (*game->getControls()).assign_pressed(ActivatePowerup, [&](){if(level.get_player().get_powerUp()){level.get_player().get_powerUp()->setActive(true);} });
-    (*game->getControls()).assign_pressed(ActivatePowerup, [&](){level.get_player().get_powerUp()->setActive(true); });
     game->getOverlay()->addDebugValue("BPM", std::to_string(beatDec->get_tempo()));
 }
 
@@ -59,16 +58,16 @@ void PlayState::update(const sf::Time delta) {
         if (level.get_player().get_powerUp()->getActive() && !level.get_player().get_powerUp()->getUsed()) {
             switch (level.get_player().get_powerUp()->getFunction()) {
                 case 0:
-                    soundManager->change_pitch(0.5f);
+                    soundManager->change_pitch(-2 * soundManager->get_pitch());
                     break;
                 case 1:
                     soundManager->change_pitch(0.5f);
                     break;
                 case 2:
-                    soundManager->change_pitch(0.5f);
+                    soundManager->change_pitch(-0.5f);
                     break;
                 case 3:
-                    soundManager->change_pitch(0.5f);
+                    soundManager->change_pitch(1);
                     break;
             }
             level.get_player().get_powerUp()->setUsed(true);
@@ -76,16 +75,16 @@ void PlayState::update(const sf::Time delta) {
         if (level.get_player().get_powerUp()->getActiveTime() > sf::seconds(5) && !level.get_player().get_powerUp()->getDone() && level.get_player().get_powerUp()->getActive()){
             switch (level.get_player().get_powerUp()->getFunction()) {
                 case 0:
-                    soundManager->change_pitch(-0.5f);
+                    soundManager->change_pitch(-2 * soundManager->get_pitch());
                     break;
                 case 1:
                     soundManager->change_pitch(-0.5f);
                     break;
                 case 2:
-                    soundManager->change_pitch(-0.5f);
+                    soundManager->change_pitch(0.5f);
                     break;
                 case 3:
-                    soundManager->change_pitch(-0.5f);
+                    soundManager->change_pitch(-1);
                     break;
             }
             level.get_player().get_powerUp()->setDone(true);

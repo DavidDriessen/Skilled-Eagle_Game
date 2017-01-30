@@ -70,7 +70,7 @@ void Character::move(sf::Vector2f direction){
 void Character::jump(const sf::Time delta){
     //ascending
     if(jumping && !descending){
-        float currentVelocity = -speed * delta.asMilliseconds();
+        float currentVelocity = -gravity * delta.asMilliseconds();
         colRect.top += currentVelocity * 1.5;
         jumpTime ++;
         if(collisionWithLevel(*level)){
@@ -89,7 +89,7 @@ void Character::jump(const sf::Time delta){
     }
     //descending
     if(descending){
-        float currentVelocity = speed * delta.asMilliseconds();
+        float currentVelocity = gravity * delta.asMilliseconds();
         colRect.top += currentVelocity * 1.5;
         if(collisionWithLevel(*level)){
             colRect = sprite.getGlobalBounds();
@@ -105,7 +105,7 @@ void Character::jump(const sf::Time delta){
         }
     }
     if(!descending && !jumping){
-        colRect.top += speed * delta.asMilliseconds() * 2;
+        colRect.top += gravity * delta.asMilliseconds() * 2;
         auto col = collisionWithLevel(*level);
         if(!col){
             descending = true;
