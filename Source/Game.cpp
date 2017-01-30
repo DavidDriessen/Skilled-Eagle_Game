@@ -95,6 +95,7 @@ void Game::go_to_level_select() {
     if (levelSelectState == nullptr) {
         levelSelectState = new LevelSelectState(this);
     }
+    view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
     iState = levelSelectState;
 }
 

@@ -212,6 +212,11 @@ ScreenObject* Character::collisionWithLevel(Level &level) {
             return object;
         }
     }
+    for(auto &object : level.get_finish()){
+        if(colRect.intersects(object->getFloatRect())){
+            return object;
+        }
+    }
     return nullptr;
 }
 

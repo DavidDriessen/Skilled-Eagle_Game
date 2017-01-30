@@ -11,14 +11,17 @@ SplashState::SplashState(Game *pGame ){
     game = pGame;
 
     texture_name = sf::Texture(pGame->getTextures().get(Textures::SplashName));
+    texture_name.setSmooth(true);
     sprite_name.setTexture(texture_name);
     sprite_name.setPosition(0,0);
 
     texture_eagle = sf::Texture(pGame->getTextures().get(Textures::SplashScreen));
+    texture_eagle.setSmooth(true);
     sprite_eagle.setTexture(texture_eagle);
     sprite_eagle.setPosition(0,0);
 
     texture_presents = sf::Texture(pGame->getTextures().get(Textures::SplashPresents));
+    texture_presents.setSmooth(true);
     sprite_presents.setTexture(texture_presents);
     sprite_presents.setPosition(0,0);
 

@@ -22,8 +22,12 @@ Level::~Level() {
     for (auto &power : powerUps) {
         delete power;
     }
+    for (auto &finish : ends){
+        delete finish;
+    }
     blocks.clear();
     cyber_enforcers.clear();
+    ends.clear();
 }
 
 void Level::init_object(char c, float x, float y) {
@@ -41,7 +45,7 @@ void Level::init_object(char c, float x, float y) {
             blocks.push_back(new Block(game->getTextures().get(Textures::Floor4), sf::Vector2f(x, y)));
             break;
         case '$':
-            blocks.push_back(new Block(game->getTextures().get(Textures::Finish), sf::Vector2f(x, y), sf::Vector2f(128, 32)));
+            ends.push_back(new Finish(game->getTextures().get(Textures::Finish), sf::Vector2f(x, y), sf::Vector2f(128, 32)));
             break;
         case '0':
         case '1':
@@ -80,6 +84,10 @@ void Level::init_object(char c, float x, float y) {
 
 std::vector<ScreenObject*> &Level::get_blocks() {
     return blocks;
+}
+
+std::vector<ScreenObject*> &Level::get_finish() {
+    return ends;
 }
 
 std::vector<CyberEnforcer*> &Level::get_cyber_enforcers() {

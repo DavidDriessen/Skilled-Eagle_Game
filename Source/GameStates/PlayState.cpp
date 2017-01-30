@@ -42,6 +42,9 @@ void PlayState::input(sf::Event &event) {
     for (auto &object : level.get_blocks()) {
         object->input(event);
     }
+    for (auto &object : level.get_finish()) {
+        object->input(event);
+    }
 }
 
 void PlayState::update(const sf::Time delta) {
@@ -95,6 +98,12 @@ void PlayState::update(const sf::Time delta) {
     for(auto &object : level.get_blocks()) {
         object->update(delta);
     }
+    for (auto &object : level.get_finish()) {
+        if( level.get_player().get_rect().intersects(object->getFloatRect())) {
+            game->go_to_level_select();
+        }
+        object->update(delta);
+    }
     if (level.get_player().get_weapon() == nullptr) {
         level.get_player().grab_for_weapon(level.get_weapons());
     }
@@ -115,6 +124,9 @@ void PlayState::draw(sf::RenderWindow &window) {
         object->draw(window);
     }
     for (auto &object : level.get_blocks()) {
+        object->draw(window);
+    }
+    for (auto &object : level.get_finish()) {
         object->draw(window);
     }
     for (auto &object : level.get_cyber_enforcers()) {
