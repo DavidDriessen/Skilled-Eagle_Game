@@ -14,7 +14,8 @@ Bullet::Bullet(std::string s, sf::Vector2f newPosition, int damage, sf::Vector2f
         fly_distance(fly_range){
     bullet_box.setFillColor(color);
     name = s;
-    position = newPosition;;
+    position = newPosition;
+    bullet_box.setPosition(newPosition);
 }
 
 void Bullet::draw(sf::RenderWindow &window) {
@@ -31,9 +32,8 @@ void Bullet::set_hasCollision() {
     hasCollision = true;
 }
 
-bool Bullet::collision(ScreenObject &obj) {
-    return false;
-//    return bullet_box.getGlobalBounds().intersects(obj.getFloatrect());
+bool Bullet::collision(sf::FloatRect rect) {
+    return bullet_box.getGlobalBounds().intersects(rect);
 }
 
 sf::FloatRect Bullet::getFloatRect() {

@@ -3,6 +3,7 @@
 //
 
 #include "RangedWeapon.hpp"
+#include "../../Character.hpp"
 
 RangedWeapon::RangedWeapon(sf::Texture s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown) :
         damage(damage),
@@ -51,7 +52,7 @@ void RangedWeapon::set_direction(sf::Vector2f newDirection) {
 void RangedWeapon::use() {
     if (cooldown > cooldownPeriod) {
         sf::Vector2f spawnVec = position;
-        spawnVec.x += right_direction ? 0 : -sprite.getTextureRect().width / 2;
+        spawnVec.x += right_direction ? sprite.getTextureRect().width / 2 : -sprite.getTextureRect().width / 2;
         spawnVec.y += 10;
         bulletVector.push_back(std::make_unique<Bullet>("Bullet", spawnVec, 20, direction, range));
         cooldown = sf::Time::Zero;
@@ -61,8 +62,20 @@ void RangedWeapon::use() {
 
 void RangedWeapon::check_collision(ScreenObject &obj) {
     for (std::unique_ptr<Bullet> &kogel  : bulletVector) {
-        if (kogel->collision(obj)) {
+        if (kogel->collision(obj.getFloatRect())) {
             kogel->set_hasCollision();
         }
     }
+}
+
+bool RangedWeapon::check_collision(Character &obj) {
+    for (std::unique_ptr<Bullet> &kogel  : bulletVector) {
+        if (kogel->collision(obj.get_rect())) {
+            kogel->set_hasCollision();
+            if(obj.take_damage(kogel->damage)){
+                return true;
+            }
+        }
+    }
+    return false;
 }

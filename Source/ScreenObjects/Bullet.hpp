@@ -32,7 +32,7 @@ public:
     void input(sf::Event &event){};
     void draw(sf::RenderWindow &window);
     void update(sf::Time delta);
-    bool collision(ScreenObject &obj);
+    bool collision(sf::FloatRect rect);
     void set_hasCollision();
     sf::FloatRect getFloatRect();
 
