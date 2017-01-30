@@ -251,3 +251,8 @@ void Character::set_position(sf::Vector2f pos) {
     position = pos;
     sprite.setPosition(pos);
 }
+
+bool Character::take_damage(int damage) {
+    hp -= damage;
+    return hp <= 0;
+}
