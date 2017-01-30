@@ -50,8 +50,13 @@ void PlayState::input(sf::Event &event) {
 void PlayState::update(const sf::Time delta) {
     beatDec->update();
     pitch = soundManager->get_pitch();
-
-    for(auto &object : level.get_powerUps()) {
+    level.get_player().update(delta);
+    for (auto &gun : level.get_weapons()) {
+        if (level.get_player().get_weapon() != gun) {
+            gun->check_collision(level.get_player());
+        }
+    }
+    for (auto &object : level.get_powerUps()) {
         object->update(delta, level.get_player());
     }
 
@@ -96,6 +101,7 @@ void PlayState::update(const sf::Time delta) {
     }
 
     for(auto &object : level.get_blocks()) {
+    pitch = soundManager->get_pitch();
         object->update(delta);
     }
     for (auto &object : level.get_finish()) {
@@ -107,9 +113,20 @@ void PlayState::update(const sf::Time delta) {
     if (level.get_player().get_weapon() == nullptr) {
         level.get_player().grab_for_weapon(level.get_weapons());
     }
+    int index = 0;
     for (auto &object : level.get_cyber_enforcers()) {
         object->update(delta);
         object->get_character()->grab_for_weapon(level.get_weapons());
+        for (auto &gun : level.get_weapons()) {
+            if ((*object->get_character()).get_weapon() != gun) {
+                if (gun->check_collision(*object->get_character())) {
+                    std::cout << "hbj\n";
+                    level.get_cyber_enforcers().erase(level.get_cyber_enforcers().begin() + index);
+                    break;
+                }
+            }
+        }
+        index++;
     }
     for (auto &gun : level.get_weapons()) {
         gun->update();

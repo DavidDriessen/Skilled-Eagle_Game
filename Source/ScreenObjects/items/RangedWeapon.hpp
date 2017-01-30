@@ -51,6 +51,7 @@ public:
     void update_weapon_position(sf::Vector2f playerPosition, bool right_direction);
     void draw(sf::RenderWindow &window);
     void check_collision(ScreenObject &obj);
+    bool check_collision(Character & obj);
 };
 
 

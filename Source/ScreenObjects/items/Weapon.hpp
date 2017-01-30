@@ -10,6 +10,8 @@
 #include "../ScreenObject.h"
 #include "../Bullet.hpp"
 
+class Character;
+
 class Weapon{
 public:
     virtual std::string get_type() = 0;
@@ -25,6 +27,7 @@ public:
     virtual void update_weapon_position(sf::Vector2f playerPosition, bool right_direction) = 0;
     virtual void draw(sf::RenderWindow & window)=0;
     virtual void check_collision(ScreenObject & obj) = 0;
+    virtual bool check_collision(Character & obj) = 0;
 
 
 };
