@@ -19,6 +19,7 @@ namespace Textures
         Assault,
         Sniper,
         Pistol,
+        Sword,
         Floor,
         Floor1,
         Floor2,

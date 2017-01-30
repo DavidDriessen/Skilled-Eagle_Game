@@ -44,6 +44,7 @@ void Game::loadResources() {
     textures.load(Textures::Sniper, "./assets/images/sniper.png");
     textures.load(Textures::Assault, "./assets/images/assault.png");
     textures.load(Textures::Pistol, "./assets/images/pistol.png");
+    textures.load(Textures::Sword, "./assets/images/sword.png");
     textures.load(Textures::Floor, "./assets/images/floor.png");
     textures.load(Textures::Floor2, "./assets/images/floor2.png");
     textures.load(Textures::Floor3, "./assets/images/floor3.png");

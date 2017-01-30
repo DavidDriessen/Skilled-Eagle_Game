@@ -52,6 +52,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/ScreenObjects/ScreenObject.h
         Source/ScreenObjects/Block.cpp
         Source/ScreenObjects/Block.h
+        Source/ScreenObjects/Finish.cpp
+        Source/ScreenObjects/Finish.hpp
 
         #GUI
         Source/Menu.cpp
@@ -60,6 +62,8 @@ add_executable(${EXECUTABLE_NAME}
         #ITEMS
         Source/ScreenObjects/PowerUp.cpp
         Source/ScreenObjects/PowerUp.hpp
+        Source/ScreenObjects/items/MeleeWeapon.cpp
+        Source/ScreenObjects/items/MeleeWeapon.hpp
 
         #CHARACTERS
         Source/Character.cpp
@@ -85,8 +89,7 @@ add_executable(${EXECUTABLE_NAME}
         Source/Utility/ResourceIdentifiers.hpp
         Source/Utility/ResourceHolder.inl
         Source/Utility/DebugOverlay.cpp
-        Source/Utility/DebugOverlay.hpp
-        Source/ScreenObjects/Finish.cpp Source/ScreenObjects/Finish.hpp)
+        Source/Utility/DebugOverlay.hpp)
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 #Find any version 2.X of SFML
