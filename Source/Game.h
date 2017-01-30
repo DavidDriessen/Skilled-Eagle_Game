@@ -28,6 +28,7 @@ private:
     sf::RenderWindow &window;
     sf::View view;
     IState *iState;
+private:
     SoundManager *soundManager = nullptr;
     SplashState *splashState = nullptr;
     SoundTestState *soundTestState = nullptr;
@@ -94,6 +95,9 @@ public:
     const FontHolder &getFonts() const;
 
     DebugOverlay *getOverlay() const;
+
+    SoundManager * getSoundManager() const;
+
 };
 
 

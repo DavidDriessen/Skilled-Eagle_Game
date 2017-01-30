@@ -5,11 +5,12 @@
 #include "Game.h"
 
 Game::Game(sf::RenderWindow &w) : window(w){
+    soundManager = new SoundManager();
     loadResources();
     this->overlay = new DebugOverlay(this);
     this->splashState = new SplashState(this);
     iState = splashState;
-    soundManager = new SoundManager();
+    soundManager->play(SOUND_TYPES::SPLASH);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
@@ -37,6 +38,9 @@ Game::~Game() {
 }
 
 void Game::loadResources() {
+    soundManager->insert_sound(SOUND_TYPES::GAME_SOUND, (char *) "./assets/sounds/cyka.mp3");
+    soundManager->insert_sound(SOUND_TYPES::BACKGROUND, (char *) "./assets/sounds/song.mp3");
+    soundManager->insert_sound(SOUND_TYPES::SPLASH, (char *) "./assets/sounds/song1.mp3");
     fonts.load(Fonts::Default, "./assets/font.ttf");
     textures.load(Textures::SplashScreen, "./assets/images/splashScreen.png");
     textures.load(Textures::SplashName, "./assets/images/splashName.png");
@@ -69,8 +73,6 @@ void Game::input() {
 
 void Game::update(const sf::Time delta) {
     overlay->setPos(view.getCenter()-view.getSize()/2.0f);
-    overlay->addDebugValue("PITCH", std::to_string(soundManager->get_pitch()));
-    overlay->addDebugValue("DURATION", std::to_string(soundManager->get_current_time_MS()));
     overlay->update(delta);
     iState->update(delta);
     update_debug(delta);
@@ -89,6 +91,9 @@ void Game::go_to_play() {
         controlsState = new ControlsState(this);
         playState = new PlayState(this, soundManager, std::string("./assets/Levels/awesomeLevel.txt"));
     }
+    soundManager->reset(SOUND_TYPES::BACKGROUND);
+    soundManager->reset(SOUND_TYPES::SPLASH);
+    soundManager->play(SOUND_TYPES::GAME_SOUND);
     iState = playState;
 }
 
@@ -104,6 +109,9 @@ void Game::go_to_menu() {
     if (menuState == nullptr) {
         menuState = new MenuState(this);
     }
+    soundManager->reset(SOUND_TYPES::GAME_SOUND);
+    soundManager->reset(SOUND_TYPES::SPLASH);
+    soundManager->play(SOUND_TYPES::BACKGROUND);
     iState = menuState;
 }
 
@@ -137,6 +145,8 @@ void Game::go_to_pause() {
     if (pauseState == nullptr) {
         pauseState = new PauseState(this);
     }
+    soundManager->pause(SOUND_TYPES::GAME_SOUND);
+    soundManager->play(SOUND_TYPES::BACKGROUND);
     view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
     iState = pauseState;
 }
@@ -203,4 +213,8 @@ const FontHolder &Game::getFonts() const {
 
 DebugOverlay *Game::getOverlay() const {
     return overlay;
+}
+
+SoundManager *Game::getSoundManager() const {
+    return soundManager;
 }

@@ -9,11 +9,14 @@
 
 PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): level(map.c_str(), pGame) {
     game = pGame;
-    this->soundManager = soundManager;
-    soundManager->load_song((char *) "./assets/sounds/cyka.mp3");
-    soundManager->play();
-    beatDec = new BeatDetector(soundManager);
-    bpm = beatDec->get_tempo();
+    this->soundManager = game->getSoundManager();
+    soundManager->insert_sound(SOUND_TYPES::GAME_SOUND, (char *) "./assets/sounds/cyka.mp3");
+    soundManager->play(SOUND_TYPES::GAME_SOUND);
+    bool soundLoaded = false;
+    while(!soundLoaded) {
+        soundLoaded = !soundManager->getloading();
+    }
+    beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
 
     beatDec->add_listener(this);
 
@@ -35,10 +38,10 @@ void PlayState::input(sf::Event &event) {
         game->go_to_pause();
     }
     else if (event.key.code == sf::Keyboard::H) {
-        soundManager->change_pitch(0.01f);
+        soundManager->change_pitch(0.01f, SOUND_TYPES::GAME_SOUND);
     }
     else if (event.key.code == sf::Keyboard::J) {
-        soundManager->change_pitch(-0.01f);
+        soundManager->change_pitch(-0.01f, SOUND_TYPES::GAME_SOUND);
     }
     game->getControls()->run_actions(event);
     for (auto &object : level.get_blocks()) {
@@ -51,8 +54,8 @@ void PlayState::input(sf::Event &event) {
 
 void PlayState::update(const sf::Time delta) {
     beatDec->update();
+    pitch = soundManager->get_pitch(SOUND_TYPES::GAME_SOUND);
     playerHUD.update(delta);
-    pitch = soundManager->get_pitch();
     level.get_player().update(delta);
     for (auto &gun : level.get_weapons()) {
         if (level.get_player().get_weapon() != gun) {
@@ -71,16 +74,16 @@ void PlayState::update(const sf::Time delta) {
         if (level.get_player().get_powerUp()->getActive() && !level.get_player().get_powerUp()->getUsed()) {
             switch (level.get_player().get_powerUp()->getFunction()) {
                 case 0:
-                    soundManager->change_pitch(-2 * soundManager->get_pitch());
+                    soundManager->change_pitch(-2 * soundManager->get_pitch(SOUND_TYPES::GAME_SOUND), SOUND_TYPES::GAME_SOUND);
                     break;
                 case 1:
-                    soundManager->change_pitch(0.5f);
+                    soundManager->change_pitch(0.5f, SOUND_TYPES::GAME_SOUND);
                     break;
                 case 2:
-                    soundManager->change_pitch(-0.5f);
+                    soundManager->change_pitch(-0.5f, SOUND_TYPES::GAME_SOUND);
                     break;
                 case 3:
-                    soundManager->change_pitch(1);
+                    soundManager->change_pitch(1, SOUND_TYPES::GAME_SOUND);
                     break;
             }
             level.get_player().get_powerUp()->setUsed(true);
@@ -88,16 +91,16 @@ void PlayState::update(const sf::Time delta) {
         if (level.get_player().get_powerUp()->getActiveTime() > sf::seconds(5) && !level.get_player().get_powerUp()->getDone() && level.get_player().get_powerUp()->getActive()){
             switch (level.get_player().get_powerUp()->getFunction()) {
                 case 0:
-                    soundManager->change_pitch(-2 * soundManager->get_pitch());
+                    soundManager->change_pitch(-2 * soundManager->get_pitch(SOUND_TYPES::GAME_SOUND), SOUND_TYPES::GAME_SOUND);
                     break;
                 case 1:
-                    soundManager->change_pitch(-0.5f);
+                    soundManager->change_pitch(-0.5f, SOUND_TYPES::GAME_SOUND);
                     break;
                 case 2:
-                    soundManager->change_pitch(0.5f);
+                    soundManager->change_pitch(0.5f, SOUND_TYPES::GAME_SOUND);
                     break;
                 case 3:
-                    soundManager->change_pitch(-1);
+                    soundManager->change_pitch(-1, SOUND_TYPES::GAME_SOUND);
                     break;
             }
             level.get_player().get_powerUp()->setDone(true);
@@ -138,6 +141,8 @@ void PlayState::update(const sf::Time delta) {
     for (auto &gun : level.get_weapons()) {
         gun->update();
     }
+    game->getOverlay()->addDebugValue("PITCH", std::to_string(soundManager->get_pitch(SOUND_TYPES::GAME_SOUND)));
+    game->getOverlay()->addDebugValue("DURATION", std::to_string(soundManager->get_current_time_MS(SOUND_TYPES::GAME_SOUND)));
     game->getOverlay()->addDebugValue("SPEED", std::to_string(level.get_player().getSpeed()));
 }
 

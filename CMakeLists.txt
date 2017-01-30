@@ -10,7 +10,7 @@ endif ()
 # (you can also set it on the command line: -D CMAKE_BUILD_TYPE=Release)
 
 project(Skilled_Eagle-Game)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -std=c++14")
 set(SFML_ROOT ${PROJECT_SOURCE_DIR}"SFML")
 
 # Set version information in a config.h fil

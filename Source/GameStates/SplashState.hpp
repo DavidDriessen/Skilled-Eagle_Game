@@ -30,7 +30,7 @@ private:
     sf::Time elapsed;
     sf::Time time_limit_name = sf::seconds(3);
     sf::Time time_limit_presents = time_limit_name + sf::seconds(2);
-    sf::Time time_limit_eagle = time_limit_presents + sf::seconds(3);
+    sf::Time time_limit_eagle = time_limit_presents + sf::seconds(2);
 
 
 public:
