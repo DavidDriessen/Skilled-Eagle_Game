@@ -28,8 +28,7 @@ public:
     virtual void draw(sf::RenderWindow & window)=0;
     virtual void check_collision(ScreenObject & obj) = 0;
     virtual bool check_collision(Character & obj) = 0;
-
-
+    virtual int get_damage() const = 0;
 };
 
 

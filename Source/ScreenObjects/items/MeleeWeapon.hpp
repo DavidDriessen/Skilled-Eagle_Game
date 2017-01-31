@@ -25,6 +25,10 @@ private:
     bool is_attack_drawable = false;
 public:
     MeleeWeapon(sf::Texture s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown);
+
+    int get_damage() const {
+        return damage;
+    }
     bool get_is_owned() const {
         return is_owned;
     }
@@ -52,6 +56,7 @@ public:
     void update_weapon_position(sf::Vector2f playerPosition, bool right_direction);
     void draw(sf::RenderWindow &window);
     void check_collision(ScreenObject &obj);
+    bool check_collision(Character & obj) {return false;}
 };
 
 

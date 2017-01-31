@@ -102,7 +102,6 @@ void PlayState::update(const sf::Time delta) {
     }
 
     for(auto &object : level.get_blocks()) {
-    pitch = soundManager->get_pitch();
         object->update(delta);
     }
     for (auto &object : level.get_finish()) {

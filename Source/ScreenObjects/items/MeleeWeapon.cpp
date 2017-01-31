@@ -16,9 +16,17 @@ MeleeWeapon::MeleeWeapon(sf::Texture s, int damage, sf::Vector2f playerPosition,
     sprite.setRotation(90);
 }
 
-
 void MeleeWeapon::update() {
     cooldown = clock.getElapsedTime();
+    if(cooldown < cooldownPeriod && is_attack_drawable) {
+        if(right_direction) {
+            sprite.setRotation(sprite.getRotation() + 50);
+            sprite.setPosition(sf::Vector2f(sprite.getPosition().x + 25, sprite.getPosition().y + 25));
+        } else {
+            sprite.setRotation(sprite.getRotation() - 50);
+            sprite.setPosition(sf::Vector2f(sprite.getPosition().x - 30, sprite.getPosition().y + 25));
+        }
+    }
 }
 
 void MeleeWeapon::draw(sf::RenderWindow &window) {
