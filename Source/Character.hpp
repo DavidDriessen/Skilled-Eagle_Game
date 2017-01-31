@@ -9,11 +9,9 @@
 #include "ScreenObjects/StatusBar.hpp"
 #include "ScreenObjects/items/Weapon.hpp"
 #include "ScreenObjects/items/RangedWeapon.hpp"
-#include "ScreenObjects/items/MeleeWeapon.hpp"
-#include "ScreenObjects/StatusBar.hpp"
 
+class Weapon;
 class Level;
-
 class PowerUp;
 
 class Character {

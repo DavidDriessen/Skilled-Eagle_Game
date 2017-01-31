@@ -3,7 +3,6 @@
 //
 
 #include "RangedWeapon.hpp"
-#include "../../Character.hpp"
 
 RangedWeapon::RangedWeapon(sf::Texture s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown) :
         damage(damage),

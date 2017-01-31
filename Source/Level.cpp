@@ -3,8 +3,8 @@
 //
 
 #include <SFML/System/Vector2.hpp>
-#include "Level.h"
 #include "Game.h"
+#include "Level.h"
 #include <iostream>
 
 Level::Level(const char * location, Game* game) : game(game), player(game->getTextures().get(Textures::Cyber),sf::Vector2f(100, 100), 0.3, 0.3, 14, 172, 260, 0.17, *this, false) {
@@ -74,7 +74,7 @@ void Level::init_object(char c, float x, float y) {
             weapons.push_back(new RangedWeapon(game->getTextures().get(Textures::Sniper), 8, sf::Vector2f(x, y), 13 * 32, sf::milliseconds(500)));
             break;
         case '%':
-            weapons.push_back(new MeleeWeapon(game->getTextures().get(Textures::Sword), 100, sf::Vector2f(x, y), 2 * 32, sf::milliseconds(500)));
+            weapons.push_back(new MeleeWeapon(game->getTextures().get(Textures::Sword), 100, sf::Vector2f(x, y), 1 * 16, sf::milliseconds(500)));
             break;
         case 'P':
             player.set_position({x, y});

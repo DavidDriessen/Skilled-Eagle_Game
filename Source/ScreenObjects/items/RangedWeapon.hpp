@@ -6,6 +6,7 @@
 #define SKILLED_EAGLE_GAME_RANGEDWEAPON_HPP
 
 #include "Weapon.hpp"
+#include "../../Character.hpp"
 
 class RangedWeapon : public Weapon {
 private:

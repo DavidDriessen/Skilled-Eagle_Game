@@ -82,27 +82,6 @@ void Character::attack() {
             weapon->set_direction(sf::Vector2f(s, 0));
         }
         weapon->use();
-        if(weapon->get_type() == "sword") {
-            sf::FloatRect hit_rectangle;
-            hit_rectangle.left = position.x;
-            hit_rectangle.top = position.y;
-            hit_rectangle.width = directionRight ? weapon->get_range() : -weapon->get_range();
-            hit_rectangle.height = 32;
-            int index = 0;
-            // each enemy
-            for(auto &obj : level->get_cyber_enforcers()) {
-                // if enemy intersects with sword rect..
-                if(obj->getFloatRect().intersects(hit_rectangle)) {
-                    // if enemy has taken the damage and enemy is dead..
-                    if(obj->get_character()->take_damage(weapon->get_damage())) {
-                        // remove the enemy..
-                        obj->get_character()->assign_weapon(nullptr);
-                        level->get_cyber_enforcers().erase(level->get_cyber_enforcers().begin() + index);
-                    }
-                }
-                index++;
-            }
-        }
     }
 }
 
