@@ -47,10 +47,12 @@ private:
 public:
     Character(sf::Texture t, sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width,
               int sprite_height, float sprite_scale, Level &level);
-
+    ~Character();
     sf::Sprite &get_sprite();
 
     Weapon *get_weapon();
+
+    bool get_is_right_direction() const;
 
     void assign_weapon(Weapon *new_weapon);
 

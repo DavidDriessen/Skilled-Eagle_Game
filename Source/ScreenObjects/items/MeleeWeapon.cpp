@@ -24,7 +24,7 @@ void MeleeWeapon::update() {
             sprite.setPosition(sf::Vector2f(sprite.getPosition().x + 25, sprite.getPosition().y + 25));
         } else {
             sprite.setRotation(sprite.getRotation() - 50);
-            sprite.setPosition(sf::Vector2f(sprite.getPosition().x - 30, sprite.getPosition().y + 25));
+            sprite.setPosition(sf::Vector2f(sprite.getPosition().x - 30, sprite.getPosition().y + 20));
         }
     }
 }

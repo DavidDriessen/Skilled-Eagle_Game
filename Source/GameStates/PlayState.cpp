@@ -116,12 +116,15 @@ void PlayState::update(const sf::Time delta) {
     int index = 0;
     for (auto &object : level.get_cyber_enforcers()) {
         object->update(delta);
-        object->get_character()->grab_for_weapon(level.get_weapons());
+        if(object->get_character()->get_weapon() == nullptr) {
+            object->get_character()->grab_for_weapon(level.get_weapons());
+        }
         for (auto &gun : level.get_weapons()) {
             if ((*object->get_character()).get_weapon() != gun) {
                 if (gun->check_collision(*object->get_character())) {
                     std::cout << "hbj\n";
                     level.get_cyber_enforcers().erase(level.get_cyber_enforcers().begin() + index);
+                    object->get_character()->assign_weapon(nullptr);
                     break;
                 }
             }
