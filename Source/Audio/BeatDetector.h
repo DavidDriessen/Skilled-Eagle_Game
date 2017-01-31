@@ -35,7 +35,12 @@ public:
 
     bool getLoading();
 
+    int getFound_beats() const {
+        return found_beats;
+    }
+
 private:
+    int found_beats = 0;
     SoundManager *snd_mgr;
     SOUNDS *sound;
     int length;    // en PCM
@@ -53,6 +58,7 @@ private:
     int search_max(float *signal, int pos, int fenetre_half_size); // recherche d'un max dans les parages de pos
 
     bool loading = false;
+    std::string songName;
 };
 
 #endif // BEATDETECTOR_H

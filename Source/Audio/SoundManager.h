@@ -20,8 +20,8 @@ struct SOUNDS {
     FMOD_SOUND *sound = nullptr;
     std::string path;
     unsigned int length = 0;
+    unsigned int lengthMS = 0;
     int *left = 0;
-    int *right = 0;
     float pitch= 1.f;
 };
 

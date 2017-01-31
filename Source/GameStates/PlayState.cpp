@@ -10,14 +10,13 @@
 PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): level(map.c_str(), pGame) {
     game = pGame;
     this->soundManager = game->getSoundManager();
-    soundManager->insert_sound(SOUND_TYPES::GAME_SOUND, (char *) "./assets/sounds/cyka.mp3");
     soundManager->play(SOUND_TYPES::GAME_SOUND);
-    bool soundLoaded = false;
-    while(!soundLoaded) {
-        soundLoaded = !soundManager->getloading();
-    }
+    soundManager->pause(SOUND_TYPES::GAME_SOUND);
     beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
-
+    while(beatDec->getFound_beats() <= (int)(float)soundManager->get_sound(SOUND_TYPES::GAME_SOUND)->lengthMS/((float)60000/(float)beatDec->get_tempo())-10) {
+        beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
+    }
+    bpm = beatDec->get_tempo();
     beatDec->add_listener(this);
 
     playerHUD.set_hud_player(&level.get_player());
@@ -129,7 +128,6 @@ void PlayState::update(const sf::Time delta) {
         for (auto &gun : level.get_weapons()) {
             if ((*object->get_character()).get_weapon() != gun) {
                 if (gun->check_collision(*object->get_character())) {
-                    std::cout << "hbj\n";
                     object->get_character()->assign_weapon(nullptr);
                     level.get_cyber_enforcers().erase(level.get_cyber_enforcers().begin() + index);
                     break;
@@ -144,6 +142,7 @@ void PlayState::update(const sf::Time delta) {
     game->getOverlay()->addDebugValue("PITCH", std::to_string(soundManager->get_pitch(SOUND_TYPES::GAME_SOUND)));
     game->getOverlay()->addDebugValue("DURATION", std::to_string(soundManager->get_current_time_MS(SOUND_TYPES::GAME_SOUND)));
     game->getOverlay()->addDebugValue("SPEED", std::to_string(level.get_player().getSpeed()));
+    game->getOverlay()->addDebugValue("FOUND BEATS", std::to_string(beatDec->getFound_beats()));
 }
 
 void PlayState::draw(sf::RenderWindow &window) {
@@ -169,7 +168,9 @@ void PlayState::draw(sf::RenderWindow &window) {
 }
 
 void PlayState::onBeat() {
-
+    for(auto &object : level.get_cyber_enforcers()) {
+        object->get_character()->up();
+    }
 }
 
 void PlayState::onPeak(float peak) {
@@ -177,5 +178,11 @@ void PlayState::onPeak(float peak) {
 }
 
 void PlayState::set_level(std::string map) {
+    beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
+    while(beatDec->getFound_beats() <= (int)(float)soundManager->get_sound(SOUND_TYPES::GAME_SOUND)->lengthMS/((float)60000/(float)beatDec->get_tempo())-10) {
+        beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
+    }
+    bpm = beatDec->get_tempo();
+    beatDec->add_listener(this);
     new (&level) Level(map.c_str(), game);
 }
