@@ -23,8 +23,8 @@ private:
     Level level;
     SoundManager *soundManager = nullptr;
     BeatDetector *beatDec = nullptr;
-    float bpm;
-    float pitch;
+    float bpm = 0;
+    float pitch = 1;
 
     HudDisplay    playerHUD;
 public:

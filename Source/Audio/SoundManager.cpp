@@ -85,6 +85,11 @@ void SoundManager::toggle_play(SOUND_TYPES s) {
 }
 
 void SoundManager::reload_sound(SOUNDS *s) {
+    s->length = 0;
+    s->left = 0;
+    s->pitch = 1;
+    s->sound = nullptr;
+    s->channel = 0;
     loading = true;
     loadedSoundName = s->path;
     unsigned int length;
@@ -93,19 +98,17 @@ void SoundManager::reload_sound(SOUNDS *s) {
 
     /* On active la repetition de la gamePlayMusic l'infini */
     FMOD_Sound_SetLoopCount(s->sound, -1);
-    FMOD_Sound_GetLength(s->sound, &length, FMOD_TIMEUNIT_PCM);
-    s->length = length;
+    FMOD_Sound_GetLength(s->sound, &s->length, FMOD_TIMEUNIT_PCM);
+    FMOD_Sound_GetLength(s->sound, &s->lengthMS, FMOD_TIMEUNIT_MS);
     /* on rempli les tableau data_left et data_right avec les donn�es du buffer */
     void *ptr1 = nullptr;
     void *ptr2 = nullptr;             // ???
     unsigned int length1 = 0;   // ???
     unsigned int length2 = 0;   // ???
     s->left = new int[s->length];
-    s->right = new int[s->length];
     FMOD_Sound_Lock(s->sound, 0, s->length, &ptr1, &ptr2, &length1, &length2);
     for (int i = 0; i < s->length; i++) {
         s->left[i] = ((int *) ptr1)[i] >> 16;
-        s->right[i] = (((int *) ptr1)[i] << 16) >> 16;
     }
     FMOD_Sound_Unlock(s->sound, ptr1, ptr2, s->length, length2);
     loading = false;

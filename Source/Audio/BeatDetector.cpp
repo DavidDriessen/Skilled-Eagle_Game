@@ -9,16 +9,17 @@
 
 #define K_ENERGIE_RATIO  1.3 // le ratio entre les energie1024 et energie44100 pour la d�tection des peak d'energie
 #define K_TRAIN_DIMP_SIZE 108 // la taille du train d'impulsions pour la convolution (en pack de 1024 (430=10sec))
-
+#define MS_MINUTE 60000
 using namespace std;
 
 BeatDetector::BeatDetector(SoundManager *snd_mgr, SOUND_TYPES t) {
     this->sound = snd_mgr->get_sound(t);
-    std::string songPath =  sound->path;
-    std::string songName = songPath.substr(songPath.find_last_of("/\\") + 1);
-    std::ifstream input("assets/sounds/beats/"+  songName + ".beats");
+    std::string songPath = sound->path;
+    songName = songPath.substr(songPath.find_last_of("/\\") + 1);
+    std::ifstream input("assets/sounds/beats/" + songName + ".beats");
     std::string line = "";
     this->snd_mgr = snd_mgr;
+    found_beats = 0;
     length = sound->length;
     energie1024 = new float[length / 1024];
     energie44100 = new float[length / 1024];
@@ -29,7 +30,7 @@ BeatDetector::BeatDetector(SoundManager *snd_mgr, SOUND_TYPES t) {
     int count = 0;
     if (input.is_open()) {
         if (getline(input, line)) {
-            //tempo = std::stoi(line);
+            tempo = std::stoi(line);
         }
         char c;
         while (input.get(c)) {
@@ -38,14 +39,16 @@ BeatDetector::BeatDetector(SoundManager *snd_mgr, SOUND_TYPES t) {
             }
             float k = float(int(c) - '0');
             beat[count++] = k;
+            if(k == 1) {
+                found_beats++;
+            }
         }
     }
-    if (count != (length / 1024)) {
+    if (count < (length / 1024)) {
         std::cout << "DECODING MUSIC\n";
         audio_process(); // launch beats detection
     } else {
         std::cout << "LOADED FROM FILE\n";
-
     }
 
 }
@@ -88,6 +91,7 @@ int BeatDetector::search_max(float *signal, int pos, int fenetre_half_size) {
 }
 
 void BeatDetector::audio_process(void) {
+    found_beats = 0;
     loading = true;
 // recupere les donn�es de la musique
 // ----------------------------------
@@ -97,7 +101,6 @@ void BeatDetector::audio_process(void) {
 // calcul des energies instantann�es
 // ---------------------------------
     for (int i = 0; i < length / 1024; i++) {
-        std::cout << "energie1024: " << i << "\n";
         energie1024[i] = energie(data, 1024 * i, 4096); // 4096 pour lisser un peu la courbe
     }
 
@@ -107,7 +110,6 @@ void BeatDetector::audio_process(void) {
     // la moyenne des 43 premiers energies1024 donne l'energie44100 de la premiere seconde
     float somme = 0.f;
     for (int i = 0; i < 43; i++) {
-        std::cout << "somme: " << i << "\n";
         somme = somme + energie1024[i];
     }
     energie44100[0] = somme / 43;
@@ -118,7 +120,6 @@ void BeatDetector::audio_process(void) {
         }
         somme = somme - energie1024[i - 1] + energie1024[i + 42];
         energie44100[i] = somme / 43;
-        std::cout << "energie44100 " << i << "\n";
     }
 
 // Ratio energie1024/energie44100
@@ -128,7 +129,6 @@ void BeatDetector::audio_process(void) {
         if (energie1024[i] > K_ENERGIE_RATIO * energie44100[i - 21]) {
             energie_peak[i] = 1;
         }
-        std::cout << "energiepeak: " << i << "\n";
     }
 
 // Calcul des BPMs
@@ -188,7 +188,6 @@ void BeatDetector::audio_process(void) {
         }
         else train_dimp[i] = 0;
         espace += 1.f;
-        std::cout << "train_dimp" << i << "\n";
     }
 
     // convolution avec l'�nergir instantann�e de la music
@@ -212,9 +211,9 @@ void BeatDetector::audio_process(void) {
             max_conv = conv[i];
             max_conv_pos = i;
         }
-        std::cout << "beats" << i << "\n";
     }
     beat[max_conv_pos] = 1.f;
+    found_beats++;
 
     // les suivants
     // vers la droite
@@ -224,7 +223,7 @@ void BeatDetector::audio_process(void) {
         int conv_max_pos_loc = search_max(conv, i, 2);
         beat[conv_max_pos_loc] = 1.f;
         i = conv_max_pos_loc + T_occ_max;
-        std::cout << "beats" << i << "\n";
+        found_beats++;
     }
     // vers la gauche
     i = max_conv_pos - T_occ_max;
@@ -233,16 +232,19 @@ void BeatDetector::audio_process(void) {
         int conv_max_pos_loc = search_max(conv, i, 2);
         beat[conv_max_pos_loc] = 1.f;
         i = conv_max_pos_loc - T_occ_max;
-        std::cout << "beats" << i << "\n";
+        found_beats++;
+
     }
 
     loading = false;
-    std::ofstream output("assets/sounds/beats/naker.beats");
-    if (output.is_open()) {
-        output.clear();
-        output << get_tempo() << "\n";
-        for (int i = 0; i < length / 1024; i++) {
-            output << ((beat[i] == 0) ? 0 : 1);
+    if (found_beats >= (int) (float) sound->lengthMS / ((float) 60000 / (float) tempo)-10) {
+        std::ofstream output("assets/sounds/beats/"+  songName + ".beats");
+        if (output.is_open()) {
+            output.clear();
+            output << get_tempo() << "\n";
+            for (int i = 0; i < length / 1024; i++) {
+                output << ((beat[i] == 0) ? 0 : 1);
+            }
         }
     }
 }
@@ -266,12 +268,12 @@ void BeatDetector::update(void) {
     int L = upper_pos - lower_pos;
     float t = current_pos - (float) lower_pos;
     if (t > 10) {
-        for(auto &b : listeners) {
+        for (auto &b : listeners) {
             b.second->onBeat();
         }
     }
-    for(auto &b : listeners) {
-        b.second->onPeak(energie1024[(int)current_pos]);
+    for (auto &b : listeners) {
+        b.second->onPeak(energie1024[(int) current_pos]);
     }
 
 }
@@ -301,9 +303,9 @@ int BeatDetector::get_tempo(void) {
 }
 
 void BeatDetector::remove_listener(int id) {
-    for(auto &b : listeners) {
-        if(b.first == id) {
-            listeners.erase(listeners.begin()+b.first);
+    for (auto &b : listeners) {
+        if (b.first == id) {
+            listeners.erase(listeners.begin() + b.first);
             break;
         }
     }

@@ -109,6 +109,10 @@ void Game::go_to_menu() {
     if (menuState == nullptr) {
         menuState = new MenuState(this);
     }
+    if(playState != nullptr) {
+        delete playState;
+        playState = nullptr;
+    }
     soundManager->reset(SOUND_TYPES::GAME_SOUND);
     soundManager->reset(SOUND_TYPES::SPLASH);
     soundManager->play(SOUND_TYPES::BACKGROUND);
