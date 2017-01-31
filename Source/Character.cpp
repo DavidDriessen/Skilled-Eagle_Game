@@ -118,7 +118,6 @@ void Character::jump(const sf::Time delta){
 }
 
 void Character::draw(sf::RenderWindow &window) {
-    sprite.setPosition(position);
     window.draw(sprite);
 }
 
@@ -151,6 +150,7 @@ void Character::update(const sf::Time delta) {
     }
     jump(delta);
     animation();
+    sprite.setPosition(position);
     if(weapon != nullptr) {
         weapon->update_weapon_position(sprite.getPosition(), directionRight);
     }
