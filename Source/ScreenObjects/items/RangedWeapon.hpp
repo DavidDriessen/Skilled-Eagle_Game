@@ -24,6 +24,11 @@ private:
     float bullet_speed_from_gun = 10;
 public:
     RangedWeapon(sf::Texture s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown);
+
+    int get_damage() const {
+        return damage;
+    }
+
     bool get_is_owned() const {
         return is_owned;
     }

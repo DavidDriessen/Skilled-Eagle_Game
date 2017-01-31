@@ -63,10 +63,18 @@ void Character::attack() {
             hit_rectangle.top = position.y;
             hit_rectangle.width = directionRight ? 64 : -32;
             hit_rectangle.height = 32;
+            int index = 0;
+            // each enemy
             for(const auto &obj : level->get_cyber_enforcers()) {
+                // if enemy intersects with sword rect..
                 if(obj->getFloatRect().intersects(hit_rectangle)) {
-
+                    // if enemy has taken the damage AND hp is lower or equal to 0
+                    if(obj->get_character()->take_damage(weapon->get_damage())) {
+                        // remove
+                        level->get_cyber_enforcers().erase(level->get_cyber_enforcers().begin() + index);
+                    }
                 }
+                index++;
             }
         }
     }
