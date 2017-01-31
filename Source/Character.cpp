@@ -256,3 +256,15 @@ bool Character::take_damage(int damage) {
     hp -= damage;
     return hp <= 0;
 }
+
+void Character::down(){
+    if(duck){
+        duck = false;
+        sprite.setScale(sprite.getScale().x * 2, sprite.getScale().y * 2);
+    }
+    else{
+        duck = true;
+        sprite.setScale(sprite.getScale().x * 0.5f, sprite.getScale().y * 0.5f);
+    }
+
+}

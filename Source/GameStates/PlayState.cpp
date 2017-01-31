@@ -21,6 +21,7 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
     (*game->getControls()).assign_pressed(Right, [&]() { level.get_player().right(); });
     (*game->getControls()).assign_released(Right, [&]() { level.get_player().stop(); });
     (*game->getControls()).assign_pressed(Jump, [&]() { level.get_player().up(); });
+    (*game->getControls()).assign_pressed(Down, [&]() { level.get_player().down();});
     (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); });
     (*game->getControls()).assign_pressed(GrabWeapon, [&]() { level.get_player().grab_for_weapon(level.get_weapons()); });
     (*game->getControls()).assign_pressed(ActivatePowerup, [&](){if(level.get_player().get_powerUp()){level.get_player().get_powerUp()->setActive(true);} });

@@ -16,6 +16,7 @@ enum Actions {
     Jump,
     Left,
     Right,
+    Down,
     Attack,
     GrabWeapon,
     ActivatePowerup,
@@ -41,7 +42,8 @@ private:
             "Right",
             "Attack",
             "GrabWeapon",
-            "ActivatePowerup"};
+            "ActivatePowerup",
+            "Down"};
     std::map<Actions, KeyActions> key;
     KeyActions *key_to_bind;
     std::vector<sf::String> KeyboardKeyNames = {

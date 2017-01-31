@@ -51,6 +51,9 @@ ControlsState::ControlsState(Game *pGame) : Menu(pGame->getFonts().get(Fonts::De
     actions.push_back([&](){
         key_to_bind = &key[ActivatePowerup];
     });
+    actions.push_back([&](){
+        key_to_bind = &key[Down];
+    });
     key_to_bind = NULL;
 }
 
@@ -85,9 +88,11 @@ void ControlsState::draw(sf::RenderWindow &window) {
         btn[0] = sf::String("Jump: ") + KeyboardKeyNames[key[Jump].key];
         btn[1] = sf::String("Left: ") + KeyboardKeyNames[key[Left].key];
         btn[2] = sf::String("Right: ") + KeyboardKeyNames[key[Right].key];
-        btn[3] = sf::String("Attack: ") + KeyboardKeyNames[key[Attack].key];
-        btn[4] = sf::String("Grab Weapon: ") + KeyboardKeyNames[key[GrabWeapon].key];
-        btn[5] = sf::String("Activate Powerup: ") + KeyboardKeyNames[key[ActivatePowerup].key];
+        btn[3] = sf::String("Down: ") + KeyboardKeyNames[key[Down].key];
+        btn[4] = sf::String("Attack: ") + KeyboardKeyNames[key[Attack].key];
+        btn[5] = sf::String("Grab Weapon: ") + KeyboardKeyNames[key[GrabWeapon].key];
+        btn[6] = sf::String("Activate Powerup: ") + KeyboardKeyNames[key[ActivatePowerup].key];
+
         Menu::draw(window, btn);
     }
 }

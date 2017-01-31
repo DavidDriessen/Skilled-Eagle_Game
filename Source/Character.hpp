@@ -34,6 +34,7 @@ private:
     bool descending = true;
     bool moving = false;
     bool directionRight = true;
+    bool duck = false;
     Level *level;
 
     void move(sf::Vector2f direction);
@@ -88,6 +89,8 @@ public:
     sf::Vector2f getPosition();
 
     bool take_damage(int damage);
+
+    void down();
 };
 
 
