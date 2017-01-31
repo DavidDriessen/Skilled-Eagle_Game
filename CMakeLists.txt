@@ -86,7 +86,6 @@ add_executable(${EXECUTABLE_NAME}
         Source/Audio/BeatListener.hpp
         Source/ScreenObjects/HudDisplay.cpp
         Source/ScreenObjects/HudDisplay.hpp
-        )
 
         #Utility
         Source/Utility/ResourceHolder.hpp

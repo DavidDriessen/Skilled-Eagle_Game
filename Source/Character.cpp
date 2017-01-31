@@ -7,7 +7,7 @@
 #include "Level.h"
 #include "ScreenObjects/PowerUp.hpp"
 
-Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level, bool isEnemy = false) {
+Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width, int sprite_height, float sprite_scale, Level &level, bool isEnemy) {
     this->position = startPos;
     this->gravity = gravity;
     this->speed = speed;
@@ -35,6 +35,7 @@ Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, flo
         healthBar->set_StatusBar_hudSize();
         staminaBar->set_StatusBar_hudSize();
     }
+    sprite.setPosition(position);
     sprite.setPosition(position);
 }
 
@@ -213,15 +214,15 @@ void Character::update_status_bars(){
     staminaTimer = staminaClock.getElapsedTime();
     healthTimer =  healthClock.getElapsedTime();
 
-    if (characterHealthPoints < 0 ){
-        characterHealthPoints = 0;
+    if (hp < 0 ){
+        hp = 0;
     }
     if (characterStaminaPoints < 0 ){
         characterStaminaPoints = 0;
     }
 
-    if(healthTimer > healthRegenCooldown && characterHealthPoints < maximumHealth){
-        characterHealthPoints+=10;
+    if(healthTimer > healthRegenCooldown && hp < maximumHealth){
+        hp+=10;
         healthTimer = sf::Time::Zero;
         healthClock.restart();
     }
@@ -234,10 +235,10 @@ void Character::update_status_bars(){
 
     if(isEnemy) {
         healthBarOffset.y = -15;
-        healthBar->set_StatusBar(healthBar->Calculate_percentage_of(characterHealthPoints, maximumHealth), position + healthBarOffset);
+        healthBar->set_StatusBar(healthBar->Calculate_percentage_of(hp, maximumHealth), position + healthBarOffset);
     }
     else{
-        healthBar->set_StatusBar(healthBar->Calculate_percentage_of(characterHealthPoints, maximumHealth)*3, hudLocation +  healthBarOffset);
+        healthBar->set_StatusBar(healthBar->Calculate_percentage_of(hp, maximumHealth)*3, hudLocation +  healthBarOffset);
         staminaBar->set_StatusBar(staminaBar->Calculate_percentage_of(characterStaminaPoints, maximumStamina)*3, hudLocation + staminaBarOffset);
     }
 }

@@ -37,6 +37,7 @@ private:
     bool descending = true;
     bool moving = false;
     bool directionRight = true;
+    bool isEnemy = false;
     Level *level;
 
     void move(sf::Vector2f direction);
@@ -50,17 +51,19 @@ private:
     int playerHealthPoints;
     int playerStaminaPoints;
 
-        int characterHealthPoints;
-        int characterStaminaPoints;
+    int characterHealthPoints;
+    int characterStaminaPoints;
+    int maximumStamina = 100;
+    int maximumHealth = 100;
+    sf::Vector2f hudLocation;
+    sf::Vector2f healthBarOffset = sf::Vector2f(0, -30.0);
+    sf::Vector2f staminaBarOffset = sf::Vector2f(0, -20.0);
 
-    sf::Vector2f healthBarOffset = sf::Vector2f(0,-30.0);
-    sf::Vector2f staminaBarOffset = sf::Vector2f(0,-20.0);
-
-    StatusBar * healthBar;
-    StatusBar * staminaBar;
+    StatusBar *healthBar;
+    StatusBar *staminaBar;
 
     sf::Clock healthClock;
-    sf::Time healthRegenCooldown = sf::milliseconds(150);
+    sf::Time healthRegenCooldown = sf::milliseconds(5000);
     sf::Time healthTimer = sf::Time::Zero;
 
     sf::Clock staminaClock;
@@ -68,7 +71,7 @@ private:
     sf::Time staminaTimer = sf::Time::Zero;
 public:
     Character(sf::Texture t, sf::Vector2f startPos, float gravity, float speed, float jumpHeight, int sprite_width,
-              int sprite_height, float sprite_scale, Level &level);
+              int sprite_height, float sprite_scale, Level &level, bool isEnemy);
     ~Character();
     sf::Sprite &get_sprite();
 
@@ -113,6 +116,12 @@ public:
     sf::Vector2f getPosition();
 
     bool take_damage(int damage);
+
+    void update_status_bars();
+
+    StatusBar *get_HealthBar();
+
+    StatusBar *get_StaminaBar();
 };
 
 
