@@ -27,6 +27,17 @@ Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, flo
     sprite.setPosition(position);
 }
 
+Character::~Character() {
+    if(weapon != nullptr) {
+        weapon->set_is_owned(false);
+        assign_weapon(nullptr);
+    }
+}
+
+bool Character::get_is_right_direction() const {
+    return directionRight;
+}
+
 Weapon* Character::get_weapon() {
     return weapon;
 }
@@ -37,7 +48,9 @@ void Character::assign_weapon(Weapon *new_weapon) {
         weapon->set_is_owned(false);
     }
     weapon = new_weapon;
-    weapon->set_is_owned(true);
+    if(weapon != nullptr) {
+        weapon->set_is_owned(true);
+    }
 }
 
 void Character::grab_for_weapon(std::vector<Weapon*> &weapons) {
@@ -53,7 +66,7 @@ void Character::grab_for_weapon(std::vector<Weapon*> &weapons) {
 void Character::attack() {
     if(weapon != nullptr) {
         if(weapon->get_type() == "ranged") {
-            int s = directionRight ? 10 : -10;
+            int s = directionRight ? weapon->get_bullet_speed() : -weapon->get_bullet_speed();
             weapon->set_direction(sf::Vector2f(s, 0));
         }
         weapon->use();
@@ -61,16 +74,17 @@ void Character::attack() {
             sf::FloatRect hit_rectangle;
             hit_rectangle.left = position.x;
             hit_rectangle.top = position.y;
-            hit_rectangle.width = directionRight ? 64 : -32;
+            hit_rectangle.width = directionRight ? weapon->get_range() : -weapon->get_range();
             hit_rectangle.height = 32;
             int index = 0;
             // each enemy
-            for(const auto &obj : level->get_cyber_enforcers()) {
+            for(auto &obj : level->get_cyber_enforcers()) {
                 // if enemy intersects with sword rect..
                 if(obj->getFloatRect().intersects(hit_rectangle)) {
-                    // if enemy has taken the damage AND hp is lower or equal to 0
+                    // if enemy has taken the damage and enemy is dead..
                     if(obj->get_character()->take_damage(weapon->get_damage())) {
-                        // remove
+                        // remove the enemy..
+                        obj->get_character()->assign_weapon(nullptr);
                         level->get_cyber_enforcers().erase(level->get_cyber_enforcers().begin() + index);
                     }
                 }
