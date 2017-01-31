@@ -21,7 +21,7 @@ Character::Character(sf::Texture text, sf::Vector2f startPos, float gravity, flo
     texture.loadFromImage(img);
     sprite.setTexture(texture);
     sprite.setTextureRect(sf::IntRect(0, 0, sprite_width, sprite_height));
-    sprite.setScale(this->sprite_scale, this->sprite_scale);
+    sprite.setScale(this->sprite_scale, this->sprite_scale + 0.03f);
     colRect = sprite.getGlobalBounds();
     sprite_state = 0;
 
