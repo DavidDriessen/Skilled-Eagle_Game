@@ -7,7 +7,7 @@
 #include "Game.h"
 #include <iostream>
 
-Level::Level(const char * location, Game* game) : game(game), player(game->getTextures().get(Textures::Cyber),sf::Vector2f(100, 100), 0.3, 0.3, 14, 172, 260, 0.2, *this) {
+Level::Level(const char * location, Game* game) : game(game), player(game->getTextures().get(Textures::Cyber),sf::Vector2f(100, 100), 0.3, 0.3, 14, 172, 260, 0.2, *this, false) {
     std::string loc = location;
     init_new_map(loc);
 }

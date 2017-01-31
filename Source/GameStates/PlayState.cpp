@@ -51,6 +51,7 @@ void PlayState::input(sf::Event &event) {
 
 void PlayState::update(const sf::Time delta) {
     beatDec->update();
+    playerHUD.update(delta);
     pitch = soundManager->get_pitch();
     level.get_player().update(delta);
     for (auto &gun : level.get_weapons()) {
@@ -141,9 +142,7 @@ void PlayState::update(const sf::Time delta) {
 }
 
 void PlayState::draw(sf::RenderWindow &window) {
-    game->getView()->setCenter(sf::Vector2f(level.get_player().getPosition().x, level.get_player().getPosition().y-(game->get_window()->getSize().y/6)));
-    level.get_player().draw(window);
-    playerHUD.draw(window);
+    playerHUD.set_Position(game->getView()->getCenter()-game->getView()->getSize()/2.0f);
     for(auto &object : level.get_powerUps()) {
         object->draw(window);
     }
@@ -159,7 +158,9 @@ void PlayState::draw(sf::RenderWindow &window) {
     for (auto &object : level.get_weapons()) {
         object->draw(window);
     }
-    window.setView(sf::View(sf::Vector2f(level.get_player().get_rect().left, level.get_player().get_rect().top-(window.getSize().y/6)) ,sf::Vector2f(window.getSize().x, window.getSize().y)));
+    level.get_player().draw(window);
+    playerHUD.draw(window);
+    game->getView()->setCenter(sf::Vector2f(level.get_player().getPosition().x, level.get_player().getPosition().y-(game->get_window()->getSize().y/6)));
 }
 
 void PlayState::onBeat() {

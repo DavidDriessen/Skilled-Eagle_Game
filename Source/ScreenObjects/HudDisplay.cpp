@@ -14,8 +14,9 @@ void HudDisplay::input(sf::Event &event) {
 
 }
 
-void HudDisplay::update(const sf::Time delta) {
-
+void HudDisplay::update(const sf::Time delta){
+    Health->update(delta);
+    Stamina->update(delta);
 }
 
 void HudDisplay::draw(sf::RenderWindow &window) {
