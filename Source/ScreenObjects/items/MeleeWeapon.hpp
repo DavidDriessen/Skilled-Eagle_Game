@@ -6,6 +6,7 @@
 #define SKILLED_EAGLE_GAME_MELEEDWEAPON_HPP
 
 #include "Weapon.hpp"
+#include "../../Character.hpp"
 
 class MeleeWeapon : public Weapon {
 private:
@@ -13,7 +14,7 @@ private:
     sf::Vector2f position;
     sf::Sprite sprite;
     sf::Texture texture;
-    std::vector<std::unique_ptr<Bullet>> bulletVector;
+    //sf::FloatRect hit_rectangle;
     sf::Vector2f direction;
     sf::Clock clock;
     sf::Time cooldownPeriod = sf::milliseconds(200);
@@ -22,7 +23,7 @@ private:
     bool is_owned = false;
     bool right_direction = true;
     float bullet_speed_from_gun = 10;
-    bool is_attack_drawable = false;
+    bool is_attacking = false;
 public:
     MeleeWeapon(sf::Texture s, int damage, sf::Vector2f playerPosition, int range, sf::Time cooldown);
 
@@ -56,7 +57,7 @@ public:
     void update_weapon_position(sf::Vector2f playerPosition, bool right_direction);
     void draw(sf::RenderWindow &window);
     void check_collision(ScreenObject &obj);
-    bool check_collision(Character & obj) {return false;}
+    bool check_collision(Character & obj);
 };
 
 

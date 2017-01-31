@@ -34,20 +34,14 @@ void CyberEnforcer::update(const sf::Time delta) {
 
     // check if enemy has any weapon
     if(character->get_weapon() != nullptr) {
-        // if ranged weapon
-        if(character->get_weapon()->get_type() == "ranged") {
-            // if enemy is in range of weapon on right side
-            if(character->get_is_right_direction() &&
-                    level.get_player().getPosition().x >= character->getPosition().x &&
-                    level.get_player().getPosition().x <= (character->getPosition().x + ( 0.66 *character->get_weapon()->get_range()))) {
-                character->attack();
-            }
-            // if enemy is in range of weapon on right side
-            if(!character->get_is_right_direction() &&
-               level.get_player().getPosition().x <= character->getPosition().x &&
-               level.get_player().getPosition().x >= (level.get_player().getPosition().x - ( 0.66 *character->get_weapon()->get_range()))) {
-                character->attack();
-            }
+        // if enemy is in range of weapon on right side
+        if(character->get_is_right_direction() &&
+                level.get_player().getPosition().x >= character->getPosition().x &&
+                level.get_player().getPosition().x <= (character->getPosition().x + ( 0.66 *character->get_weapon()->get_range())) ||
+                !character->get_is_right_direction() &&
+           level.get_player().getPosition().x <= character->getPosition().x &&
+           level.get_player().getPosition().x >= (level.get_player().getPosition().x - ( 0.66 *character->get_weapon()->get_range()))) {
+            character->attack();
         }
     }
     character->update(delta);

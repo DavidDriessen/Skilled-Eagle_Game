@@ -18,13 +18,22 @@ MeleeWeapon::MeleeWeapon(sf::Texture s, int damage, sf::Vector2f playerPosition,
 
 void MeleeWeapon::update() {
     cooldown = clock.getElapsedTime();
-    if(cooldown < cooldownPeriod && is_attack_drawable) {
+
+    if(!is_owned) {
+        // set sword not in attack modus when is not owned anymore
+        is_attacking = false;
+    }
+
+    if(is_attacking){
         if(right_direction) {
             sprite.setRotation(sprite.getRotation() + 50);
             sprite.setPosition(sf::Vector2f(sprite.getPosition().x + 25, sprite.getPosition().y + 25));
         } else {
             sprite.setRotation(sprite.getRotation() - 50);
             sprite.setPosition(sf::Vector2f(sprite.getPosition().x - 30, sprite.getPosition().y + 20));
+        }
+        if(cooldown > cooldownPeriod) {
+            is_attacking = false;
         }
     }
 }
@@ -53,11 +62,23 @@ void MeleeWeapon::set_direction(sf::Vector2f newDirection) {
 
 void MeleeWeapon::use() {
     if (cooldown > cooldownPeriod) {
-        is_attack_drawable = true;
+        is_attacking = true;
         clock.restart();
     }
 }
 
 void MeleeWeapon::check_collision(ScreenObject &obj) {
 
+}
+
+bool MeleeWeapon::check_collision(Character &obj) {
+    if(is_attacking) {
+        sf::FloatRect hit_rectangle;
+        hit_rectangle.left = position.x;
+        hit_rectangle.top = position.y;
+        hit_rectangle.width = right_direction ? range : -range;
+        hit_rectangle.height = sprite.getTextureRect().height;
+        return hit_rectangle.intersects(obj.get_rect());
+    }
+    return false;
 }

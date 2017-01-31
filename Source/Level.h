@@ -13,11 +13,12 @@
 #include "ScreenObjects/enemies/CyberEnforcer.h"
 #include "Character.hpp"
 #include "ScreenObjects/items/Weapon.hpp"
+#include "ScreenObjects/items/MeleeWeapon.hpp"
 #include "ScreenObjects/PowerUp.hpp"
-
 
 class Game;
 class CyberEnforcer;
+
 class Level {
 private:
     std::vector<ScreenObject*> blocks;
