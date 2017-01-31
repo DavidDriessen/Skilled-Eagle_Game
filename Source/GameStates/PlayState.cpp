@@ -123,8 +123,8 @@ void PlayState::update(const sf::Time delta) {
             if ((*object->get_character()).get_weapon() != gun) {
                 if (gun->check_collision(*object->get_character())) {
                     std::cout << "hbj\n";
-                    level.get_cyber_enforcers().erase(level.get_cyber_enforcers().begin() + index);
                     object->get_character()->assign_weapon(nullptr);
+                    level.get_cyber_enforcers().erase(level.get_cyber_enforcers().begin() + index);
                     break;
                 }
             }
