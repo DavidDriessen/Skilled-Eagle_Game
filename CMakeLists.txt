@@ -48,6 +48,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/GameStates/GameOverState.hpp
         Source/GameStates/HighScoreState.cpp
         Source/GameStates/HighScoreState.hpp
+        Source/GameStates/MusicSelectState.cpp
+        Source/GameStates/MusicSelectState.hpp
 
         #Environment
         Source/Level.cpp

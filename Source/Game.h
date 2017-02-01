@@ -13,14 +13,15 @@
 #include "GameStates/SoundTestState.hpp"
 #include "GameStates/ControlsState.hpp"
 #include "GameStates/PauseState.hpp"
-#include "Audio/SoundManager.h"
-#include "GameStates/SoonState.hpp"
-#include "Utility/ResourceHolder.hpp"
-#include "Utility/ResourceIdentifiers.hpp"
-#include "Utility/DebugOverlay.hpp"
 #include "GameStates/LevelSelectState.hpp"
 #include "GameStates/GameOverState.hpp"
 #include "GameStates/HighScoreState.hpp"
+#include "GameStates/MusicSelectState.hpp"
+#include "GameStates/SoonState.hpp"
+#include "Audio/SoundManager.h"
+#include "Utility/ResourceHolder.hpp"
+#include "Utility/ResourceIdentifiers.hpp"
+#include "Utility/DebugOverlay.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -35,6 +36,7 @@ private:
     SplashState *splashState = nullptr;
     SoundTestState *soundTestState = nullptr;
     LevelSelectState *levelSelectState = nullptr;
+    MusicSelectState *musicSelectState = nullptr;
     MenuState *menuState = nullptr;
     PlayState *playState = nullptr;
     SoonState *soonState = nullptr;
@@ -81,6 +83,8 @@ public:
     void go_to_soon();
 
     void go_to_game_over(bool dead);
+
+    void go_to_music_select();
 
     void quit();
 

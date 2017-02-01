@@ -18,7 +18,7 @@ LevelSelectState::LevelSelectState(Game *pGame) : Menu(pGame->getFonts().get(Fon
                 btn.push_back(name.substr(0, name.length() - 4));
                 actions.push_back([&, name]() {
                     game->set_level(name);
-                    game->go_to_play();
+                    game->go_to_music_select();
                 });
             }
         }

@@ -48,6 +48,8 @@ public:
     void onPeak(float peak);
 
     void set_level(std::string level);
+
+    void reload_song();
 };
 
 

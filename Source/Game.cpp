@@ -3,6 +3,7 @@
 //
 
 #include "Game.h"
+#include "GameStates/MusicSelectState.hpp"
 
 Game::Game(sf::RenderWindow &w) : window(w){
     soundManager = new SoundManager();
@@ -93,11 +94,21 @@ void Game::go_to_play() {
         controlsState = new ControlsState(this);
         playState = new PlayState(this, soundManager, std::string("./assets/Levels/awesomeLevel.txt"));
     }
+    playState->reload_song();
     soundManager->reset(SOUND_TYPES::BACKGROUND);
     soundManager->reset(SOUND_TYPES::SPLASH);
     soundManager->play(SOUND_TYPES::GAME_SOUND);
     iState = playState;
 }
+
+void Game::go_to_music_select() {
+    if (musicSelectState == nullptr) {
+        musicSelectState = new MusicSelectState(this);
+    }
+    view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
+    iState = musicSelectState;
+}
+
 
 void Game::go_to_level_select() {
     if (levelSelectState == nullptr) {
@@ -223,6 +234,7 @@ void Game::set_level(std::string level_name) {
     } else {
         playState->set_level(map);
     }
+    playState->reload_song();
 }
 
 sf::View* Game::getView() {

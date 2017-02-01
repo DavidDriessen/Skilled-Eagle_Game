@@ -29,7 +29,6 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
     (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); });
     (*game->getControls()).assign_pressed(GrabWeapon, [&]() { level.get_player().grab_for_weapon(level.get_weapons()); });
     (*game->getControls()).assign_pressed(ActivatePowerup, [&](){if(level.get_player().get_powerUp()){level.get_player().get_powerUp()->setActive(true);} });
-    game->getOverlay()->addDebugValue("BPM", std::to_string(beatDec->get_tempo()));
 }
 
 void PlayState::input(sf::Event &event) {
@@ -52,6 +51,7 @@ void PlayState::input(sf::Event &event) {
 }
 
 void PlayState::update(const sf::Time delta) {
+    game->getOverlay()->addDebugValue("BPM", std::to_string(beatDec->get_tempo()));
     beatDec->update();
     pitch = soundManager->get_pitch(SOUND_TYPES::GAME_SOUND);
     playerHUD.update(delta);
@@ -199,4 +199,13 @@ void PlayState::set_level(std::string map) {
     bpm = beatDec->get_tempo();
     beatDec->add_listener(this);
     new (&level) Level(map.c_str(), game);
+}
+
+void PlayState::reload_song() {
+    beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
+    while(beatDec->getFound_beats() <= (int)(float)soundManager->get_sound(SOUND_TYPES::GAME_SOUND)->lengthMS/((float)60000/(float)beatDec->get_tempo())-10) {
+        beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
+    }
+    bpm = beatDec->get_tempo();
+    beatDec->add_listener(this);
 }
