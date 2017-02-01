@@ -26,6 +26,10 @@ private:
     float bpm = 0;
     float pitch = 1;
 
+    int score = 2000;
+
+    sf::Clock gameTime;
+
     HudDisplay    playerHUD;
 public:
     PlayState(Game *pGame, SoundManager* soundManager, std::string map);

@@ -130,6 +130,7 @@ void PlayState::update(const sf::Time delta) {
                 if (gun->check_collision(*object->get_character())) {
                     object->get_character()->assign_weapon(nullptr);
                     level.get_cyber_enforcers().erase(level.get_cyber_enforcers().begin() + index);
+                    score += 100;
                     break;
                 }
             }
@@ -138,6 +139,10 @@ void PlayState::update(const sf::Time delta) {
     }
     for (auto &gun : level.get_weapons()) {
         gun->update();
+    }
+    if(gameTime.getElapsedTime() > sf::milliseconds(500) && score > 0){
+        gameTime.restart();
+        score --;
     }
     game->getOverlay()->addDebugValue("PITCH", std::to_string(soundManager->get_pitch(SOUND_TYPES::GAME_SOUND)));
     game->getOverlay()->addDebugValue("DURATION", std::to_string(soundManager->get_current_time_MS(SOUND_TYPES::GAME_SOUND)));
