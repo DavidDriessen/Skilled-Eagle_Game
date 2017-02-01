@@ -152,7 +152,7 @@ void Game::go_to_highscore() {
     if (highScoreState == nullptr) {
         highScoreState = new HighScoreState(this);
     }
-    highScoreState->load_score();
+    highScoreState->load_levels();
     iState = highScoreState;
 }
 

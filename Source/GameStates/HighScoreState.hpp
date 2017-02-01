@@ -25,7 +25,9 @@ public:
 
     void draw(sf::RenderWindow &window);
 
-    void load_score();
+    void load_levels();
+
+    void load_score(std::string level);
 };
 
 
