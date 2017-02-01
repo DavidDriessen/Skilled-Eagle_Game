@@ -20,6 +20,7 @@
 #include "Utility/DebugOverlay.hpp"
 #include "GameStates/LevelSelectState.hpp"
 #include "GameStates/GameOverState.hpp"
+#include "GameStates/HighScoreState.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -37,6 +38,7 @@ private:
     MenuState *menuState = nullptr;
     PlayState *playState = nullptr;
     SoonState *soonState = nullptr;
+    HighScoreState *highScoreState = nullptr;
     SettingsState *settingsState = nullptr;
     ControlsState *controlsState = nullptr;
     PauseState *pauseState = nullptr;
@@ -64,13 +66,15 @@ public:
 
     void go_to_level_select();
 
-    void go_to_menu();
+    void go_to_menu(bool play = false);
 
     void go_to_options();
 
     void go_to_controls();
 
-    void go_to_pause();
+    void go_to_highscore();
+
+    void go_to_pause(bool play = false);
 
     void go_to_test();
 

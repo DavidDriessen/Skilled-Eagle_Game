@@ -34,7 +34,7 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
 
 void PlayState::input(sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-        game->go_to_pause();
+        game->go_to_pause(true);
     }
     else if (event.key.code == sf::Keyboard::H) {
         soundManager->change_pitch(0.01f, SOUND_TYPES::GAME_SOUND);

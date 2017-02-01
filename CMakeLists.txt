@@ -46,6 +46,8 @@ add_executable(${EXECUTABLE_NAME}
         Source/GameStates/LevelSelectState.hpp
         Source/GameStates/GameOverState.cpp
         Source/GameStates/GameOverState.hpp
+        Source/GameStates/HighScoreState.cpp
+        Source/GameStates/HighScoreState.hpp
 
         #Environment
         Source/Level.cpp

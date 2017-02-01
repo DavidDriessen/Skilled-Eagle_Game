@@ -11,6 +11,8 @@
 
 
 class Menu {
+    bool scroll;
+    int scrollSelected;
     int selected;
     int start;
     sf::Font font;
@@ -20,7 +22,7 @@ class Menu {
     sf::RectangleShape shape;
     sf::RectangleShape hover;
 public:
-    Menu(sf::Font f, float width = 400, float height = 400, int start = 0);
+    Menu(sf::Font f, float width = 400, float height = 400, int start = 0, bool scroll = false);
 
     void draw(sf::RenderWindow &window, std::vector<sf::String> txt);
 

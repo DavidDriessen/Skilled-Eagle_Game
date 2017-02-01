@@ -32,7 +32,7 @@ void SoundTestState::input(sf::Event &event) {
     }
     else if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         soundManager->reset(SOUND_TYPES::GAME_SOUND);
-        game->go_to_menu();
+        game->go_to_menu(true);
     }
     else if (event.key.code == sf::Keyboard::H) {
         soundManager->change_pitch(0.01f, SOUND_TYPES::GAME_SOUND);

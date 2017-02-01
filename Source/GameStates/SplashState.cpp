@@ -30,7 +30,7 @@ SplashState::SplashState(Game *pGame ){
 
 void SplashState::input(sf::Event &event) {
     if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        game->go_to_menu();
+        game->go_to_menu(true);
     }
 }
 
@@ -38,7 +38,7 @@ void SplashState::input(sf::Event &event) {
 void SplashState::update(const sf::Time delta) {
     elapsed = clock_eagle.getElapsedTime();
     if(elapsed > time_limit_eagle){
-        game->go_to_menu();
+        game->go_to_menu(true);
     }
 }
 

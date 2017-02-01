@@ -5,11 +5,13 @@
 #include "Menu.hpp"
 #include "GameStates/IState.h"
 
-Menu::Menu(sf::Font f, float width, float height, int start) : width(width), height(height), start(start), selected(start - 1), shape({width, height}) {
+Menu::Menu(sf::Font f, float width, float height, int start, bool scroll) : width(width), height(height), start(start), selected(start - 1), shape({width, height}), scroll(scroll) {
     font = sf::Font(f);
     shape.setFillColor(sf::Color::Black);
     shape.setOutlineColor(sf::Color::Yellow);
     shape.setOutlineThickness(5);
+
+    scrollSelected = 0;
 
     hover.setFillColor(sf::Color::Black);
     hover.setOutlineColor(sf::Color::Yellow);
@@ -18,7 +20,12 @@ Menu::Menu(sf::Font f, float width, float height, int start) : width(width), hei
 
 void Menu::draw(sf::RenderWindow &window, std::vector<sf::String> txt) {
     int index = 0;
-    float btn = -((float) txt.size() / 2.0f);
+    float btn;
+    if(scroll){
+        btn = -scrollSelected;
+    } else {
+        btn = -((float) txt.size() / 2.0f);
+    }
     mid = sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2);
     shape.setPosition(sf::Vector2f(mid.x - width / 2, mid.y - height / 2));
 
@@ -57,19 +64,32 @@ void Menu::input(sf::Event &event, sf::Vector2i mouse, std::vector<std::function
             index++;
         }
     } else if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        if (selected == -1 && scroll) {
+            selected = scrollSelected;
+        }
         selected--;
         if (selected < start) {
             selected = (int) actions.size() - 1;
         }
+        scrollSelected = selected;
     } else if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        if (selected == -1 && scroll) {
+            selected = scrollSelected;
+        }
         selected++;
         if (selected >= actions.size()) {
             selected = start;
         }
+        scrollSelected = selected;
     } else if (event.type == sf::Event::MouseMoved) {
         int index = 0;
         selected = -1;
-        float btn = -((float) actions.size() / 2.0f);
+        float btn;
+        if(scroll){
+            btn = -scrollSelected;
+        } else {
+            btn = -((float) actions.size() / 2.0f);
+        }
         for (auto &b: actions) {
             if (mid.x - width / 2 <= mouse.x &&
                 mid.x + width / 2 >= mouse.x &&
