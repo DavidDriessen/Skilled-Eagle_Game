@@ -19,6 +19,7 @@ class PowerUp;
 class Character {
 private:
     int hp = 100;
+    int stamina = 100;
     PowerUp *powerUp = NULL;
     sf::Vector2f position;
     sf::Image img;
@@ -48,11 +49,8 @@ private:
 
     Weapon *weapon = nullptr;
 
-    int playerHealthPoints;
-    int playerStaminaPoints;
 
-    int characterHealthPoints;
-    int characterStaminaPoints;
+
     int maximumStamina = 100;
     int maximumHealth = 100;
     sf::Vector2f hudLocation;

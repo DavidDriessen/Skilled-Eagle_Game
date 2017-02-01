@@ -176,7 +176,7 @@ void Game::update_debug(sf::Time dt) {
     mStatisticsNumFrames += 1;
     if (mStatisticsUpdateTime >= sf::seconds(1.0f)) {
         mStatisticsUpdateTime -= sf::seconds(1.0f);
-        //overlay->addDebugValue("FPS", std::to_string(mStatisticsNumFrames));
+        overlay->addDebugValue("FPS", std::to_string(mStatisticsNumFrames));
         mStatisticsNumFrames = 0;
     }
 }

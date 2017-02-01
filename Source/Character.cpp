@@ -217,8 +217,8 @@ void Character::update_status_bars(){
     if (hp < 0 ){
         hp = 0;
     }
-    if (characterStaminaPoints < 0 ){
-        characterStaminaPoints = 0;
+    if (stamina < 0 ){
+        stamina = 0;
     }
 
     if(healthTimer > healthRegenCooldown && hp < maximumHealth){
@@ -227,8 +227,8 @@ void Character::update_status_bars(){
         healthClock.restart();
     }
 
-    if(staminaTimer > staminaRegenCooldown && characterStaminaPoints < maximumStamina){
-        characterStaminaPoints+=10;
+    if(staminaTimer > staminaRegenCooldown && stamina < maximumStamina){
+        stamina+=10;
         staminaTimer = sf::Time::Zero;
         staminaClock.restart();
     }
@@ -239,7 +239,7 @@ void Character::update_status_bars(){
     }
     else{
         healthBar->set_StatusBar(healthBar->Calculate_percentage_of(hp, maximumHealth)*3, hudLocation +  healthBarOffset);
-        staminaBar->set_StatusBar(staminaBar->Calculate_percentage_of(characterStaminaPoints, maximumStamina)*3, hudLocation + staminaBarOffset);
+        staminaBar->set_StatusBar(staminaBar->Calculate_percentage_of(stamina, maximumStamina)*3, hudLocation + staminaBarOffset);
     }
 }
 

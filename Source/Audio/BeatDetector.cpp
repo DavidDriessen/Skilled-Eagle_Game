@@ -30,7 +30,7 @@ BeatDetector::BeatDetector(SoundManager *snd_mgr, SOUND_TYPES t) {
     int count = 0;
     if (input.is_open()) {
         if (getline(input, line)) {
-            //tempo = std::stoi(line);
+            tempo = std::stoi(line);
         }
         char c;
         while (input.get(c)) {
