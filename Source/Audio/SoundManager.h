@@ -72,8 +72,10 @@ public:
 
     bool getloading();
 
+    void set_volume(float volume);  // 1.0 == 100%
 
 private:
+    float masterVolume;
     FMOD_SYSTEM *system;
     bool loading = false;
     int *data_left_channel;     // 16 premiers bits

@@ -17,7 +17,8 @@ private:
     std::function<void(void)> back = [](){};
     std::vector<std::function<void(void)>> actions;
     std::vector<sf::String> resA = {"1080", "720"};
-    int res = 0, volume = 50, direction = 1;
+    int res = 0, direction = 1;
+    float volume = 100, oldVolume = 100;
     std::vector<sf::String> btn = {
             "Resolutions",
             "Volume",
@@ -33,6 +34,8 @@ public:
     void draw(sf::RenderWindow &window);
 
     void setBack(const std::function<void()> &func);
+
+    void save();
 };
 
 

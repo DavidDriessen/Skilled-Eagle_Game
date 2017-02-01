@@ -7,6 +7,7 @@
 Game::Game(sf::RenderWindow &w) : window(w){
     soundManager = new SoundManager();
     loadResources();
+    this->settingsState = new SettingsState(this);
     this->overlay = new DebugOverlay(this);
     this->splashState = new SplashState(this);
     iState = splashState;

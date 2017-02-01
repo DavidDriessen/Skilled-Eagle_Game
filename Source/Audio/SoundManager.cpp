@@ -19,6 +19,7 @@ void SoundManager::play(SOUND_TYPES s) {
     FMOD_System_PlaySound(system, get_sound(s)->sound, 0, 0, NULL);
     FMOD_System_GetChannel(system, 0, &get_sound(s)->channel);
     FMOD_Channel_SetFrequency(get_sound(s)->channel, 44100.f * get_sound(s)->pitch);
+    FMOD_Channel_SetVolume(get_sound(s)->channel, masterVolume);
 }
 
 void SoundManager::pause(SOUND_TYPES s) {
@@ -139,4 +140,11 @@ SOUNDS *SoundManager::get_sound(SOUND_TYPES t) {
 
 bool SoundManager::getloading() {
     return loading;
+}
+
+void SoundManager::set_volume(float volume) {
+    masterVolume = volume;
+    for (auto &s: sounds) {
+        FMOD_Channel_SetVolume(s.channel, volume);
+    }
 }
