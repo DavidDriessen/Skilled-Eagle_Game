@@ -60,6 +60,8 @@ void Game::loadResources() {
     textures.load(Textures::Cyber, "./assets/images/Nuken.png");
     textures.load(Textures::Loot, "./assets/images/loot.png");
     textures.load(Textures::LootUsed, "./assets/images/loot2.png");
+    textures.load(Textures::Active, "./assets/images/loot2.png");
+    textures.load(Textures::Used, "./assets/images/loot2.png");
 }
 
 void Game::input() {

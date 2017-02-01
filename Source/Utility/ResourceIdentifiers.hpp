@@ -21,19 +21,19 @@ namespace Textures
         Pistol,
         Sword,
         Floor,
-        Floor1,
         Floor2,
         Floor3,
         Floor4,
         Finish,
         Loot,
         LootUsed,
-        Level1,
         SplashScreen,
         SplashName,
         SplashPresents,
         SplashLoading,
-        Cyber
+        Cyber,
+        Used,
+        Active
     };
 }
 
