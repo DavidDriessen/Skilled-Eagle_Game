@@ -59,7 +59,7 @@ void PlayState::update(const sf::Time delta) {
     for (auto &gun : level.get_weapons()) {
         if (level.get_player().get_weapon() != gun) {
             if(gun->check_collision(level.get_player())){
-                game->go_to_level_select();
+                game->go_to_game_over(true);
             }
         }
     }
@@ -112,7 +112,7 @@ void PlayState::update(const sf::Time delta) {
     }
     for (auto &object : level.get_finish()) {
         if( level.get_player().get_rect().intersects(object->getFloatRect())) {
-            game->go_to_level_select();
+            game->go_to_game_over(false);
         }
         object->update(delta);
     }
@@ -139,6 +139,9 @@ void PlayState::update(const sf::Time delta) {
     }
     for (auto &gun : level.get_weapons()) {
         gun->update();
+        for(auto &object : level.get_blocks()) {
+            gun->check_collision(*object);
+        }
     }
     if(gameTime.getElapsedTime() > sf::milliseconds(500) && score > 0){
         gameTime.restart();
