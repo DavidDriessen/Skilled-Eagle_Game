@@ -45,7 +45,7 @@ void Level::init_object(char c, float x, float y) {
             blocks.push_back(new Block(game->getTextures().get(Textures::Floor4), sf::Vector2f(x, y)));
             break;
         case '$':
-            ends.push_back(new Finish(game->getTextures().get(Textures::Finish), sf::Vector2f(x, y), sf::Vector2f(128, 32)));
+            ends.push_back(new Finish(game->getTextures().get(Textures::Finish), sf::Vector2f(x, y)));
             break;
         case '0':
         case '1':

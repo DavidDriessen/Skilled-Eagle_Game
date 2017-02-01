@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow &w) : window(w){
+Game::Game(sf::RenderWindow &w) : window(w) {
     soundManager = new SoundManager();
     loadResources();
     this->overlay = new DebugOverlay(this);
@@ -13,7 +13,7 @@ Game::Game(sf::RenderWindow &w) : window(w){
     soundManager->play(SOUND_TYPES::SPLASH);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
-    view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
+    view.reset(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
     window.setView(view);
 
     while (window.isOpen()) {
@@ -64,7 +64,7 @@ void Game::input() {
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             window.close();
-        if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde)) {
+        if (event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde)) {
             overlay->toggleHide();
         }
         iState->input(event);
@@ -72,7 +72,7 @@ void Game::input() {
 }
 
 void Game::update(const sf::Time delta) {
-    overlay->setPos(view.getCenter()-view.getSize()/2.0f);
+    overlay->setPos(view.getCenter() - view.getSize() / 2.0f);
     overlay->update(delta);
     iState->update(delta);
     update_debug(delta);
@@ -87,7 +87,7 @@ void Game::draw() {
 }
 
 void Game::go_to_play() {
-    if(playState == nullptr) {
+    if (playState == nullptr) {
         controlsState = new ControlsState(this);
         playState = new PlayState(this, soundManager, std::string("./assets/Levels/awesomeLevel.txt"));
     }
@@ -101,7 +101,7 @@ void Game::go_to_level_select() {
     if (levelSelectState == nullptr) {
         levelSelectState = new LevelSelectState(this);
     }
-    view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
+    view.reset(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
     iState = levelSelectState;
 }
 
@@ -109,7 +109,7 @@ void Game::go_to_menu() {
     if (menuState == nullptr) {
         menuState = new MenuState(this);
     }
-    if(playState != nullptr) {
+    if (playState != nullptr) {
         delete playState;
         playState = nullptr;
     }
@@ -151,7 +151,7 @@ void Game::go_to_pause() {
     }
     soundManager->pause(SOUND_TYPES::GAME_SOUND);
     soundManager->play(SOUND_TYPES::BACKGROUND);
-    view.reset(sf::FloatRect(0 ,0 ,window.getSize().x, window.getSize().y));
+    view.reset(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
     iState = pauseState;
 }
 
@@ -160,6 +160,12 @@ void Game::go_to_soon() {
         soonState = new SoonState(this);
     }
     iState = soonState;
+}
+
+void Game::go_to_game_over(bool dead) {
+    gameOverState = new GameOverState(this, dead);
+    view.reset(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
+    iState = gameOverState;
 }
 
 void Game::quit() {
@@ -195,7 +201,7 @@ void Game::set_level(std::string level_name) {
     }
 }
 
-sf::View* Game::getView() {
+sf::View *Game::getView() {
     return &view;
 }
 

@@ -19,11 +19,12 @@
 #include "Utility/ResourceIdentifiers.hpp"
 #include "Utility/DebugOverlay.hpp"
 #include "GameStates/LevelSelectState.hpp"
+#include "GameStates/GameOverState.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
 private:
-    const sf::Time TimePerFrame = sf::seconds(1.f/60.f);
+    const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 
     sf::RenderWindow &window;
     sf::View view;
@@ -32,13 +33,14 @@ private:
     SoundManager *soundManager = nullptr;
     SplashState *splashState = nullptr;
     SoundTestState *soundTestState = nullptr;
-    LevelSelectState* levelSelectState = nullptr;
+    LevelSelectState *levelSelectState = nullptr;
     MenuState *menuState = nullptr;
     PlayState *playState = nullptr;
     SoonState *soonState = nullptr;
     SettingsState *settingsState = nullptr;
     ControlsState *controlsState = nullptr;
     PauseState *pauseState = nullptr;
+    GameOverState *gameOverState = nullptr;
     DebugOverlay *overlay;
     sf::Time mStatisticsUpdateTime;
     std::size_t mStatisticsNumFrames;
@@ -74,6 +76,8 @@ public:
 
     void go_to_soon();
 
+    void go_to_game_over(bool dead);
+
     void quit();
 
     void set_level(std::string string);
@@ -96,7 +100,7 @@ public:
 
     DebugOverlay *getOverlay() const;
 
-    SoundManager * getSoundManager() const;
+    SoundManager *getSoundManager() const;
 
 };
 
