@@ -17,7 +17,7 @@ private:
     Game *game;
     std::vector<std::function<void(void)>> actions;
     std::vector<sf::String> btn = {
-            "HighScore:",
+//            "HighScore:",
             "Resume",
             "Options",
             "Main Menu"};

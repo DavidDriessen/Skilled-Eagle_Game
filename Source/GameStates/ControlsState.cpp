@@ -32,6 +32,7 @@ ControlsState::ControlsState(Game *pGame) : Menu(pGame->getFonts().get(Fonts::De
             key[(Actions) i].key = (sf::Keyboard::Key) atoi(data.c_str());
         }
     }
+    f.close();
 
     actions.push_back([&]() {
         key_to_bind = &key[Jump];
@@ -117,7 +118,7 @@ void ControlsState::save() {
     f.clear();
     std::string *data = new std::string[ActionsCount];
     for (auto &k: key) {
-        //data[k.first].append(std::to_string(k.second.key));
+        data[k.first].append(std::to_string(k.second.key));
         data[k.first].append("\n");
     }
     for (int i = 0; i < ActionsCount; i++) {

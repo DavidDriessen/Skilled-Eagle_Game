@@ -20,7 +20,7 @@ private:
     std::vector<std::function<void(void)>> actions;
     std::vector<sf::String> btn = {
             "Select Level",
-            "Sound Test",
+//            "Sound Test",
             "Edit Character",
             "Show Highscores",
             "Options",

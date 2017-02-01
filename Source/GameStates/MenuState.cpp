@@ -8,7 +8,7 @@
 MenuState::MenuState(Game *pGame) : Menu(pGame->getFonts().get(Fonts::Default), 600, 500) {
     game = pGame;
     actions.push_back([&]() { game->go_to_level_select(); });
-    actions.push_back([&]() { game->go_to_test(); });
+//    actions.push_back([&]() { game->go_to_test(); });
     actions.push_back([&]() { game->go_to_soon(); });
     actions.push_back([&]() { game->go_to_highscore(); });
     actions.push_back([&]() { game->go_to_options(); });

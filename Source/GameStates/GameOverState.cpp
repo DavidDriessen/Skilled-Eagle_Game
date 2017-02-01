@@ -32,7 +32,7 @@ void GameOverState::input(sf::Event &event) {
         game->go_to_level_select();
     }
     if(event.type == sf::Event::KeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        game->go_to_menu();
+        game->go_to_menu(true);
     }
 }
 

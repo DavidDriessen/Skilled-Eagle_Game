@@ -4,9 +4,9 @@
 
 #include "../Game.h"
 
-PauseState::PauseState(Game *pGame) : Menu(pGame->getFonts().get(Fonts::Default), 600, 500, 1) {
+PauseState::PauseState(Game *pGame) : Menu(pGame->getFonts().get(Fonts::Default), 600, 500, 0) {
     game = pGame;
-    actions.push_back([&]() {});
+//    actions.push_back([&]() {});
     actions.push_back([&]() { game->go_to_play(); });
     actions.push_back([&]() { game->go_to_options(); });
     actions.push_back([&]() { game->go_to_menu(); });
