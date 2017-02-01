@@ -29,7 +29,7 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
     (*game->getControls()).assign_pressed(Attack, [&]() { level.get_player().attack(); });
     (*game->getControls()).assign_pressed(GrabWeapon, [&]() { level.get_player().grab_for_weapon(level.get_weapons()); });
     (*game->getControls()).assign_pressed(ActivatePowerup, [&](){if(level.get_player().get_powerUp()){level.get_player().get_powerUp()->setActive(true);} });
-    game->getOverlay()->addDebugValue("BPM", std::to_string(beatDec->get_tempo()));
+    //game->getOverlay()->addDebugValue("BPM", std::to_string(beatDec->get_tempo()));
 }
 
 void PlayState::input(sf::Event &event) {
@@ -144,10 +144,10 @@ void PlayState::update(const sf::Time delta) {
         gameTime.restart();
         score --;
     }
-    game->getOverlay()->addDebugValue("PITCH", std::to_string(soundManager->get_pitch(SOUND_TYPES::GAME_SOUND)));
-    game->getOverlay()->addDebugValue("DURATION", std::to_string(soundManager->get_current_time_MS(SOUND_TYPES::GAME_SOUND)));
-    game->getOverlay()->addDebugValue("SPEED", std::to_string(level.get_player().getSpeed()));
-    game->getOverlay()->addDebugValue("FOUND BEATS", std::to_string(beatDec->getFound_beats()));
+    //game->getOverlay()->addDebugValue("PITCH", std::to_string(soundManager->get_pitch(SOUND_TYPES::GAME_SOUND)));
+    //game->getOverlay()->addDebugValue("DURATION", std::to_string(soundManager->get_current_time_MS(SOUND_TYPES::GAME_SOUND)));
+    //game->getOverlay()->addDebugValue("SPEED", std::to_string(level.get_player().getSpeed()));
+    //game->getOverlay()->addDebugValue("FOUND BEATS", std::to_string(beatDec->getFound_beats()));
 }
 
 void PlayState::draw(sf::RenderWindow &window) {
