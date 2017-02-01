@@ -92,7 +92,7 @@ void Game::draw() {
 void Game::go_to_play() {
     if(playState == nullptr) {
         controlsState = new ControlsState(this);
-        playState = new PlayState(this, soundManager, std::string("./assets/Levels/awesomeLevel.txt"));
+        playState = new PlayState(this, soundManager, std::string("./assets/Levels/Level1.txt"));
     }
     playState->reload_song();
     soundManager->reset(SOUND_TYPES::BACKGROUND);
