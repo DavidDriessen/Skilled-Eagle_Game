@@ -32,6 +32,7 @@ namespace Textures
         SplashScreen,
         SplashName,
         SplashPresents,
+        SplashLoading,
         Cyber
     };
 }

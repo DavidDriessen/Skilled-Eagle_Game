@@ -45,6 +45,7 @@ void Game::loadResources() {
     textures.load(Textures::SplashScreen, "./assets/images/splashScreen.png");
     textures.load(Textures::SplashName, "./assets/images/splashName.png");
     textures.load(Textures::SplashPresents, "./assets/images/splashPresents.png");
+    textures.load(Textures::SplashLoading, "./assets/images/loading.jpg");
     textures.load(Textures::Sniper, "./assets/images/sniper.png");
     textures.load(Textures::Assault, "./assets/images/assault.png");
     textures.load(Textures::Pistol, "./assets/images/pistol.png");
@@ -192,6 +193,16 @@ ControlsState *Game::getControls() {
 }
 
 void Game::set_level(std::string level_name) {
+    window.clear();
+    sf::Sprite spriteLoading;
+    sf::Texture loading = textures.get(Textures::SplashLoading);
+    loading.setSmooth(true);
+    spriteLoading.setTexture(loading);
+    spriteLoading.setPosition(0,0);
+    spriteLoading.setScale(1.0f/(1600.0f/window.getSize().x), 1.0f/(900.0f/window.getSize().y));
+    window.draw(spriteLoading);
+    window.display();
+
     std::string map = std::string("./assets/Levels/") + level_name;
     if (playState == nullptr || controlsState == nullptr) {
         controlsState = new ControlsState(this);
