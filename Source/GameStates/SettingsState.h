@@ -16,8 +16,11 @@ private:
     Game *game;
     std::function<void(void)> back = [](){};
     std::vector<std::function<void(void)>> actions;
-    std::vector<sf::String> resA = {"1080", "720"};
-    int res = 0, direction = 1;
+    std::vector<sf::String> resA = {"1080p", "720p", "600p"};
+    std::vector<sf::Vector2u> resV = {{1920, 1080},
+                                      {1280, 720},
+                                      {800, 600}};
+    int res = 0, oldres = 0, direction = 1;
     float volume = 100, oldVolume = 100;
     std::vector<sf::String> btn = {
             "Resolutions",

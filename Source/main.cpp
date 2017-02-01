@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[]) {
     // Create main window
-    sf::RenderWindow App(sf::VideoMode(800, 600), "Beat detector");
+    sf::RenderWindow App(sf::VideoMode(800, 600), "waveForms");
     App.setFramerateLimit(60);
     Game waveForms(App);
     // Create SoundManager

@@ -133,6 +133,7 @@ void Game::go_to_menu(bool play) {
         soundManager->reset(SOUND_TYPES::SPLASH);
         soundManager->play(SOUND_TYPES::BACKGROUND);
     }
+    window.setView(view);
     iState = menuState;
 }
 
