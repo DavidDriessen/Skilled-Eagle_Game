@@ -206,6 +206,11 @@ void Character::update(const sf::Time delta) {
         weapon->update_weapon_position(sprite.getPosition(), directionRight);
     }
     update_status_bars();
+    if(get_powerUp()) {
+        if (get_powerUp()->getDone()) {
+            set_powerUp(nullptr);
+        }
+    }
 
 }
 

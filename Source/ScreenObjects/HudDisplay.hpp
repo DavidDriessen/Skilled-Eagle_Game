@@ -14,10 +14,12 @@ private:
     Character * player = nullptr;
     StatusBar * Health = nullptr;
     StatusBar * Stamina= nullptr;
+    sf::RectangleShape * powerup = new sf::RectangleShape();
     sf::Vector2f position;
 
     sf::Vector2f healthBarOffset = sf::Vector2f(10,40.0);
     sf::Vector2f staminaBarOffset = sf::Vector2f(10,10.0);
+    sf::Vector2f powerupOffset = sf::Vector2f(10, 70.0);
 
 public:
     HudDisplay();
