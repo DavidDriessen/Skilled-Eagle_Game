@@ -27,6 +27,7 @@ private:
     float pitch = 1;
 
     int score = 2000;
+    std::string mapname = "";
 
     sf::Clock gameTime;
 

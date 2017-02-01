@@ -18,7 +18,7 @@ PlayState::PlayState(Game *pGame, SoundManager* soundManager, std::string map): 
     }
     bpm = beatDec->get_tempo();
     beatDec->add_listener(this);
-
+    mapname = map;
     playerHUD.set_hud_player(&level.get_player());
 
     (*game->getControls()).assign_pressed(Left, [&]() { level.get_player().left(); });
@@ -112,6 +112,11 @@ void PlayState::update(const sf::Time delta) {
     }
     for (auto &object : level.get_finish()) {
         if( level.get_player().get_rect().intersects(object->getFloatRect())) {
+            mapname = mapname.substr(mapname.find_last_of("/\\") + 1);
+            std::ofstream output;
+            output.open("assets/Highscores/" + mapname, std::ios_base::app);
+            output << score << "\n";
+            output.close();
             game->go_to_game_over(false);
         }
         object->update(delta);
@@ -186,6 +191,7 @@ void PlayState::onPeak(float peak) {
 }
 
 void PlayState::set_level(std::string map) {
+    mapname = map;
     beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
     while(beatDec->getFound_beats() <= (int)(float)soundManager->get_sound(SOUND_TYPES::GAME_SOUND)->lengthMS/((float)60000/(float)beatDec->get_tempo())-10) {
         beatDec = new BeatDetector(soundManager, SOUND_TYPES::GAME_SOUND);
