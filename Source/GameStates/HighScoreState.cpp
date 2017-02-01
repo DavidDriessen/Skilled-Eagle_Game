@@ -25,10 +25,9 @@ void HighScoreState::draw(sf::RenderWindow &window) {
     Menu::draw(window, btn);
 }
 
-void HighScoreState::load_score(std::string level) {
+void HighScoreState::load_score(std::string level, bool sort) {
     while (!btn.empty()) { btn.pop_back(); }
     while (!actions.empty()) { actions.pop_back(); }
-    std::cout << level;
 
     std::string line;
     std::ifstream f("./assets/Highscores/" + level);
@@ -39,6 +38,11 @@ void HighScoreState::load_score(std::string level) {
         std::getline(linestream, data, '\n');
         btn.push_back(data.c_str());
         actions.push_back([]() {});
+    }
+
+    if (sort) {
+        std::sort(btn.begin(), btn.end(),
+                  [](std::string i, std::string j) { return atoi(i.c_str()) > atoi(j.c_str()); });
     }
 }
 
@@ -63,4 +67,21 @@ void HighScoreState::load_levels() {
     } else {
         throw std::exception();
     }
+}
+
+void HighScoreState::add_score(std::string level, int score) {
+    std::ofstream output;
+    output.open("./assets/Highscores/" + level, std::ios_base::app);
+    output << score << "\n";
+    output.close();
+}
+
+int HighScoreState::get_latest_score(std::string level) {
+    load_score(level, false);
+    return atoi(std::string(btn[btn.size() - 1]).c_str());
+}
+
+int HighScoreState::get_highest_score(std::string level) {
+    load_score(level);
+    return atoi(std::string(btn[0]).c_str());
 }

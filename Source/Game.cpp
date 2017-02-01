@@ -267,3 +267,11 @@ DebugOverlay *Game::getOverlay() const {
 SoundManager *Game::getSoundManager() const {
     return soundManager;
 }
+
+HighScoreState *Game::getHighScore() const {
+    return highScoreState;
+}
+
+PlayState *Game::getPlayState() const {
+    return playState;
+}

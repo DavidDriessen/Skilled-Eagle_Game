@@ -110,6 +110,10 @@ public:
 
     SoundManager *getSoundManager() const;
 
+    HighScoreState *getHighScore() const;
+
+    PlayState *getPlayState() const;
+
 };
 
 

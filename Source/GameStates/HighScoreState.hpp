@@ -27,7 +27,13 @@ public:
 
     void load_levels();
 
-    void load_score(std::string level);
+    void load_score(std::string level, bool sort = true);
+
+    void add_score(std::string level, int score);
+
+    int get_latest_score(std::string level);
+
+    int get_highest_score(std::string level);
 };
 
 

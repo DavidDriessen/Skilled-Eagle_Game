@@ -112,11 +112,7 @@ void PlayState::update(const sf::Time delta) {
     }
     for (auto &object : level.get_finish()) {
         if( level.get_player().get_rect().intersects(object->getFloatRect())) {
-            mapname = mapname.substr(mapname.find_last_of("/\\") + 1);
-            std::ofstream output;
-            output.open("assets/Highscores/" + mapname, std::ios_base::app);
-            output << score << "\n";
-            output.close();
+            game->getHighScore()->add_score(get_level(), score);
             game->go_to_game_over(false);
         }
         object->update(delta);
@@ -208,4 +204,8 @@ void PlayState::reload_song() {
     }
     bpm = beatDec->get_tempo();
     beatDec->add_listener(this);
+}
+
+std::string PlayState::get_level() {
+    return mapname.substr(mapname.find_last_of("/\\") + 1);
 }
