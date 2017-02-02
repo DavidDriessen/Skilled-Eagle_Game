@@ -17,7 +17,7 @@ GameOverState::GameOverState(Game *pGame, bool dead): game(pGame), dead(dead) {
     } else {
         status.setString("Good jobu");
     }
-    score.setString("HIGHSCORE: 512");
+    score.setString("HIGHSCORE: " + std::to_string(game->getHighScore()->get_current_score()));
     score.setFillColor(sf::Color::Yellow);
     score.setCharacterSize(150);
     sf::Vector2i mid = sf::Vector2i(game->get_window()->getSize().x / 2, game->get_window()->getSize().y / 2);
