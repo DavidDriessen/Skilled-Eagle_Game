@@ -152,6 +152,7 @@ void PlayState::update(const sf::Time delta) {
     game->getOverlay()->addDebugValue("DURATION", std::to_string(soundManager->get_current_time_MS(SOUND_TYPES::GAME_SOUND)));
     game->getOverlay()->addDebugValue("SPEED", std::to_string(level.get_player().getSpeed()));
     game->getOverlay()->addDebugValue("FOUND BEATS", std::to_string(beatDec->getFound_beats()));
+    game->getHighScore()->set_current_score(score);
 }
 
 void PlayState::draw(sf::RenderWindow &window) {

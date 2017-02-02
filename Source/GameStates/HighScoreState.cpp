@@ -76,6 +76,14 @@ void HighScoreState::add_score(std::string level, int score) {
     output.close();
 }
 
+void HighScoreState::set_current_score(int score) {
+    this->score = score;
+}
+
+int HighScoreState::get_current_score() {
+    return score;
+}
+
 int HighScoreState::get_latest_score(std::string level) {
     load_score(level, false);
     return atoi(std::string(btn[btn.size() - 1]).c_str());

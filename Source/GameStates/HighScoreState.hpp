@@ -14,6 +14,7 @@ class Game;
 class HighScoreState : public IState, public Menu {
 private:
     Game *game;
+    int score = 0;
     std::vector<std::function<void(void)>> actions;
     std::vector<sf::String> btn;
 public:
@@ -30,6 +31,10 @@ public:
     void load_score(std::string level, bool sort = true);
 
     void add_score(std::string level, int score);
+
+    void set_current_score(int score);
+
+    int get_current_score();
 
     int get_latest_score(std::string level);
 
